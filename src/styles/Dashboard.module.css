@@ -1,0 +1,33 @@
+.dashboard {
+	padding: 5%;
+}
+
+@media (min-width: 450px) {
+	.dashboard {
+		padding: 5% 10%;
+	}
+}
+
+@media (min-width: 700px) {
+	.dashboard {
+		padding: 5% 15%;
+	}
+}
+
+@media (min-width: 1000px) {
+	.dashboard {
+		padding: 0;
+	}
+}
+
+@media (min-width: 1300px) {
+	.dashboard {
+		padding: 5%;
+	}
+}
+
+@media (min-width: 1600px) {
+	.dashboard {
+		padding: 5% 0;
+	}
+}
