@@ -1,0 +1,9 @@
+.user_provider {
+	height: 100%;
+	background-color: var(--light-scheme-main-bgc);
+}
+
+/* Dark scheme classes */
+:global(.dark).user_provider {
+	background-color: var(--dark-scheme-layout-bgc);
+}
