@@ -1,10 +1,10 @@
-.postTable td > * {
+.tableRows td > * {
 	text-align: center;
 	padding: 20px;
 	width: 100%;
 }
 
-.postTable td:first-of-type {
+.tableRows td:first-of-type {
 	max-width: 500px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -77,7 +77,7 @@
 
 /* Pseudo classes */
 
-.postTable td.buttonWrap:hover button {
+.tableRows td.buttonWrap:hover button {
 	color: var(--light-scheme-highlight);
 }
 
@@ -97,11 +97,11 @@
 		)
 	);
 }
-:global(.dark) .postTable td button {
+:global(.dark) .tableRows td button {
 	color: var(--dark-scheme-color);
 }
 
-:global(.dark) .postTable td.buttonWrap:hover button {
+:global(.dark) .tableRows td.buttonWrap:hover button {
 	color: var(--dark-scheme-highlight);
 }
 

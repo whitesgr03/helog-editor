@@ -4,15 +4,15 @@ import { format } from "date-fns";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "../styles/PostTable.module.css";
+import style from "../styles/TableRows.module.css";
 import image from "../styles/utils/image.module.css";
 
-const PostTable = ({ post }) => {
+const TableRows = ({ post }) => {
 	const [publish, setPublish] = useState(false);
 
 	const handleSwitchPublish = () => setPublish(!publish);
 	return (
-		<tr className={style.postTable}>
+		<tr className={style.tableRows}>
 			<td title={post.title}>
 				<span>{post.title}</span>
 			</td>
@@ -47,8 +47,8 @@ const PostTable = ({ post }) => {
 	);
 };
 
-PostTable.propTypes = {
+TableRows.propTypes = {
 	post: PropTypes.object,
 };
 
-export default PostTable;
+export default TableRows;
