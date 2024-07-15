@@ -1,0 +1,110 @@
+.postTable td > * {
+	text-align: center;
+	padding: 20px;
+	width: 100%;
+}
+
+.postTable td:first-of-type {
+	max-width: 500px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.switch {
+	--toggle-width: 35px;
+	--toggle-padding: 2px;
+	--toggle-border: 2px;
+	--toggle-slide: calc(var(--toggle-width) / 3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 10px;
+}
+
+.switch > div {
+	display: flex;
+	align-items: center;
+	height: calc(
+		var(--toggle-width) / 2 +
+			calc(var(--toggle-padding) + calc(var(--toggle-border) * 2) + 2px)
+	);
+	width: calc(var(--toggle-width) + var(--toggle-slide));
+	border-radius: var(--toggle-width);
+	background-color: var(--light-scheme-layout-shadow);
+	border: var(--toggle-border) solid var(--light-scheme-color);
+	position: relative;
+	padding: 0 var(--toggle-padding);
+	margin: 0 10px;
+	transition: background-color 0.3s ease;
+}
+
+.switch > div > div {
+	transform: translateX(0%);
+	border: 2px solid var(--light-scheme-color);
+	background-color: var(--light-scheme-layout-bgc);
+	border-radius: 100%;
+	height: calc(var(--toggle-width) / 2);
+	width: calc(var(--toggle-width) / 2);
+	transition: transform 0.3s ease;
+}
+
+.switch.active > div {
+	background-color: var(--light-scheme-highlight);
+}
+
+.switch.active > div > div {
+	transform: translateX(
+		calc(
+			100% - calc(var(--toggle-padding) * 2) + var(--toggle-slide) -
+				calc(var(--toggle-border) * 2)
+		)
+	);
+}
+
+.edit {
+	--size: calc(var(--icon-size-desktop) * 1.33);
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='208' height='208' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' d='M17.181 2.927a2.975 2.975 0 0 0-4.259-.054l-9.375 9.375a2.44 2.44 0 0 0-.656 1.194l-.877 3.95a.5.5 0 0 0 .596.597l3.927-.873a2.5 2.5 0 0 0 1.234-.678l9.358-9.358a2.975 2.975 0 0 0 .052-4.153m-3.552.653a1.975 1.975 0 1 1 2.793 2.793l-.671.671l-2.793-2.792zm-1.378 1.38l2.793 2.792l-7.98 7.98a1.5 1.5 0 0 1-.744.409l-3.16.702l.708-3.183c.059-.267.193-.511.386-.704z'/%3E%3C/svg%3E");
+	height: var(--size);
+	width: var(--size);
+}
+.delete {
+	--size: calc(var(--icon-size-desktop) * 1.33);
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='m6.774 6.4l.812 13.648a.8.8 0 0 0 .798.752h7.232a.8.8 0 0 0 .798-.752L17.226 6.4zm11.655 0l-.817 13.719A2 2 0 0 1 15.616 22H8.384a2 2 0 0 1-1.996-1.881L5.571 6.4H3.5v-.7a.5.5 0 0 1 .5-.5h16a.5.5 0 0 1 .5.5v.7zM14 3a.5.5 0 0 1 .5.5v.7h-5v-.7A.5.5 0 0 1 10 3zM9.5 9h1.2l.5 9H10zm3.8 0h1.2l-.5 9h-1.2z'/%3E%3C/svg%3E");
+	height: var(--size);
+	width: var(--size);
+}
+
+/* Pseudo classes */
+
+.postTable td.buttonWrap:hover button {
+	color: var(--light-scheme-highlight);
+}
+
+/* Dark scheme classes */
+:global(.dark) .theme > div {
+	background-color: var(--dark-scheme-switch-bgc);
+	border-color: var(--dark-scheme-color);
+}
+
+:global(.dark) .theme > div > div {
+	border: 2px solid var(--dark-scheme-color);
+	background-color: var(--dark-scheme-layout-bgc);
+	transform: translateX(
+		calc(
+			100% - calc(var(--toggle-padding) * 2) + var(--toggle-slide) -
+				calc(var(--toggle-border) * 2)
+		)
+	);
+}
+:global(.dark) .postTable td button {
+	color: var(--dark-scheme-color);
+}
+
+:global(.dark) .postTable td.buttonWrap:hover button {
+	color: var(--dark-scheme-highlight);
+}
+
+:global(.dark) .switch.active > div {
+	background-color: var(--dark-scheme-table);
+}
