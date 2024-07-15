@@ -1,0 +1,163 @@
+.dropdown {
+	position: absolute;
+	right: 5px;
+	top: 100%;
+	border: 2px solid var(--light-scheme-color);
+	background-color: var(--light-scheme-layout-bgc);
+	border-radius: 8px;
+}
+
+.dropdown ul {
+	display: flex;
+	flex-direction: column;
+}
+
+.dropdown > ul li > * {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+	padding: 10px;
+	width: 100%;
+	color: var(--light-scheme-color);
+}
+
+.profile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 5px;
+	padding: 10px;
+}
+
+.avatar {
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 100%;
+	background-color: var(--light-scheme-color);
+	color: var(--dark-scheme-color);
+	font-size: calc(var(--icon-size-mobile) / 2);
+}
+
+.sun {
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 5V3m0 18v-2M7.05 7.05L5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636L16.95 7.05M16 12a4 4 0 1 1-8 0a4 4 0 0 1 8 0'/%3E%3C/svg%3E");
+	height: var(--icon-size-desktop);
+	width: var(--icon-size-desktop);
+}
+
+.moon {
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m17.75 4.09l-2.53 1.94l.91 3.06l-2.63-1.81l-2.63 1.81l.91-3.06l-2.53-1.94L12.44 4l1.06-3l1.06 3zm3.5 6.91l-1.64 1.25l.59 1.98l-1.7-1.17l-1.7 1.17l.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85c-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14c.4-.4.82-.76 1.27-1.08c.75-.53 1.93.36 1.85 1.19c-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82c-2.81 3.14-2.7 7.96.31 10.98c3.02 3.01 7.84 3.12 10.98.31'/%3E%3C/svg%3E");
+	height: var(--icon-size-desktop);
+	width: var(--icon-size-desktop);
+}
+
+.settings {
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23000' d='M24 16.5a7.5 7.5 0 1 0 0 15a7.5 7.5 0 0 0 0-15M19 24a5 5 0 1 1 10 0a5 5 0 0 1-10 0m.494 19.468c1.479.353 2.993.531 4.513.531a19.4 19.4 0 0 0 4.503-.534a1.94 1.94 0 0 0 1.474-1.672l.338-3.071a2.32 2.32 0 0 1 2.183-2.075c.367-.016.732.053 1.068.2l2.807 1.231a1.92 1.92 0 0 0 1.554.01c.247-.105.468-.261.65-.458a20.4 20.4 0 0 0 4.51-7.779a1.94 1.94 0 0 0-.7-2.133l-2.494-1.84a2.326 2.326 0 0 1 0-3.764l2.486-1.836a1.94 1.94 0 0 0 .7-2.138a20.3 20.3 0 0 0-4.515-7.777a1.94 1.94 0 0 0-2.192-.45l-2.806 1.236c-.29.131-.606.2-.926.2a2.34 2.34 0 0 1-2.32-2.088l-.34-3.06a1.94 1.94 0 0 0-1.5-1.681a21.7 21.7 0 0 0-4.469-.519a22 22 0 0 0-4.5.52a1.935 1.935 0 0 0-1.5 1.677l-.34 3.062a2.35 2.35 0 0 1-.768 1.488a2.53 2.53 0 0 1-1.569.6a2.3 2.3 0 0 1-.923-.194l-2.8-1.236a1.94 1.94 0 0 0-2.2.452a20.35 20.35 0 0 0-4.51 7.775a1.94 1.94 0 0 0 .7 2.137l2.488 1.836a2.344 2.344 0 0 1 .701 2.938a2.34 2.34 0 0 1-.7.829l-2.49 1.839a1.94 1.94 0 0 0-.7 2.135a20.3 20.3 0 0 0 4.51 7.782a1.93 1.93 0 0 0 2.193.454l2.818-1.237c.291-.128.605-.194.923-.194h.008a2.34 2.34 0 0 1 2.32 2.074l.338 3.057a1.94 1.94 0 0 0 1.477 1.673m8.064-2.345c-2.34.5-4.76.5-7.1 0l-.304-2.662a4.84 4.84 0 0 0-4.8-4.3h-.01a4.7 4.7 0 0 0-1.926.4l-2.446 1.073a17.8 17.8 0 0 1-3.56-6.147l2.165-1.6a4.84 4.84 0 0 0 0-7.791l-2.164-1.6a17.9 17.9 0 0 1 3.561-6.14l2.432 1.072a4.7 4.7 0 0 0 1.931.407h.01a4.85 4.85 0 0 0 4.81-4.312l.3-2.66a19.4 19.4 0 0 1 3.562-.376c1.187.015 2.37.14 3.534.375l.3 2.659a4.835 4.835 0 0 0 4.8 4.314a4.34 4.34 0 0 0 1.946-.41l2.43-1.071a17.8 17.8 0 0 1 3.562 6.141l-2.157 1.593a4.826 4.826 0 0 0 0 7.8l2.165 1.6a17.9 17.9 0 0 1-3.56 6.14l-2.44-1.07a4.82 4.82 0 0 0-6.748 3.9z'/%3E%3C/svg%3E");
+	height: var(--icon-size-desktop);
+	width: var(--icon-size-desktop);
+}
+
+.login {
+	--size: var(--icon-size-desktop);
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 21v-2h7V5h-7V3h7q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm-2-4l-1.375-1.45l2.55-2.55H3v-2h8.175l-2.55-2.55L10 7l5 5z'/%3E%3C/svg%3E");
+	height: var(--size);
+	width: var(--size);
+}
+
+.logout {
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z'/%3E%3C/svg%3E");
+	height: var(--icon-size-desktop);
+	width: var(--icon-size-desktop);
+}
+
+/* Pseudo classes */
+.dropdown > ul li:hover {
+	background-color: rgba(var(--light-scheme-color-rgb), 0.2);
+	cursor: pointer;
+}
+
+/* Dark scheme classes */
+
+:global(.dark) .dropdown {
+	border: 2px solid var(--dark-scheme-color);
+	background-color: var(--dark-scheme-input-bgc);
+	color: var(--dark-scheme-color);
+}
+
+:global(.dark) .dropdown > ul li > * {
+	color: var(--dark-scheme-color);
+}
+
+:global(.dark) .avatar {
+	background-color: var(--dark-scheme-color);
+	color: var(--light-scheme-color);
+}
+
+:global(.dark) .dropdown > ul li:hover {
+	background-color: rgba(var(--dark-scheme-color-rgb), 0.2);
+	cursor: pointer;
+}
+
+@media (min-width: 450px) {
+	.dropdown {
+		min-width: 40%;
+	}
+
+	.dropdown > ul li:first-of-type {
+		display: none;
+	}
+
+	.avatar {
+		width: calc(var(--icon-size-mobile) * 1.33);
+		height: calc(var(--icon-size-mobile) * 1.33);
+	}
+
+	.colorThemeToggle {
+		--toggle-width: 45px;
+	}
+
+	.colorThemeToggle button {
+		margin: 0;
+	}
+
+	.sun {
+		height: var(--icon-size-mobile);
+		width: var(--icon-size-mobile);
+	}
+	.moon {
+		height: var(--icon-size-mobile);
+		width: var(--icon-size-mobile);
+	}
+	.settings {
+		height: var(--icon-size-mobile);
+		width: var(--icon-size-mobile);
+	}
+	.login {
+		height: var(--icon-size-mobile);
+		width: var(--icon-size-mobile);
+	}
+	.logout {
+		height: var(--icon-size-mobile);
+		width: var(--icon-size-mobile);
+	}
+}
+
+@media (min-width: 700px) {
+	.dropdown {
+		min-width: 30%;
+	}
+}
+
+@media (min-width: 1000px) {
+	.dropdown {
+		min-width: 25%;
+	}
+}
+
+@media (min-width: 1300px) {
+	.dropdown {
+		min-width: 20%;
+	}
+}
