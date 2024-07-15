@@ -101,7 +101,7 @@
 	column-gap: 10px;
 }
 
-.theme span + div {
+.theme > div {
 	display: flex;
 	align-items: center;
 	height: calc(
@@ -115,9 +115,10 @@
 	position: relative;
 	padding: 0 var(--toggle-padding);
 	margin: 0 10px;
+	transition: background-color 0.3s ease;
 }
 
-.theme span + div > div {
+.theme > div > div {
 	transform: translateX(0%);
 	border: 2px solid var(--light-scheme-color);
 	background-color: var(--light-scheme-layout-bgc);
@@ -156,12 +157,12 @@
 	color: var(--dark-scheme-color);
 }
 
-:global(.dark) .theme span + div {
+:global(.dark) .theme > div {
 	background-color: var(--dark-scheme-switch-bgc);
 	border-color: var(--dark-scheme-color);
 }
 
-:global(.dark) .theme span + div > div {
+:global(.dark) .theme > div > div {
 	border: 2px solid var(--dark-scheme-color);
 	background-color: var(--dark-scheme-layout-bgc);
 	transform: translateX(
