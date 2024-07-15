@@ -33,11 +33,8 @@ const Header = ({ user, darkTheme, handleSwitchColorTheme }) => {
 				<nav>
 					<ul className={style.list}>
 						<li className={style.toggleBtn}>
-							<button
-								className={button.theme}
-								onClick={handleSwitchColorTheme}
-							>
-								<div className={style.switch}>
+							<button onClick={handleSwitchColorTheme}>
+								<div className={button.theme}>
 									<span
 										data-testid={"icon"}
 										className={`${image.icon} ${
