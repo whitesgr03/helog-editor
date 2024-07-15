@@ -35,11 +35,11 @@ const router = () => (
 								element: <Error />,
 							},
 							{
-								path: "/create",
+								path: "posts/create",
 								element: <PostCreate />,
 							},
 							{
-								path: "/update/:postId",
+								path: "posts/update/:postId",
 								element: <PostUpdate />,
 							},
 						],
