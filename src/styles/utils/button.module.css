@@ -1,0 +1,186 @@
+.content {
+	border-radius: 5px;
+	min-height: 45px;
+	border: 2px solid var(--light-scheme-color);
+	color: var(--dark-scheme-color);
+	cursor: pointer;
+}
+
+.success {
+	composes: content;
+	background-color: var(--light-scheme-success);
+	position: relative;
+	overflow: hidden;
+}
+
+.success .text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	column-gap: 10px;
+	align-items: center;
+	justify-content: center;
+	z-index: 1;
+}
+
+.success .loadIcon {
+	display: none;
+}
+
+.success.loading::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	right: 100%;
+	top: 50%;
+	transform: translate(0%, -50%);
+	border: 2px solid black;
+	border-left-width: 0;
+	border-right-width: 0;
+	background: linear-gradient(90deg, #0b563d 30%, #f2a145 100%);
+	animation: shimmer 1s forwards infinite ease-in-out;
+	z-index: 0;
+}
+
+@keyframes shimmer {
+	0% {
+		transform: translate(0%, -50%);
+	}
+	100% {
+		transform: translate(200%, -50%);
+	}
+}
+
+.success.loading .loadIcon {
+	width: var(--icon-size-desktop);
+	display: block;
+}
+
+.loadIcon {
+	--size: calc(var(--icon-size-desktop) * 1.5);
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8'/%3E%3C/svg%3E");
+	height: var(--size);
+	width: var(--size);
+	animation: spin 1s linear infinite;
+}
+
+.error {
+	composes: content;
+	background-color: var(--light-scheme-error);
+}
+
+.cancel {
+	composes: content;
+	color: var(--light-scheme-color);
+}
+
+.closeBtn {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.closeBtn .close {
+	color: var(--light-scheme-color);
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath fill='%23000' d='M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504L738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512L828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496L285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512L195.2 285.696a64 64 0 0 1 0-90.496'/%3E%3C/svg%3E");
+	height: var(--icon-size-mobile);
+	width: var(--icon-size-mobile);
+}
+
+.theme {
+	--toggle-width: 35px;
+	--toggle-padding: 2px;
+	--toggle-border: 2px;
+	--toggle-slide: calc(var(--toggle-width) / 3);
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+}
+
+.theme span + div {
+	display: flex;
+	align-items: center;
+	height: calc(
+		var(--toggle-width) / 2 +
+			calc(var(--toggle-padding) + calc(var(--toggle-border) * 2) + 2px)
+	);
+	width: calc(var(--toggle-width) + var(--toggle-slide));
+	border-radius: var(--toggle-width);
+	background-color: var(--light-scheme-highlight);
+	border: var(--toggle-border) solid var(--light-scheme-color);
+	position: relative;
+	padding: 0 var(--toggle-padding);
+	margin: 0 10px;
+}
+
+.theme span + div > div {
+	transform: translateX(0%);
+	border: 2px solid var(--light-scheme-color);
+	background-color: var(--light-scheme-layout-bgc);
+	border-radius: 100%;
+	height: calc(var(--toggle-width) / 2);
+	width: calc(var(--toggle-width) / 2);
+	transition: transform 0.3s ease;
+}
+
+/* Pseudo classes */
+.content:hover {
+	opacity: 0.8;
+}
+
+.cancel:hover {
+	background-color: var(--light-scheme-color);
+	color: var(--dark-scheme-color);
+}
+
+.closeBtn:hover {
+	transform: scale(1.2);
+}
+
+/* Dark scheme classes */
+:global(.dark) .content {
+	border: 2px transparent;
+	color: var(--dark-scheme-color);
+}
+
+:global(.dark) .cancel {
+	background-color: var(--dark-scheme-color);
+	color: var(--light-scheme-color);
+}
+
+:global(.dark) .closeBtn .close {
+	color: var(--dark-scheme-color);
+}
+
+:global(.dark) .theme span + div {
+	background-color: var(--dark-scheme-switch-bgc);
+	border-color: var(--dark-scheme-color);
+}
+
+:global(.dark) .theme span + div > div {
+	border: 2px solid var(--dark-scheme-color);
+	background-color: var(--dark-scheme-layout-bgc);
+	transform: translateX(
+		calc(
+			100% - calc(var(--toggle-padding) * 2) + var(--toggle-slide) -
+				calc(var(--toggle-border) * 2)
+		)
+	);
+}
+
+@media (min-width: 450px) {
+	.button {
+		width: 30%;
+		margin: 0 auto;
+	}
+}
+
+@media (min-width: 700px) {
+	.button {
+		width: 40%;
+	}
+}
