@@ -17,6 +17,12 @@
 	--light-scheme-main-bgc: rgb(245, 248, 254);
 	--light-scheme-main-bgc-rgb: 245, 248, 254;
 
+	--light-scheme-table: rgb(102, 102, 102);
+	--light-scheme-table-rgb: 102, 102, 102;
+
+	--light-scheme-table2: rgb(255, 255, 255);
+	--light-scheme-table2-rgb: 255, 255, 255;
+
 	--light-scheme-highlight: rgb(23, 80, 115);
 	--light-scheme-highlight-rgb: 23, 80, 115;
 
@@ -35,7 +41,6 @@
 
 	--dark-scheme-layout-border-shadow: rgb(202, 205, 212);
 	--dark-scheme-layout-border-shadow-rgb: 202, 205, 212;
-
 
 	--dark-scheme-input-bgc: rgb(72, 59, 46);
 	--dark-scheme-input-bgc-rgb: 72, 59, 46;
