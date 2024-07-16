@@ -46,10 +46,6 @@
 	border-bottom: 4px solid var(--light-scheme-highlight);
 }
 
-.dashboard tr:nth-of-type(even) td {
-	background-color: rgba(var(--dark-scheme-layout-bgc-rgb), 0.2);
-}
-
 .dashboard th {
 	background-color: var(--light-scheme-highlight);
 	color: var(--dark-scheme-color);
@@ -57,15 +53,20 @@
 	font-weight: bolder;
 }
 
+.dashboard tr:nth-of-type(odd) td {
+	background-color: var(--light-scheme-table2);
+}
+
+.dashboard tr:nth-of-type(even) td {
+	background-color: rgba(var(--light-scheme-table-rgb), 0.2);
+}
+
 .dashboard td:not(:first-of-type) {
 	text-align: center;
 }
 
-.dashboard tr:nth-of-type(even) td:hover {
-	background-color: rgba(var(--dark-scheme-color-rgb), 0.5);
-}
-.dashboard tr:nth-of-type(odd) td:hover {
-	background-color: rgba(var(--light-scheme-layout-shadow-rgb), 0.5);
+.dashboard tr td:hover {
+	background-color: rgba(var(--light-scheme-table-rgb), 0.5);
 }
 
 /* Dark scheme classes */
@@ -97,10 +98,7 @@
 	color: var(--light-scheme-color);
 }
 
-:global(.dark) .dashboard tr:nth-of-type(odd) td:hover {
-	background-color: rgba(var(--light-scheme-layout-shadow-rgb), 0.5);
-}
-:global(.dark) .dashboard tr:nth-of-type(even) td:hover {
+:global(.dark) .dashboard tr td:hover {
 	background-color: rgba(var(--dark-scheme-highlight-rgb), 0.5);
 }
 
