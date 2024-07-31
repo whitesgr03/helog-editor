@@ -1,5 +1,5 @@
 // Packages
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
 	Outlet,
 	useOutletContext,
@@ -15,41 +15,54 @@ import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Contact from "./layout/Contact";
 import Loading from "./layout/Loading";
+import Alert from "./layout/Alert";
+import Model from "./layout/Model";
 
 // Utils
 import handleGetAuthCode from "../utils/handleGetAuthCode";
-import handleFetch from "../utils/handleFetch";
+import { verifyToken, exChangeToken } from "../utils/handleToken";
+import { getUser } from "../utils/handleUser";
+
+// Variables
+const defaultAlert = {
+	message: "",
+	error: false,
+};
 
 const App = () => {
 	const {
+		darkTheme,
 		user,
-		setUser,
-		error,
-		setError,
 		refreshToken,
 		accessToken,
-		setAccessToken,
-		darkTheme,
-		handleSwitchColorTheme,
+		onUser,
+		onError,
+		onAccessToken,
+		onColorTheme,
+		ignore,
 	} = useOutletContext();
+
+	const [model, setModel] = useState(null);
+	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
+
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const handleVerifyTokenExpire = async () => {
-		const url = `${import.meta.env.VITE_RESOURCE_ORIGIN}/auth/token`;
+	const handleAlert = ({ message, error = false }) =>
+		setAlert({ message, error });
+	const handleCloseAlert = () => setAlert(defaultAlert);
 
-		const options = {
-			method: "GET",
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		};
-
-		const result = await handleFetch(url, options);
+	const handleTokenExpire = useCallback(async () => {
+		const result = await verifyToken(accessToken);
 
 		const handleError = message => {
-			setError(message);
+			const errorMessage =
+				message === "The request requires higher privileges.";
+
+			errorMessage && localStorage.removeItem("heLog.login-exp");
+			errorMessage && onUser(null);
+			onError(message);
 			navigate("/error");
 		};
 
@@ -58,43 +71,65 @@ const App = () => {
 				? true
 				: handleError(result.message)
 			: false;
-	};
-	const handleExChangeToken = async () => {
-		const url = `${
-			import.meta.env.VITE_RESOURCE_ORIGIN
-		}/auth/token/refresh`;
+	}, [accessToken, navigate, onError, onUser]);
+	const handleExChangeToken = useCallback(async () => {
+		const result = await exChangeToken(refreshToken);
 
-		const options = {
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${refreshToken}`,
-			},
-		};
-
-		const result = await handleFetch(url, options);
-
-		const handleLogout = message => {
+		const handleError = message => {
 			const errorMessage =
-				message === "Too many token exchange requests.";
+				message === "The request requires higher privileges.";
 
 			errorMessage && localStorage.removeItem("heLog.login-exp");
-			errorMessage && setUser(null);
+			errorMessage && onUser(null);
 
-			setError(message);
+			onError(message);
 			navigate("/error");
 		};
 
-		result.success
-			? setAccessToken(result.data.access_token)
-			: handleLogout(result.message);
-	};
+		const handleSuccess = () => {
+			onAccessToken(result.data.access_token);
+			return result.data.access_token;
+		};
+
+		return result.success ? handleSuccess() : handleError(result.message);
+	}, [onAccessToken, refreshToken, navigate, onError, onUser]);
 
 	useEffect(() => {
 		sessionStorage.setItem("heLog.lastPath", location.pathname);
 	}, [location]);
 	useEffect(() => {
-		user ? setLoading(false) : handleGetAuthCode();
-	}, [user]);
+		!refreshToken && handleGetAuthCode();
+	}, [refreshToken]);
+	useEffect(() => {
+		const handleGetUserInfo = async () => {
+			ignore.current = true;
+
+			const isTokenExpire = await handleTokenExpire();
+			const newAccessToken =
+				isTokenExpire && (await handleExChangeToken());
+
+			const result = await getUser(newAccessToken || accessToken);
+
+			const handleResult = () => {
+				result.success ? onUser(result.data) : onError(result.message);
+				setLoading(false);
+			};
+
+			result && handleResult();
+		};
+
+		user
+			? setLoading(false)
+			: !ignore.current && accessToken && handleGetUserInfo();
+	}, [
+		user,
+		accessToken,
+		ignore,
+		onUser,
+		onError,
+		handleTokenExpire,
+		handleExChangeToken,
+	]);
 
 	return (
 		<>
@@ -102,22 +137,31 @@ const App = () => {
 				<Loading />
 			) : (
 				<div className={style.app} data-testid="app">
-					<Header
-						user={user}
-						darkTheme={darkTheme}
-						handleSwitchColorTheme={handleSwitchColorTheme}
-					/>
+					{model && <Model onModel={setModel} model={model} />}
+					<div className={style.headerBar}>
+						<Header
+							user={user}
+							darkTheme={darkTheme}
+							onSwitchColorTheme={onColorTheme}
+						/>
+						{alert.message !== "" && (
+							<Alert
+								onCloseAlert={handleCloseAlert}
+								alert={alert}
+							/>
+						)}
+					</div>
 					<div className={style.container}>
 						<main>
 							<Outlet
 								context={{
+									darkTheme,
 									user,
-									error,
-									setError,
 									accessToken,
-									refreshToken,
-									handleVerifyTokenExpire,
-									handleExChangeToken,
+									onVerifyTokenExpire: handleTokenExpire,
+									onExChangeToken: handleExChangeToken,
+									onModel: setModel,
+									onAlert: handleAlert,
 								}}
 							/>
 						</main>
