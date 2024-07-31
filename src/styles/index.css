@@ -80,11 +80,6 @@
 	display: none !important;
 }
 
-body * {
-	margin: 0;
-	padding: 0;
-}
-
 #root {
 	height: 100vh;
 }
@@ -99,9 +94,25 @@ h6 {
 	line-height: 1.2em;
 }
 
-a {
+h1,
+h4,
+h6 {
+	margin: 0;
+}
+
+h2:not(#postEditor h2),
+h3:not(#postEditor h3),
+h5:not(#postEditor h5) {
+	margin: 0;
+}
+
+a:not(#postEditor a) {
 	text-decoration: none;
-	color: var(--light-scheme-color);
+}
+
+a {
+	color: inherit;
+	cursor: pointer;
 }
 
 p {
@@ -109,14 +120,30 @@ p {
 	line-height: 1.5em;
 }
 
+p:not(#postEditor p) {
+	margin: 0;
+}
+
 button {
 	background-color: transparent;
 	border: 0;
 	cursor: pointer;
+	padding: 0;
 }
 
-li {
+ol:not(#postEditor ol),
+ul:not(#postEditor ul) {
+	padding: 0;
+	margin: 0;
+}
+
+li:not(#postEditor li) {
 	list-style: none;
+}
+
+#postEditor li {
+	margin-block-start: 1em;
+	margin-block-end: 1em;
 }
 
 input,
@@ -134,9 +161,12 @@ textarea {
 }
 
 img {
-	width: 100%;
 	height: auto;
 	vertical-align: middle;
+}
+
+img:not(#postEditor img) {
+	width: 100%;
 }
 
 /* Dark scheme classes */
