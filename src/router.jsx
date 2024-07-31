@@ -8,7 +8,6 @@ import NotFound from "./components/layout/NotFound";
 import Dashboard from "./components/Dashboard";
 import App from "./components/App";
 import PostCreate from "./components/PostCreate";
-import PostUpdate from "./components/PostUpdate";
 import Callback from "./components/Callback";
 
 const router = () => (
@@ -30,23 +29,20 @@ const router = () => (
 								index: true,
 								element: <Dashboard />,
 							},
+
 							{
-								path: "error",
-								element: <Error />,
-							},
-							{
-								path: "posts/create",
+								path: "post/editor",
 								element: <PostCreate />,
-							},
-							{
-								path: "posts/update/:postId",
-								element: <PostUpdate />,
 							},
 						],
 					},
 					{
 						path: "/callback",
 						element: <Callback />,
+					},
+					{
+						path: "error",
+						element: <Error />,
 					},
 				],
 			},
