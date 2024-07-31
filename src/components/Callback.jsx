@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
 	useSearchParams,
 	Navigate,
@@ -11,97 +11,73 @@ import {
 import Loading from "./layout/Loading";
 
 // Utils
-import handleFetch from "../utils/handleFetch";
-import { getUser } from "../utils/handleUser";
+import { createToken } from "../utils/handleToken";
 
 const Callback = () => {
-	const { setError, setUser, setRefreshToken, setAccessToken } =
-		useOutletContext();
+	const { onError, onRefreshToken, onAccessToken } = useOutletContext();
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const [loading, setLoading] = useState(true);
 	const lastPath = sessionStorage.getItem("heLog.lastPath") ?? "..";
+	const ignore = useRef(false);
 
 	useEffect(() => {
-		const controller = new AbortController();
-		const { signal } = controller;
-
 		const queries = {
 			state: searchParams.get("state"),
 			code: searchParams.get("code"),
 		};
-
 		const storages = {
 			state: sessionStorage.getItem("state"),
 			codeVerifier: sessionStorage.getItem("code_verifier"),
 		};
-
 		const handleError = message => {
-			setError(message);
+			onError(message);
 			navigate("/error");
 		};
+		const handleCreateToken = async () => {
+			const result = await createToken({
+				code_verifier: storages.codeVerifier,
+				code: queries.code,
+			});
 
-		const handleGetToken = async () => {
-			const url = `${import.meta.env.VITE_RESOURCE_ORIGIN}/auth/token`;
-			const options = {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					code_verifier: storages.codeVerifier,
-					code: queries.code,
-				}),
-				signal,
-			};
-
-			const tokenResult = await handleFetch(url, options);
-
-			const handleGetUser = async () => {
-				const { access_token, refresh_token } = tokenResult.data;
-
-				setAccessToken(access_token);
-				setRefreshToken(refresh_token);
-
-				const result = await getUser(access_token);
+			const handleSuccess = async () => {
+				const { session, access_token, refresh_token } = result.data;
 
 				sessionStorage.removeItem("code_verifier");
 				sessionStorage.removeItem("state");
 
-				result.success
-					? setUser(result.data)
-					: setError(result.message);
+				localStorage.setItem(
+					"heLog.login-exp",
+					JSON.stringify(new Date(session.exp).getTime())
+				);
 
-				setLoading(false);
+				onAccessToken(access_token);
+				onRefreshToken(refresh_token);
 			};
 
-			const handleResult = async () =>
-				tokenResult.success
-					? await handleGetUser()
-					: handleError(tokenResult.message);
+			result.success
+				? await handleSuccess()
+				: handleError(result.message);
 
-			tokenResult && (await handleResult());
+			setLoading(false);
 		};
-
 		const handleCheckState = () => {
 			queries.state === storages.state
-				? handleGetToken()
+				? handleCreateToken()
 				: handleError("The state authentication failed.");
 		};
+		const handleCheckParameters = () => {
+			ignore.current = true;
+			queries.state &&
+			queries.code &&
+			storages.state &&
+			storages.codeVerifier
+				? handleCheckState()
+				: handleError("The parameter is missing.");
+		};
 
-		queries.state && queries.code && storages.state && storages.codeVerifier
-			? handleCheckState()
-			: handleError("The parameter is missing.");
-
-		return () => controller.abort();
-	}, [
-		searchParams,
-		setError,
-		setUser,
-		setRefreshToken,
-		setAccessToken,
-		navigate,
-	]);
+		!ignore.current && handleCheckParameters();
+	}, [searchParams, onError, onRefreshToken, onAccessToken, navigate]);
 	return (
 		<>
 			{loading ? (
