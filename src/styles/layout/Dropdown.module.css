@@ -5,6 +5,7 @@
 	border: 2px solid var(--light-scheme-color);
 	background-color: var(--light-scheme-layout-bgc);
 	border-radius: 8px;
+	z-index: 2;
 }
 
 .dropdown ul {
@@ -79,7 +80,6 @@
 }
 
 /* Dark scheme classes */
-
 :global(.dark) .dropdown {
 	border: 2px solid var(--dark-scheme-color);
 	background-color: var(--dark-scheme-input-bgc);
