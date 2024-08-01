@@ -9,12 +9,10 @@ import button from "../../styles/utils/button.module.css";
 import image from "../../styles/utils/image.module.css";
 import { transparentWindow } from "../../styles/utils/bgc.module.css";
 
-const url = `${import.meta.env.VITE_HELOG_ORIGIN}`;
-
 // Components
 import Dropdown from "./Dropdown";
 
-const Header = ({ user, darkTheme, handleSwitchColorTheme }) => {
+const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);
 
 	const handleActiveDropdown = () => setActiveDropdown(!activeDropdown);
@@ -25,7 +23,9 @@ const Header = ({ user, darkTheme, handleSwitchColorTheme }) => {
 			<header className={style.header}>
 				<a
 					className={style.logo}
-					href={url}
+					href={`${
+						import.meta.env.VITE_HELOG_ORIGIN
+					}?darkTheme=${darkTheme}`}
 					onClick={handleCloseDropdown}
 				>
 					<h1>HeLog</h1>
@@ -33,7 +33,7 @@ const Header = ({ user, darkTheme, handleSwitchColorTheme }) => {
 				<nav>
 					<ul className={style.list}>
 						<li className={style.toggleBtn}>
-							<button onClick={handleSwitchColorTheme}>
+							<button onClick={onSwitchColorTheme}>
 								<div className={button.theme}>
 									<span
 										data-testid={"icon"}
@@ -62,7 +62,7 @@ const Header = ({ user, darkTheme, handleSwitchColorTheme }) => {
 					<Dropdown
 						user={user}
 						darkTheme={darkTheme}
-						handleSwitchColorTheme={handleSwitchColorTheme}
+						onSwitchColorTheme={onSwitchColorTheme}
 					/>
 				)}
 			</header>
@@ -79,7 +79,7 @@ const Header = ({ user, darkTheme, handleSwitchColorTheme }) => {
 Header.propTypes = {
 	user: PropTypes.object,
 	darkTheme: PropTypes.bool,
-	handleSwitchColorTheme: PropTypes.func,
+	onSwitchColorTheme: PropTypes.func,
 };
 
 export default Header;
