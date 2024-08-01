@@ -62,7 +62,6 @@
 @media (min-width: 1000px) {
 	.contact {
 		padding: 0 10% 5%;
-		padding-top: 0;
 		row-gap: 20px;
 	}
 }
