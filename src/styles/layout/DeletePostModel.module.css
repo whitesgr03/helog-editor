@@ -1,0 +1,44 @@
+.deleteModel {
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+}
+
+.deleteModel .title {
+	font-weight: 700;
+}
+
+.deleteModel .content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 10px;
+}
+
+.deleteModel .content > p {
+	text-align: center;
+}
+
+.deleteModel .buttonWrap {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.deleteModel .buttonWrap button {
+	width: 40%;
+}
+
+@media (min-width: 450px) {
+	.deleteModel {
+		padding: 20px;
+		row-gap: 40px;
+	}
+}
+
+@media (min-width: 1000px) {
+	.deleteModel {
+		padding: 30px 40px;
+	}
+}
