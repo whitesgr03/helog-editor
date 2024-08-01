@@ -6,7 +6,7 @@ import style from "../../styles/layout/Dropdown.module.css";
 import button from "../../styles/utils/button.module.css";
 import image from "../../styles/utils/image.module.css";
 
-const Dropdown = ({ user, darkTheme, handleSwitchColorTheme }) => {
+const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 	return (
 		<div className={style.dropdown}>
 			{user?.name && (
@@ -22,7 +22,7 @@ const Dropdown = ({ user, darkTheme, handleSwitchColorTheme }) => {
 				<li>
 					<button
 						className={button.theme}
-						onClick={handleSwitchColorTheme}
+						onClick={onSwitchColorTheme}
 					>
 						<span
 							className={`${image.icon} ${
@@ -43,7 +43,7 @@ const Dropdown = ({ user, darkTheme, handleSwitchColorTheme }) => {
 Dropdown.propTypes = {
 	user: PropTypes.object,
 	darkTheme: PropTypes.bool,
-	handleSwitchColorTheme: PropTypes.func,
+	onSwitchColorTheme: PropTypes.func,
 };
 
 export default Dropdown;
