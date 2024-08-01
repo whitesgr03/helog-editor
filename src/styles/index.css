@@ -108,6 +108,7 @@ h5:not(#postEditor h5) {
 
 a:not(#postEditor a) {
 	text-decoration: none;
+	display: inline-block;
 }
 
 a {
