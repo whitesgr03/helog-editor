@@ -4,7 +4,7 @@
 	align-items: center;
 	justify-content: center;
 	padding: 5%;
-	row-gap: 10px;
+	row-gap: 30px;
 	text-align: center;
 	height: 100%;
 	width: 100%;
@@ -23,6 +23,14 @@
 	height: var(--icon-size-desktop);
 }
 
+.message {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 10px;
+}
+
 .link {
 	color: var(--light-scheme-color);
 }
@@ -38,6 +46,6 @@
 }
 
 /* Pseudo classes */
-.link a:hover {
+.link:hover {
 	text-decoration: underline;
 }
