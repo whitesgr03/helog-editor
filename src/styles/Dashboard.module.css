@@ -53,20 +53,16 @@
 	font-weight: bolder;
 }
 
-.dashboard tr:nth-of-type(odd) td {
+.dashboard tr:nth-of-type(odd) {
 	background-color: var(--light-scheme-table2);
 }
 
-.dashboard tr:nth-of-type(even) td {
+.dashboard tr:nth-of-type(even) {
 	background-color: rgba(var(--light-scheme-table-rgb), 0.2);
 }
 
 .dashboard td:not(:first-of-type) {
 	text-align: center;
-}
-
-.dashboard tr td:hover {
-	background-color: rgba(var(--light-scheme-table-rgb), 0.5);
 }
 
 /* Dark scheme classes */
@@ -86,20 +82,16 @@
 	border-bottom: 4px solid var(--dark-scheme-table);
 }
 
-:global(.dark) .dashboard tr:nth-of-type(odd) td {
+:global(.dark) .dashboard tr:nth-of-type(odd) {
 	background-color: var(--dark-scheme-input-bgc);
 }
-:global(.dark) .dashboard tr:nth-of-type(even) td {
+:global(.dark) .dashboard tr:nth-of-type(even) {
 	background-color: var(--dark-scheme-switch-bgc);
 }
 
 :global(.dark) .dashboard th {
 	background-color: var(--dark-scheme-table);
 	color: var(--light-scheme-color);
-}
-
-:global(.dark) .dashboard tr td:hover {
-	background-color: rgba(var(--dark-scheme-highlight-rgb), 0.5);
 }
 
 @media (min-width: 450px) {
