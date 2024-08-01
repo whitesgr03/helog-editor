@@ -1,20 +1,17 @@
 // Packages
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Styles
 import style from "../../styles/layout/Error.module.css";
 import image from "../../styles/utils/image.module.css";
 
-// Variable
-const defaultMessage =
-	"Please come back later or if you have any questions, please contact us.";
-
 const Error = ({ message = null }) => {
 	const { error } = useOutletContext();
 
 	const errorMessage =
-		(typeof message === "string" && message) || defaultMessage;
+		(typeof message === "string" && message) ||
+		"Please come back later or if you have any questions, please contact us.";
 
 	console.error(message || error);
 
@@ -23,6 +20,9 @@ const Error = ({ message = null }) => {
 			<span className={`${image.icon} ${style.alert}`} />
 			<p>Our apologies, there has been an error.</p>
 			<p>{errorMessage}</p>
+			<p>
+				Back to <Link to="/">Home</Link> Page.
+			</p>
 		</div>
 	);
 };
