@@ -1,5 +1,6 @@
 // Package
-import { Link } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 
 // Styles
 import style from "../styles/Dashboard.module.css";
@@ -7,77 +8,89 @@ import button from "../styles/utils/button.module.css";
 
 // Component
 import TableRows from "./TableRows";
+import Loading from "./layout/Loading";
+import Error from "./layout/Error";
+
+// Utils
+import { getPosts } from "../utils/handlePost";
 
 const Dashboard = () => {
-	const posts = [
-		{
-			_id: 0,
-			title: "This is title",
-			publish: false,
-			lastModified: new Date(),
-			createdAt: new Date(),
-		},
-		{
-			_id: 1,
-			title: "This is title2",
-			publish: true,
-			lastModified: new Date(),
-			createdAt: new Date(),
-		},
-		{
-			_id: 2,
-			title: "This is title2",
-			publish: true,
-			lastModified: new Date(),
-			createdAt: new Date(),
-		},
-		{
-			_id: 3,
-			title: "This is title2",
-			publish: true,
-			lastModified: new Date(),
-			createdAt: new Date(),
-		},
-		{
-			_id: 4,
-			title: "This is title2",
-			publish: true,
-			lastModified: new Date(),
-			createdAt: new Date(),
-		},
-	];
+	const { user } = useOutletContext();
+	const [posts, setPosts] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [publishing, setPublishing] = useState(false);
 
-	const trs = posts.map(post => {
-		return <TableRows key={post._id} post={post} />;
-	});
+	const handleGetPosts = useCallback(
+		async option => {
+			const result = await getPosts({ ...option, userId: user._id });
+
+			const handleResult = () => {
+				result.success
+					? setPosts(result.data)
+					: setError(result.message);
+				setLoading(false);
+			};
+
+			result && handleResult();
+		},
+		[user]
+	);
+
+	const trs = posts.map(post => (
+		<TableRows
+			key={post._id}
+			post={post}
+			publishing={publishing}
+			onGetPosts={handleGetPosts}
+			onPublishing={setPublishing}
+		/>
+	));
+
+	useEffect(() => {
+		const controller = new AbortController();
+		const { signal } = controller;
+
+		handleGetPosts({ signal });
+
+		return () => controller.abort();
+	}, [handleGetPosts]);
+
 	return (
 		<div className={style.dashboard}>
-			<h3>Posts Dashboard</h3>
+			<h2>Dashboard</h2>
 			<div className={style.buttonWrap}>
 				<span>
 					{posts.length > 0 && `Total posts: ${posts.length}`}
 				</span>
-				<Link to="/posts/create" className={button.success}>
+				<Link to="/post/editor" className={button.success}>
 					New Post
 				</Link>
 			</div>
-
-			<div className={style.container}>
-				{posts.length > 0 ? (
-					<table>
-						<tr>
-							<th>Title</th>
-							<th>Publish</th>
-							<th>Last Modified</th>
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-						{trs}
-					</table>
-				) : (
-					<p>There are not posts.</p>
-				)}
-			</div>
+			{loading ? (
+				<Loading />
+			) : error ? (
+				<Error message={error} />
+			) : (
+				<div className={style.container}>
+					{posts.length > 0 ? (
+						<table>
+							<thead>
+								<tr>
+									<th>Title</th>
+									<th>Publish</th>
+									<th>Last Modified</th>
+									<th>Edit</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>{trs}</tbody>
+						</table>
+					) : (
+						<p>There are not posts.</p>
+					)}
+				</div>
+			)}
 		</div>
 	);
 };
