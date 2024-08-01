@@ -23,6 +23,21 @@
 	height: var(--icon-size-desktop);
 }
 
+.link {
+	color: var(--light-scheme-color);
+}
+
+/* Dark scheme classes */
+
 :global(.dark) .error {
 	color: var(--dark-scheme-error);
+}
+
+:global(.dark) .link {
+	color: var(--dark-scheme-color);
+}
+
+/* Pseudo classes */
+.link a:hover {
+	text-decoration: underline;
 }
