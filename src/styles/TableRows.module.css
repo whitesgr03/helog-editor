@@ -11,17 +11,18 @@
 	opacity: 0.3;
 }
 
-.tableRows td > * {
-	text-align: center;
-	padding: 20px;
+.tableRows td {
+	padding: 20px 10px;
+}
+
+.tableRows td:nth-child(2) button {
 	width: 100%;
 }
 
 .tableRows td:first-of-type {
-	max-width: 500px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	text-align: left;
+	max-width: 200px;
+	overflow: scroll;
 }
 
 .switch {
@@ -149,4 +150,3 @@
 :global(.dark) .tableRows:not(.loading) .buttonWrap:hover button {
 	color: var(--dark-scheme-highlight);
 }
-
