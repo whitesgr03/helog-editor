@@ -82,10 +82,11 @@
 	position: absolute;
 	top: 0;
 	right: 0;
+	color: inherit;
 }
 
-.closeBtn .close {
-	color: var(--light-scheme-color);
+.close {
+	color: inherit;
 	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath fill='%23000' d='M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504L738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512L828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496L285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512L195.2 285.696a64 64 0 0 1 0-90.496'/%3E%3C/svg%3E");
 	height: var(--icon-size-mobile);
 	width: var(--icon-size-mobile);
@@ -151,10 +152,6 @@
 :global(.dark) .cancel {
 	background-color: var(--dark-scheme-color);
 	color: var(--light-scheme-color);
-}
-
-:global(.dark) .closeBtn .close {
-	color: var(--dark-scheme-color);
 }
 
 :global(.dark) .theme > div {
