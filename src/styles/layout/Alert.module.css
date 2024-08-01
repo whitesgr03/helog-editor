@@ -1,0 +1,41 @@
+.alert {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--icon-size-mobile);
+	color: var(--dark-scheme-color);
+	background-color: var(--light-scheme-highlight);
+	transform: translateY(-100%);
+	transition: transform 0.3s ease-in-out;
+}
+
+.alert.active {
+	transform: translateY(0%);
+}
+.alert.active.top {
+	z-index: 1;
+}
+
+.alert p {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.alert.error {
+	background-color: var(--light-scheme-error);
+}
+
+/* Dark scheme classes */
+:global(.dark) .alert {
+	background-color: var(--dark-scheme-highlight);
+	color: var(--light-scheme-color);
+}
+
+:global(.dark) .alert.error {
+	background-color: var(--dark-scheme-error);
+}
