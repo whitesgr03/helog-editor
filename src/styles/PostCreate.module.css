@@ -21,6 +21,28 @@
 	padding: 10px;
 }
 
+.imageWrap {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	row-gap: 5px;
+}
+
+.uploadBtn {
+	font-weight: bold;
+	align-self: self-start;
+}
+
+.mainImageWrap {
+	max-height: 0px;
+	transition: max-height 0.15s ease-out;
+}
+
+.imageWrap.showUpload .mainImageWrap {
+	max-height: 1000px;
+	transition: max-height 0.3s ease-in;
+}
+
 .mainImage.hide {
 	position: relative;
 	width: 100%;
@@ -51,6 +73,7 @@
 
 .mainImage :global(#editorImage) {
 	padding-top: 56.25%;
+	outline: none;
 }
 
 .mainImage :global(#editorImage) p {
@@ -73,11 +96,16 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 10px;
+	outline: none;
 }
 
 .postCreate :global(#editorTitle),
 .postCreate :global(#editorContent) {
 	outline: 0;
+}
+
+.postCreate :global(#editorImage) {
+	cursor: pointer;
 }
 
 .postCreate
@@ -148,6 +176,16 @@
 	height: var(--size);
 	width: var(--size);
 }
+.downArrow {
+	--size: var(--icon-size-desktop);
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='208' height='208' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' d='m15 8l-4.03 6L7 8z'/%3E%3C/svg%3E");
+	height: var(--size);
+	width: var(--size);
+}
+
+.imageWrap:not(.showUpload) .downArrow {
+	transform: rotate(-90deg);
+}
 
 /* Pseudo classes */
 .link:hover {
@@ -155,6 +193,9 @@
 }
 
 /* Dark scheme classes */
+:global(.dark) .uploadBtn {
+	color: var(--dark-scheme-color);
+}
 :global(.dark) .postCreate {
 	color: var(--dark-scheme-color);
 }
@@ -194,7 +235,7 @@
 	.postCreate {
 		padding: 5% 10%;
 	}
-	.imageWrap {
+	.mainImageWrap {
 		padding: 0 10%;
 	}
 	.editors {
