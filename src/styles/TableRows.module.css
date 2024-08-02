@@ -11,10 +11,14 @@
 	opacity: 0.3;
 }
 
-.tableRows td {
+.tableRows td:not(.buttonWrap) {
 	padding: 20px 10px;
 }
 
+.tableRows td.buttonWrap > * {
+	width: 100%;
+	padding: 20px 10px;
+}
 .tableRows td:nth-child(2) button {
 	width: 100%;
 }
