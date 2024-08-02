@@ -106,7 +106,7 @@ const PostCreate = () => {
 
 	useEffect(() => {
 		const handleSetPost = async () => {
-			onAlert({ message: "saving post..." });
+			onAlert({ message: "Saving post..." });
 			setSaving(true);
 			setPreviousData(data);
 			const obj = {};
@@ -135,7 +135,7 @@ const PostCreate = () => {
 				: onAlert({ message: result.message, error: true });
 
 			setSaving(false);
-			onAlert({ message: "saved post" });
+			onAlert({ message: "Saved post" });
 		};
 
 		!saving &&
