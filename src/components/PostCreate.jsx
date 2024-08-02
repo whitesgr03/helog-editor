@@ -345,6 +345,16 @@ const PostCreate = () => {
 							const target = evt.element;
 
 							const handleImage = url => {
+								const isSetStyle = target.hasAttribute("style");
+								const width = target.getAttribute("width");
+								const height = target.getAttribute("height");
+
+								!isSetStyle &&
+									target.setAttribute(
+										"style",
+										`width:${width}px;height:${height}px;`
+									);
+
 								const image = new Image();
 
 								image.onerror = () => {
