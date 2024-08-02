@@ -62,6 +62,9 @@ const PostCreate = () => {
 
 	const [data, setData] = useState(state?.data ?? defaultData);
 	const [firstCreatePostId, setFirstCreatePostId] = useState(null);
+	const [activeUpload, setActiveUpload] = useState(
+		data.mainImage === "" ? false : true
+	);
 
 	const [publishing, setPublishing] = useState(false);
 	const [saving, setSaving] = useState(null);
@@ -73,6 +76,8 @@ const PostCreate = () => {
 	const contentRef = useRef(null);
 	const titleRef = useRef(null);
 	const mainImageRef = useRef(null);
+
+	const handleActiveUpload = () => setActiveUpload(!activeUpload);
 
 	const handlePublish = async () => {
 		const handleUpdate = async () => {
@@ -208,75 +213,103 @@ const PostCreate = () => {
 							paste_as_text: true,
 						}}
 					/>
-					<div className={style.imageWrap}>
-						<div
-							className={`${style.mainImage} 
+					<div
+						className={`${style.imageWrap} ${
+							activeUpload ? style.showUpload : ""
+						}`}
+					>
+						<button
+							className={style.uploadBtn}
+							onClick={handleActiveUpload}
+						>
+							{data.mainImage === ""
+								? "Upload main image"
+								: `${
+										activeUpload ? "Hide" : "Show"
+								  } main image`}
+							<span
+								className={`${style.downArrow} ${image.icon}`}
+							/>
+						</button>
+						<div className={style.mainImageWrap}>
+							<div
+								className={`${style.mainImage} 
 							${data.mainImage === "" ? style.hide : ""}
 							`}
-						>
-							<button
-								onClick={() => {
-									mainImageRef.current.execCommand(
-										"mceImage"
-									);
-								}}
 							>
-								<div className={style.buttonText}>
-									<span>Set Main Image Source</span>
-									<span>{"( only jpeg, png, webp )"}</span>
-								</div>
-							</button>
-							<Editor
-								apiKey="x2zlv8pvui3hofp395wp6my8308b15h3s176scf930dizek1"
-								id="editorImage"
-								onInit={(_evt, editor) => {
-									setLoadCount(loadCount => loadCount + 1);
-									mainImageRef.current = editor;
-								}}
-								onEditorChange={value => {
-									setData({
-										...data,
-										mainImage: value,
-									});
-								}}
-								value={data.mainImage}
-								onNodeChange={evt => {
-									const target = evt.element;
+								<button
+									onClick={() => {
+										mainImageRef.current.execCommand(
+											"mceImage"
+										);
+									}}
+								>
+									<div className={style.buttonText}>
+										<span>Set Main Image Source</span>
+										<span>
+											{"( only jpeg, png, webp )"}
+										</span>
+									</div>
+								</button>
+								<Editor
+									apiKey="x2zlv8pvui3hofp395wp6my8308b15h3s176scf930dizek1"
+									id="editorImage"
+									onInit={(_evt, editor) => {
+										setLoadCount(
+											loadCount => loadCount + 1
+										);
+										mainImageRef.current = editor;
+									}}
+									onEditorChange={(value, editor) => {
+										setData({
+											...data,
+											mainImage: value,
+										});
+										editor.hide();
+										editor.show();
+									}}
+									value={data.mainImage}
+									onNodeChange={(evt, editor) => {
+										const target = evt.element;
 
-									const handleImage = url => {
-										const image = new Image();
+										const handleImage = url => {
+											const image = new Image();
 
-										image.onerror = () => {
-											target.remove();
-											setData({
-												...data,
-												mainImage: "",
-											});
+											image.onerror = () => {
+												target.remove();
+												setData({
+													...data,
+													mainImage: "",
+												});
+
+												editor.hide();
+												editor.show();
+											};
+
+											image.src = url;
 										};
 
-										image.src = url;
-									};
-
-									target.nodeName === "IMG" &&
-										handleImage(target.src);
-								}}
-								init={{
-									inline: true,
-									menubar: false,
-									toolbar: false,
-									plugins: ["image", "quickbars"],
-									image_uploadtab: false,
-									image_dimensions: false,
-									image_description: false,
-									object_resizing: false,
-									typeahead_urls: false,
-									quickbars_selection_toolbar: false,
-									quickbars_insert_toolbar: false,
-									quickbars_image_toolbar: "image",
-								}}
-								onKeyDown={() => false}
-								onPaste={() => false}
-							/>
+										target.nodeName === "IMG" &&
+											handleImage(target.src);
+									}}
+									init={{
+										inline: true,
+										menubar: false,
+										toolbar: false,
+										plugins: ["image", "quickbars"],
+										image_uploadtab: false,
+										image_dimensions: false,
+										image_description: false,
+										object_resizing: false,
+										typeahead_urls: false,
+										quickbars_selection_toolbar: false,
+										quickbars_insert_toolbar: false,
+										quickbars_image_toolbar: "image",
+									}}
+									onKeyDown={() => false}
+									onPaste={() => false}
+								/>
+							</div>
 						</div>
 					</div>
 					<Editor
