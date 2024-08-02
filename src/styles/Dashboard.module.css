@@ -88,6 +88,11 @@
 	border-bottom: 0;
 }
 
+:global(.dark) .dashboard th {
+	border-left: 2px solid var(--dark-scheme-table);
+	border-right: 2px solid var(--dark-scheme-table);
+}
+
 :global(.dark) .dashboard tbody tr:last-of-type {
 	border-bottom: 4px solid var(--dark-scheme-table);
 }
