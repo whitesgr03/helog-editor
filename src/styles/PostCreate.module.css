@@ -5,6 +5,31 @@
 	row-gap: 15px;
 }
 
+.postCreate a {
+	text-decoration: revert;
+}
+
+.postCreate h2,
+.postCreate h3,
+.postCreate h5 {
+	margin: revert;
+}
+
+.postCreate p {
+	margin: revert;
+}
+
+.postCreate ol,
+.postCreate ul {
+	padding: revert;
+	margin: revert;
+}
+.postCreate li {
+	list-style: revert;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+}
+
 .link {
 	display: flex;
 	align-items: center;
