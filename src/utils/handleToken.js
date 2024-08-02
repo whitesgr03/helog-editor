@@ -1,6 +1,6 @@
 import handleFetch from "./handleFetch";
 
-const url = `${import.meta.env.VITE_RESOURCE_ORIGIN}/auth/token`;
+const url = `${import.meta.env.VITE_RESOURCE_URL}/auth/token`;
 
 const createToken = async ({ code_verifier, code }) => {
 	const options = {

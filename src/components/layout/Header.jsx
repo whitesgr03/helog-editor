@@ -24,7 +24,7 @@ const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 				<a
 					className={style.logo}
 					href={`${
-						import.meta.env.VITE_HELOG_ORIGIN
+						import.meta.env.VITE_HELOG_URL
 					}?darkTheme=${darkTheme}`}
 					onClick={handleCloseDropdown}
 				>

@@ -1,6 +1,6 @@
 import handleFetch from "./handleFetch";
 
-const url = `${import.meta.env.VITE_RESOURCE_ORIGIN}/blog/user`;
+const url = `${import.meta.env.VITE_RESOURCE_URL}/blog/user`;
 
 const getUser = async token => {
 	const options = {

@@ -1,7 +1,7 @@
 import generateRandomString from "./generateRandomString";
 import generateCodeChallenge from "./generateCodeChallenge";
 
-const url = `${import.meta.env.VITE_RESOURCE_ORIGIN}/auth/code`;
+const url = `${import.meta.env.VITE_RESOURCE_URL}/auth/code`;
 
 const handleGetAuthCode = async () => {
 	const authorizeOption = {

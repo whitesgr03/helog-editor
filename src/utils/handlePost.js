@@ -1,6 +1,6 @@
 import handleFetch from "./handleFetch";
 
-const url = `${import.meta.env.VITE_RESOURCE_ORIGIN}/blog/posts`;
+const url = `${import.meta.env.VITE_RESOURCE_URL}/blog/posts`;
 
 const getPosts = async ({ signal, userId }) => {
 	const options = {
