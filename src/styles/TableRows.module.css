@@ -150,3 +150,21 @@
 :global(.dark) .tableRows:not(.loading) .buttonWrap:hover button {
 	color: var(--dark-scheme-highlight);
 }
+
+@media (min-width: 900px) {
+	.tableRows td:first-of-type {
+		max-width: 300px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.tableRows td:first-of-type {
+		max-width: 400px;
+	}
+}
+
+@media (min-width: 1600px) {
+	.tableRows td:first-of-type {
+		max-width: 500px;
+	}
+}
