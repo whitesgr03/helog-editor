@@ -335,6 +335,12 @@ const PostCreate = () => {
 								? setData({ ...data, content: value })
 								: setData({ ...data });
 						}}
+						onObjectResized={evt => {
+							evt.target.setAttribute(
+								"style",
+								`width:${evt.width}px;height:${evt.height}px;`
+							);
+						}}
 						onNodeChange={evt => {
 							const target = evt.element;
 
