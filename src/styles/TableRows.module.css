@@ -16,8 +16,10 @@
 }
 
 .tableRows td.buttonWrap > * {
+	display: inline-block;
 	width: 100%;
 	padding: 20px 10px;
+	color: var(--light-scheme-color);
 }
 .tableRows td:nth-child(2) button {
 	width: 100%;
@@ -124,7 +126,7 @@
 	background-color: rgba(var(--dark-scheme-color-rgb), 0.4);
 }
 
-:global(.dark) .tableRows td button {
+:global(.dark) .tableRows td.buttonWrap > * {
 	color: var(--dark-scheme-color);
 }
 
@@ -137,8 +139,7 @@
 }
 
 /* Pseudo classes */
-.tableRows:not(.loading) .buttonWrap:hover a,
-.tableRows:not(.loading) .buttonWrap:hover button {
+.tableRows:not(.loading) .buttonWrap:hover > * {
 	color: var(--light-scheme-highlight);
 }
 
@@ -150,8 +151,7 @@
 	background-color: rgba(var(--dark-scheme-highlight-rgb), 0.5);
 }
 
-:global(.dark) .tableRows:not(.loading) .buttonWrap:hover a,
-:global(.dark) .tableRows:not(.loading) .buttonWrap:hover button {
+:global(.dark) .tableRows:not(.loading) .buttonWrap:hover > * {
 	color: var(--dark-scheme-highlight);
 }
 
