@@ -28,6 +28,21 @@
 	align-items: center;
 	row-gap: 5px;
 	padding: 10px;
+	max-width: 0px;
+	min-width: 100%;
+}
+
+.profile > span {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+	text-align: center;
+}
+
+.dropdown > p {
+	text-align: center;
+	padding: 10px;
 }
 
 .avatar {
