@@ -30,7 +30,7 @@
 	border-top: 1px solid var(--dark-scheme-color);
 	color: var(--dark-scheme-color);
 }
-:global(.dark) a {
+:global(.dark) .link {
 	color: var(--dark-scheme-color);
 }
 :global(.dark) .link:hover {
