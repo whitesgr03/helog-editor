@@ -10,13 +10,15 @@ const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 	return (
 		<div className={style.dropdown}>
 			{user?.name && (
-				<div className={style.profile}>
-					<div className={style.avatar}>
-						{user.name.charAt(0).toUpperCase()}
+				<>
+					<div className={style.profile}>
+						<div className={style.avatar}>
+							{user.name.charAt(0).toUpperCase()}
+						</div>
+						<span title={user.name}>{user.name}</span>
 					</div>
-					<p>{user.name}</p>
 					<p>Welcome to HeLog Editor</p>
-				</div>
+				</>
 			)}
 			<ul>
 				<li>
