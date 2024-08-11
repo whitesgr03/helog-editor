@@ -15,6 +15,7 @@ import image from "../styles/utils/image.module.css";
 
 // Utils
 import { createPost, updatePost } from "../utils/handlePost";
+import escaping from "../utils/handleEscape";
 
 // Components
 import Loading from "./layout/Loading";
@@ -57,10 +58,22 @@ const PostCreate = () => {
 	const { state } = useLocation();
 
 	const [previousData, setPreviousData] = useState(
-		state?.data ?? defaultData
+		state?.data
+			? {
+					...state.data,
+					title: escaping(state.data.title),
+			  }
+			: defaultData
 	);
 
-	const [data, setData] = useState(state?.data ?? defaultData);
+	const [data, setData] = useState(
+		state?.data
+			? {
+					...state.data,
+					title: escaping(state.data.title),
+			  }
+			: defaultData
+	);
 	const [firstCreatePostId, setFirstCreatePostId] = useState(null);
 	const [activeUpload, setActiveUpload] = useState(
 		data.mainImage === "" ? false : true
