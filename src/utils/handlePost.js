@@ -14,9 +14,6 @@ const getPosts = async ({ token }) => {
 const getPost = async ({ postId }) => {
 	const options = {
 		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
 	};
 	const result = await handleFetch(`${url}/${postId}`, options);
 
