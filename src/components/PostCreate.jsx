@@ -217,6 +217,7 @@ const PostCreate = () => {
 						}}
 						value={data.title}
 						init={{
+							entity_encoding: "raw",
 							skin: darkTheme ? "oxide-dark" : "oxide",
 							placeholder: "The post title...",
 							menubar: false,
