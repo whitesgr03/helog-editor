@@ -1,5 +1,5 @@
 // Package
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 
 // Styles
@@ -15,27 +15,30 @@ import Error from "./layout/Error";
 import { getPosts } from "../utils/handlePost";
 
 const Dashboard = () => {
-	const { user } = useOutletContext();
+	const { accessToken, onVerifyTokenExpire, onExChangeToken } =
+		useOutletContext();
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [publishing, setPublishing] = useState(false);
+	const ignore = useRef(false);
 
-	const handleGetPosts = useCallback(
-		async option => {
-			const result = await getPosts({ ...option, userId: user._id });
+	const handleGetPosts = useCallback(async () => {
+		ignore.current = true;
+		const isTokenExpire = await onVerifyTokenExpire();
+		const newAccessToken = isTokenExpire && (await onExChangeToken());
 
-			const handleResult = () => {
-				result.success
-					? setPosts(result.data)
-					: setError(result.message);
-				setLoading(false);
-			};
+		const result = await getPosts({
+			token: newAccessToken || accessToken,
+		});
 
-			result && handleResult();
-		},
-		[user]
-	);
+		const handleResult = () => {
+			result.success ? setPosts(result.data) : setError(result.message);
+			setLoading(false);
+		};
+
+		result && handleResult();
+	}, [accessToken, onVerifyTokenExpire, onExChangeToken]);
 
 	const trs = posts.map(post => (
 		<TableRows
@@ -48,12 +51,7 @@ const Dashboard = () => {
 	));
 
 	useEffect(() => {
-		const controller = new AbortController();
-		const { signal } = controller;
-
-		handleGetPosts({ signal });
-
-		return () => controller.abort();
+		!ignore.current && handleGetPosts();
 	}, [handleGetPosts]);
 
 	return (
