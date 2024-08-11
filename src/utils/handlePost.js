@@ -2,15 +2,14 @@ import handleFetch from "./handleFetch";
 
 const url = `${import.meta.env.VITE_RESOURCE_URL}/blog/posts`;
 
-const getPosts = async ({ signal, userId }) => {
+const getPosts = async ({ token }) => {
 	const options = {
 		method: "GET",
 		headers: {
-			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
 		},
-		signal,
 	};
-	return await handleFetch(`${url}?userId=${userId}`, options);
+	return await handleFetch(url, options);
 };
 const getPost = async ({ postId }) => {
 	const options = {
