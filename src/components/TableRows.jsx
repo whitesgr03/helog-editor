@@ -96,9 +96,7 @@ const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 
 	return (
 		<tr className={`${style.tableRows} ${loading ? style.loading : ""}`}>
-			<td title={post.title}>
-				<span dangerouslySetInnerHTML={{ __html: post.title }} />
-			</td>
+			<td title={post.title}>{post.title}</td>
 			<td>
 				<button
 					className={`${style.switch} ${

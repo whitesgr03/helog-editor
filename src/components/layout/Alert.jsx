@@ -53,7 +53,7 @@ const Alert = ({ alert, onCloseAlert }) => {
 				alert.error ? style.error : ""
 			}`}
 		>
-			<p dangerouslySetInnerHTML={{ __html: alert.message }} />
+			<p>{alert.message}</p>
 		</div>
 	);
 };
