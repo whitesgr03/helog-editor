@@ -14,11 +14,11 @@ import style from "../styles/PostCreate.module.css";
 import image from "../styles/utils/image.module.css";
 
 // Utils
-import { createPost, updatePost } from "../utils/handlePost";
-import escaping from "../utils/handleEscape";
+import { createPost, updatePost } from "../../../utils/handlePost";
+import escaping from "../../../utils/handleEscape";
 
 // Components
-import Loading from "./layout/Loading";
+import Loading from "../../utils/Loading";
 
 // Variables
 const editorContentInit = {
