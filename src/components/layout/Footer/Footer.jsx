@@ -1,7 +1,7 @@
 // Styles
 import style from "./Footer.module.css";
 import { container } from "../../styles/layout/Contact.module.css";
-import image from "../../styles/utils/image.module.css";
+import image from "../../../styles/image.module.css";
 
 // Components
 import Address from "./Address";
