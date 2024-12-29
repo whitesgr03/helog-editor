@@ -3,11 +3,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "../../styles/layout/Header.module.css";
-import { sun, moon } from "../../styles/layout/Dropdown.module.css";
-import button from "../../styles/utils/button.module.css";
-import image from "../../styles/utils/image.module.css";
-import { transparentWindow } from "../../styles/utils/bgc.module.css";
+import style from "./Header.module.css";
+import { sun, moon } from "./Dropdown.module.css";
+import button from "../../../styles/button.module.css";
+import image from "../../../styles/image.module.css";
+import { transparentWindow } from "../../../styles/bgc.module.css";
 
 // Components
 import Dropdown from "./Dropdown";

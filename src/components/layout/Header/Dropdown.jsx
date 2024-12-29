@@ -2,9 +2,9 @@
 import PropTypes from "prop-types";
 
 // Styles
-import style from "../../styles/layout/Dropdown.module.css";
-import button from "../../styles/utils/button.module.css";
-import image from "../../styles/utils/image.module.css";
+import style from "./Dropdown.module.css";
+import button from "../../../styles/button.module.css";
+import image from "../../../styles/image.module.css";
 
 const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 	return (
