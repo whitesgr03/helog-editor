@@ -1,6 +1,6 @@
 // Styles
-import style from "../../styles/layout/Loading.module.css";
-import image from "../../styles/utils/image.module.css";
+import style from "./Loading.module.css";
+import image from "../../styles/image.module.css";
 
 const Loading = () => {
 	return (

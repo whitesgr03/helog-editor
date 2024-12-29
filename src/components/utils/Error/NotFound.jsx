@@ -1,6 +1,6 @@
 // Styles
-import style from "../../styles/layout/Error.module.css";
-import image from "../../styles/utils/image.module.css";
+import style from "./Error.module.css";
+import image from "../../../styles/image.module.css";
 
 const NotFound = () => {
 	return (

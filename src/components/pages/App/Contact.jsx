@@ -1,5 +1,5 @@
 // Styles
-import style from "../../styles/layout/Contact.module.css";
+import style from "./Contact.module.css";
 
 // Components
 import Address from "./Footer/Address";

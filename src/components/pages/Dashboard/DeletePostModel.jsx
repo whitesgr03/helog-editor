@@ -2,8 +2,8 @@
 import PropTypes from "prop-types";
 
 // Styles
-import style from "../../styles/layout/DeletePostModel.module.css";
-import button from "../../styles/utils/button.module.css";
+import style from "./DeletePostModel.module.css";
+import button from "../../../styles/button.module.css";
 
 const DeletePostModel = ({ onDelete, title }) => {
 	return (

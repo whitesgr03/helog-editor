@@ -8,15 +8,15 @@ import {
 } from "react-router-dom";
 
 // Styles
-import style from "../styles/App.module.css";
+import style from "./App.module.css";
 
 // Components
-import Header from "../../layout/Header";
-import Footer from "./layout/Footer";
-import Contact from "../../layout/Contact";
-import Loading from "../../layout/Loading";
-import Alert from "../../layout/Alert";
-import Model from "../../layout/Model";
+import Header from "../../layout/Header/Header";
+import Footer from "../../layout/Footer/Footer";
+import Contact from "./Contact";
+import Loading from "../../utils/Loading";
+import Alert from "./Alert";
+import Model from "./Model";
 
 // Utils
 import handleGetAuthCode from "../../../utils/handleGetAuthCode";

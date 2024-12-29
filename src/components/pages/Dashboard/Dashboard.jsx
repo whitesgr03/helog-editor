@@ -3,8 +3,8 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 
 // Styles
-import style from "../styles/Dashboard.module.css";
-import button from "../styles/utils/button.module.css";
+import style from "./Dashboard.module.css";
+import button from "../../../styles/button.module.css";
 
 // Component
 import TableRows from "../../TableRows";

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "../../styles/layout/Alert.module.css";
+import style from "./Alert.module.css";
 
 const Alert = ({ alert, onCloseAlert }) => {
 	const [activeAlert, setActiveAlert] = useState(false);

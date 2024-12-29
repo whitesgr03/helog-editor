@@ -2,10 +2,10 @@
 import PropTypes from "prop-types";
 
 // Styles
-import style from "../../styles/layout/Model.module.css";
-import image from "../../styles/utils/image.module.css";
-import button from "../../styles/utils/button.module.css";
-import { blurWindow } from "../../styles/utils/bgc.module.css";
+import style from ".Model.module.css";
+import image from "../../../styles/image.module.css";
+import button from "../../../styles/button.module.css";
+import { blurWindow } from "../../../styles/bgc.module.css";
 
 const Model = ({ onModel, model }) => {
 	const handleCloseModel = e => e.target.dataset.closeModel && onModel(null);

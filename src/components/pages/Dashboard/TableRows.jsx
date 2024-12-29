@@ -5,8 +5,8 @@ import { format } from "date-fns";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "../styles/TableRows.module.css";
-import image from "../styles/utils/image.module.css";
+import style from "./TableRows.module.css";
+import image from "../../../styles/image.module.css";
 
 // Components
 import DeletePostModel from "./layout/DeletePostModel";
