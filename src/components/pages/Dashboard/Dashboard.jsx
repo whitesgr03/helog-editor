@@ -7,12 +7,12 @@ import style from "../styles/Dashboard.module.css";
 import button from "../styles/utils/button.module.css";
 
 // Component
-import TableRows from "./TableRows";
-import Loading from "./layout/Loading";
+import TableRows from "../../TableRows";
+import Loading from "../../utils/Loading";
 import Error from "./layout/Error";
 
 // Utils
-import { getPosts } from "../utils/handlePost";
+import { getPosts } from "../../../utils/handlePost";
 
 const Dashboard = () => {
 	const { accessToken, onVerifyTokenExpire, onExChangeToken } =
