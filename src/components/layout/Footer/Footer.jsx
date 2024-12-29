@@ -1,5 +1,5 @@
 // Styles
-import style from "../../styles/layout/Footer.module.css";
+import style from "./Footer.module.css";
 import { container } from "../../styles/layout/Contact.module.css";
 import image from "../../styles/utils/image.module.css";
 

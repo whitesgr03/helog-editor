@@ -1,5 +1,5 @@
 // Styles
-import style from "../../styles/layout/Address.module.css";
+import style from "./Address.module.css";
 import image from "../../styles/utils/image.module.css";
 
 const Address = () => {
