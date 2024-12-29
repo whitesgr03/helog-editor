@@ -1,6 +1,6 @@
 // Styles
 import style from "./Footer.module.css";
-import { container } from "../../styles/layout/Contact.module.css";
+import { container } from "../../pages/App/Contact.module.css";
 import image from "../../../styles/image.module.css";
 
 // Components
