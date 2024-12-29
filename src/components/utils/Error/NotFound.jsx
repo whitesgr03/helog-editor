@@ -1,13 +1,13 @@
 // Styles
-import style from "./Error.module.css";
-import image from "../../../styles/image.module.css";
+import styles from "./Error.module.css";
+import imageStyles from "../../../styles/image.module.css";
 
 const NotFound = () => {
 	return (
-		<div className={style.error}>
-			<span className={`${image.icon} ${style.alert}`} />
+		<div className={styles.error}>
+			<span className={`${imageStyles.icon} ${styles.alert}`} />
 			<h2>Page Not Found</h2>
-			<div className={style.message}>
+			<div className={styles.message}>
 				<p>Our apologies, there has been an error.</p>
 				<p>The page you are looking for could not be found.</p>
 				<p>You may surf over to our other pages.</p>

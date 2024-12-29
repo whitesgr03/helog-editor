@@ -3,8 +3,8 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 
 // Styles
-import style from "./Dashboard.module.css";
-import button from "../../../styles/button.module.css";
+import styles from "./Dashboard.module.css";
+import buttonStyles from "../../../styles/button.module.css";
 
 // Component
 import TableRows from "../../TableRows";
@@ -55,13 +55,13 @@ const Dashboard = () => {
 	}, [handleGetPosts]);
 
 	return (
-		<div className={style.dashboard}>
+		<div className={styles.dashboard}>
 			<h2>Dashboard</h2>
-			<div className={style.buttonWrap}>
+			<div className={styles.buttonWrap}>
 				<span>
 					{posts.length > 0 && `Total posts: ${posts.length}`}
 				</span>
-				<Link to="/post/editor" className={button.success}>
+				<Link to="/post/editor" className={buttonStyles.success}>
 					New Post
 				</Link>
 			</div>
@@ -70,7 +70,7 @@ const Dashboard = () => {
 			) : error ? (
 				<Error message={error} />
 			) : (
-				<div className={style.container}>
+				<div className={styles.container}>
 					{posts.length > 0 ? (
 						<table>
 							<thead>

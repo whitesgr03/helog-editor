@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 // Styles
-import style from "./App.module.css";
+import styles from "./App.module.css";
 
 // Components
 import Header from "../../layout/Header/Header";
@@ -136,9 +136,9 @@ const App = () => {
 			{loading ? (
 				<Loading />
 			) : (
-				<div className={style.app} data-testid="app">
+				<div className={styles.app} data-testid="app">
 					{model && <Model onModel={setModel} model={model} />}
-					<div className={style.headerBar}>
+					<div className={styles.headerBar}>
 						<Header
 							user={user}
 							darkTheme={darkTheme}
@@ -151,7 +151,7 @@ const App = () => {
 							/>
 						)}
 					</div>
-					<div className={style.container}>
+					<div className={styles.container}>
 						<main>
 							<Outlet
 								context={{

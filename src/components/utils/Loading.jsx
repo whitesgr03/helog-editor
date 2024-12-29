@@ -1,11 +1,11 @@
 // Styles
-import style from "./Loading.module.css";
-import image from "../../styles/image.module.css";
+import styles from "./Loading.module.css";
+import imageStyles from "../../styles/image.module.css";
 
 const Loading = () => {
 	return (
-		<div className={style.loading}>
-			<span className={`${image.icon} ${style.load}`} />
+		<div className={styles.loading}>
+			<span className={`${imageStyles.icon} ${styles.load}`} />
 			Loading ...
 		</div>
 	);

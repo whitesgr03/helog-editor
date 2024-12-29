@@ -2,17 +2,17 @@
 import PropTypes from "prop-types";
 
 // Styles
-import style from "./Dropdown.module.css";
-import button from "../../../styles/button.module.css";
-import image from "../../../styles/image.module.css";
+import styles from "./Dropdown.module.css";
+import buttonStyles from "../../../styles/button.module.css";
+import imageStyles from "../../../styles/image.module.css";
 
 const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 	return (
-		<div className={style.dropdown}>
+		<div className={styles.dropdown}>
 			{user?.name && (
 				<>
-					<div className={style.profile}>
-						<div className={style.avatar}>
+					<div className={styles.profile}>
+						<div className={styles.avatar}>
 							{user.name.charAt(0).toUpperCase()}
 						</div>
 						<span title={user.name}>{user.name}</span>
@@ -23,12 +23,12 @@ const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 			<ul>
 				<li>
 					<button
-						className={button.theme}
+						className={buttonStyles.theme}
 						onClick={onSwitchColorTheme}
 					>
 						<span
-							className={`${image.icon} ${
-								darkTheme ? style.moon : style.sun
+							className={`${imageStyles.icon} ${
+								darkTheme ? styles.moon : styles.sun
 							}`}
 						/>
 						{darkTheme ? "Dark" : "Light"} mode

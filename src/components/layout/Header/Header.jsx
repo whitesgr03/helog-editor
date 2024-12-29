@@ -3,11 +3,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "./Header.module.css";
-import { sun, moon } from "./Dropdown.module.css";
-import button from "../../../styles/button.module.css";
-import image from "../../../styles/image.module.css";
-import { transparentWindow } from "../../../styles/bgc.module.css";
+import styles from "./Header.module.css";
+import dropdownStyles from "./Dropdown.module.css";
+import buttonStyles from "../../../styles/button.module.css";
+import imageStyles from "../../../styles/image.module.css";
+import bgcStyles from "../../../styles/bgc.module.css";
 
 // Components
 import Dropdown from "./Dropdown";
@@ -20,9 +20,9 @@ const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 
 	return (
 		<>
-			<header className={style.header}>
+			<header className={styles.header}>
 				<a
-					className={style.logo}
+					className={styles.logo}
 					href={`${
 						import.meta.env.VITE_HELOG_URL
 					}?darkTheme=${darkTheme}`}
@@ -31,14 +31,16 @@ const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 					<h1>HeLog</h1>
 				</a>
 				<nav>
-					<ul className={style.list}>
-						<li className={style.toggleBtn}>
+					<ul className={styles.list}>
+						<li className={styles.toggleBtn}>
 							<button onClick={onSwitchColorTheme}>
-								<div className={button.theme}>
+								<div className={buttonStyles.theme}>
 									<span
 										data-testid={"icon"}
-										className={`${image.icon} ${
-											darkTheme ? moon : sun
+										className={`${imageStyles.icon} ${
+											darkTheme
+												? dropdownStyles.moon
+												: dropdownStyles.sun
 										}`}
 									/>
 									<div>
@@ -51,7 +53,7 @@ const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 						<li>
 							<button onClick={handleActiveDropdown}>
 								<span
-									className={`${image.icon} ${style.account}`}
+									className={`${imageStyles.icon} ${styles.account}`}
 								/>
 								Account
 							</button>
@@ -68,7 +70,7 @@ const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 			</header>
 			{activeDropdown && (
 				<div
-					className={transparentWindow}
+					className={bgcStyles.transparentWindow}
 					onClick={handleCloseDropdown}
 					data-testid="transparentBgc"
 				/>

@@ -1,19 +1,19 @@
 // Styles
-import style from "./Footer.module.css";
-import { container } from "../../pages/App/Contact.module.css";
-import image from "../../../styles/image.module.css";
+import styles from "./Footer.module.css";
+import contactStyles from "../../pages/App/Contact.module.css";
+import imageStyles from "../../../styles/image.module.css";
 
 // Components
 import Address from "./Address";
 
 const Footer = () => {
 	return (
-		<footer className={style.footer}>
-			<div className={container}>
-				<a href="#git" alt="github" className={style.link}>
-					<span className={`${image.icon} ${style.github}`} />
+		<footer className={styles.footer}>
+			<div className={contactStyles.container}>
+				<a href="#git" alt="github" className={styles.link}>
+					<span className={`${imageStyles.icon} ${styles.github}`} />
 				</a>
-				<div className={style.address}>
+				<div className={styles.address}>
 					<Address />
 				</div>
 			</div>

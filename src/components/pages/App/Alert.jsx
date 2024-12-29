@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "./Alert.module.css";
+import styles from "./Alert.module.css";
 
 const Alert = ({ alert, onCloseAlert }) => {
 	const [activeAlert, setActiveAlert] = useState(false);
@@ -14,7 +14,7 @@ const Alert = ({ alert, onCloseAlert }) => {
 
 	const handleTransitionend = () => !activeAlert && onCloseAlert();
 	const handlePause = e => {
-		const target = e.target.closest(`.${style.alert}`);
+		const target = e.target.closest(`.${styles.alert}`);
 		e.type === "mouseover" && target && setPauseAlert(true);
 		e.type === "mouseout" && target && setPauseAlert(false);
 	};
@@ -49,8 +49,8 @@ const Alert = ({ alert, onCloseAlert }) => {
 			onTransitionEnd={handleTransitionend}
 			onMouseOver={handlePause}
 			onMouseOut={handlePause}
-			className={`${style.alert} ${activeAlert ? style.active : ""} ${
-				alert.error ? style.error : ""
+			className={`${styles.alert} ${activeAlert ? styles.active : ""} ${
+				alert.error ? styles.error : ""
 			}`}
 		>
 			<p>{alert.message}</p>

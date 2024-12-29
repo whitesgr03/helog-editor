@@ -9,9 +9,9 @@ import {
 import { Editor } from "@tinymce/tinymce-react";
 
 // Styles
-import button from "../styles/utils/button.module.css";
-import style from "../styles/PostCreate.module.css";
-import image from "../styles/utils/image.module.css";
+import buttonStyles from "../styles/utils/button.module.css";
+import styles from "../styles/PostCreate.module.css";
+import imageStyles from "../styles/utils/image.module.css";
 
 // Utils
 import { createPost, updatePost } from "../../../utils/handlePost";
@@ -177,22 +177,27 @@ const PostCreate = () => {
 	]);
 
 	return (
-		<div id={"postEditor"} className={style.postCreate}>
-			<div className={style.buttonWrap}>
-				<Link to="/" className={style.link}>
-					<span className={`${style.leftArrow} ${image.icon}`} />
+		<div id={"postEditor"} className={styles.postCreate}>
+			<div className={styles.buttonWrap}>
+				<Link to="/" className={styles.link}>
+					<span
+						className={`${styles.leftArrow} ${imageStyles.icon}`}
+					/>
 					Back to Dashboard
 				</Link>
 				{(firstCreatePostId || state?.publish === false) && (
-					<button className={button.success} onClick={handlePublish}>
+					<button
+						className={buttonStyles.success}
+						onClick={handlePublish}
+					>
 						{publishing ? "Publishing" : "Publish"}
 					</button>
 				)}
 			</div>
-			<div className={style.container}>
+			<div className={styles.container}>
 				<div
-					className={`${style.editors}  ${
-						loadCount < 3 ? style.loading : ""
+					className={`${styles.editors}  ${
+						loadCount < 3 ? styles.loading : ""
 					}`}
 				>
 					<Editor
@@ -228,12 +233,12 @@ const PostCreate = () => {
 						}}
 					/>
 					<div
-						className={`${style.imageWrap} ${
-							activeUpload ? style.showUpload : ""
+						className={`${styles.imageWrap} ${
+							activeUpload ? styles.showUpload : ""
 						}`}
 					>
 						<button
-							className={style.uploadBtn}
+							className={styles.uploadBtn}
 							onClick={handleActiveUpload}
 						>
 							{data.mainImage === ""
@@ -242,13 +247,13 @@ const PostCreate = () => {
 										activeUpload ? "Hide" : "Show"
 								  } main image`}
 							<span
-								className={`${style.downArrow} ${image.icon}`}
+								className={`${styles.downArrow} ${imageStyles.icon}`}
 							/>
 						</button>
-						<div className={style.mainImageWrap}>
+						<div className={styles.mainImageWrap}>
 							<div
-								className={`${style.mainImage} 
-							${data.mainImage === "" ? style.hide : ""}
+								className={`${styles.mainImage} 
+							${data.mainImage === "" ? styles.hide : ""}
 							`}
 							>
 								<button
@@ -258,7 +263,7 @@ const PostCreate = () => {
 										);
 									}}
 								>
-									<div className={style.buttonText}>
+									<div className={styles.buttonText}>
 										<span>Set Main Image Source</span>
 										<span>
 											{"( only jpeg, png, webp )"}

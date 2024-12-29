@@ -3,8 +3,8 @@ import { useOutletContext, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "./Error.module.css";
-import image from "../../../styles/image.module.css";
+import styles from "./Error.module.css";
+import imageStyles from "../../../styles/image.module.css";
 
 const Error = ({ message = null }) => {
 	const { error } = useOutletContext();
@@ -16,13 +16,13 @@ const Error = ({ message = null }) => {
 	console.error(message || error);
 
 	return (
-		<div className={style.error}>
-			<span className={`${image.icon} ${style.alert}`} />
-			<div className={style.message}>
+		<div className={styles.error}>
+			<span className={`${imageStyles.icon} ${styles.alert}`} />
+			<div className={styles.message}>
 				<p>Our apologies, there has been an error.</p>
 				<p>{errorMessage}</p>
 			</div>
-			<Link to="/" className={style.link}>
+			<Link to="/" className={styles.link}>
 				Back to Home Page.
 			</Link>
 		</div>

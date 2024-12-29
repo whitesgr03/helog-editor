@@ -5,8 +5,8 @@ import { format } from "date-fns";
 import PropTypes from "prop-types";
 
 // Styles
-import style from "./TableRows.module.css";
-import image from "../../../styles/image.module.css";
+import styles from "./TableRows.module.css";
+import imageStyles from "../../../styles/image.module.css";
 
 // Components
 import DeletePostModel from "./layout/DeletePostModel";
@@ -95,12 +95,12 @@ const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	};
 
 	return (
-		<tr className={`${style.tableRows} ${loading ? style.loading : ""}`}>
+		<tr className={`${styles.tableRows} ${loading ? styles.loading : ""}`}>
 			<td title={post.title}>{post.title}</td>
 			<td>
 				<button
-					className={`${style.switch} ${
-						post.publish ? style.active : ""
+					className={`${styles.switch} ${
+						post.publish ? styles.active : ""
 					}`}
 					onClick={handleUpdatePublish}
 				>
@@ -112,19 +112,19 @@ const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 			<td>
 				<span>{format(post.lastModified, "MMMM d, y")}</span>
 			</td>
-			<td className={style.buttonWrap}>
+			<td className={styles.buttonWrap}>
 				<Link to="/post/editor" state={postState}>
-					<span className={`${image.icon} ${style.edit}`} />
+					<span className={`${imageStyles.icon} ${styles.edit}`} />
 				</Link>
 			</td>
-			<td className={style.buttonWrap}>
+			<td className={styles.buttonWrap}>
 				<button onClick={handleActiveModel}>
-					<span className={`${image.icon} ${style.delete}`} />
+					<span className={`${imageStyles.icon} ${styles.delete}`} />
 				</button>
 			</td>
 			{loading && (
-				<td className={style.loadIcon}>
-					<span className={`${image.icon} ${style.load}`} />
+				<td className={styles.loadIcon}>
+					<span className={`${imageStyles.icon} ${styles.load}`} />
 				</td>
 			)}
 		</tr>

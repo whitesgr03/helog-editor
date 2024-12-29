@@ -2,22 +2,22 @@
 import PropTypes from "prop-types";
 
 // Styles
-import style from "./DeletePostModel.module.css";
-import button from "../../../styles/button.module.css";
+import styles from "./DeletePostModel.module.css";
+import buttonStyles from "../../../styles/button.module.css";
 
 const DeletePostModel = ({ onDelete, title }) => {
 	return (
-		<div className={style.deleteModel}>
-			<span className={style.title}>Delete Post</span>
-			<div className={style.content}>
+		<div className={styles.deleteModel}>
+			<span className={styles.title}>Delete Post</span>
+			<div className={styles.content}>
 				<p>Do you really want to delete?</p>
 				<p>{title}</p>
 			</div>
-			<div className={style.buttonWrap}>
-				<button className={button.cancel} data-close-model>
+			<div className={styles.buttonWrap}>
+				<button className={buttonStyles.cancel} data-close-model>
 					Cancel
 				</button>
-				<button className={button.error} onClick={onDelete}>
+				<button className={buttonStyles.error} onClick={onDelete}>
 					Delete
 				</button>
 			</div>
