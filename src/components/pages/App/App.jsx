@@ -11,17 +11,17 @@ import {
 import style from "../styles/App.module.css";
 
 // Components
-import Header from "./layout/Header";
+import Header from "../../layout/Header";
 import Footer from "./layout/Footer";
-import Contact from "./layout/Contact";
-import Loading from "./layout/Loading";
-import Alert from "./layout/Alert";
-import Model from "./layout/Model";
+import Contact from "../../layout/Contact";
+import Loading from "../../layout/Loading";
+import Alert from "../../layout/Alert";
+import Model from "../../layout/Model";
 
 // Utils
-import handleGetAuthCode from "../utils/handleGetAuthCode";
-import { verifyToken, exChangeToken } from "../utils/handleToken";
-import { getUser } from "../utils/handleUser";
+import handleGetAuthCode from "../../../utils/handleGetAuthCode";
+import { verifyToken, exChangeToken } from "../../../utils/handleToken";
+import { getUser } from "../../../utils/handleUser";
 
 // Variables
 const defaultAlert = {
