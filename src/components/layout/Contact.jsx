@@ -2,7 +2,7 @@
 import style from "../../styles/layout/Contact.module.css";
 
 // Components
-import Address from "./Address";
+import Address from "./Footer/Address";
 
 const Contact = () => {
 	return (
