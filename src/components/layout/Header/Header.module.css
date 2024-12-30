@@ -77,38 +77,43 @@
 	background-color: rgba(var(--dark-scheme-color-rgb), 0.2);
 }
 
-@media (min-width: 450px) {
+@media (width >= 450px) {
 	.list li.toggle-btn {
 		display: block;
 	}
+
 	.pencil,
 	.account {
 		height: var(--icon-size-mobile);
 		width: var(--icon-size-mobile);
 	}
 }
-@media (min-width: 700px) {
+
+@media (width >= 700px) {
 	.header {
 		padding: 0 15px;
 	}
+
 	.list {
 		column-gap: 30px;
 	}
 }
 
-@media (min-width: 1000px) {
+@media (width >= 1000px) {
 	.header {
 		padding: 0 40px;
 	}
+
 	.list {
 		column-gap: 40px;
 	}
 }
 
-@media (min-width: 1300px) {
+@media (width >= 1300px) {
 	.header {
 		padding: 0 50px;
 	}
+  
 	.list {
 		column-gap: 50px;
 	}
