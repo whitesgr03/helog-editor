@@ -242,13 +242,13 @@
 	border-color: var(--dark-scheme-color);
 }
 
-@media (min-width: 450px) {
+@media (width >= 450px) {
 	.post-create {
 		padding: 5% 10%;
 	}
 }
 
-@media (min-width: 700px) {
+@media (width >= 700px) {
 	.post-create {
 		padding: 5% 15%;
 	}
@@ -262,7 +262,7 @@
 	}
 }
 
-@media (min-width: 1000px) {
+@media (width >= 1000px) {
 	.post-create {
 		padding: 5% 10%;
 	}
@@ -276,7 +276,7 @@
 	}
 }
 
-@media (min-width: 1600px) {
+@media (width >= 1600px) {
 	.post-create {
 		padding: 5% 0;
 	}
