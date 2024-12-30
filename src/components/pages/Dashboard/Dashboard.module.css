@@ -12,17 +12,18 @@
 	height: 100%;
 	flex: 1 1 100%;
 }
-.buttonWrap {
+
+.button-wrap {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.buttonWrap span {
+.button-wrap span {
 	align-self: flex-end;
 }
 
-.buttonWrap a {
+.button-wrap a {
 	padding: 10px;
 	display: flex;
 	align-items: center;
