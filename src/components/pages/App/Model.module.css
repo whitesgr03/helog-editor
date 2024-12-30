@@ -1,16 +1,16 @@
 .model {
 	position: relative;
-	width: 75%;
-	background-color: var(--light-scheme-layout-bgc);
 	border: 2px solid var(--light-scheme-color);
-	color: var(--light-scheme-color);
 	border-radius: 8px;
+	background-color: var(--light-scheme-layout-bgc);
+	width: 75%;
+	color: var(--light-scheme-color);
 }
 
 /* Dark scheme classes */
 :global(.dark) .model {
-	background-color: var(--dark-scheme-input-bgc);
 	border: 2px solid var(--dark-scheme-color);
+	background-color: var(--dark-scheme-input-bgc);
 	color: var(--dark-scheme-color);
 }
 
