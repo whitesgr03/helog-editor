@@ -45,6 +45,23 @@ export const App = () => {
 		setAlert({ message, error });
 	const handleCloseAlert = () => setAlert(defaultAlert);
 
+	useEffect(() => {
+		const getColorTheme = () => {
+			const darkScheme = localStorage.getItem('darkTheme');
+
+			const browserDarkScheme =
+				window.matchMedia('(prefers-color-scheme: dark)')?.matches ?? false;
+
+			darkScheme === null &&
+				localStorage.setItem('darkTheme', browserDarkScheme);
+
+			setDarkTheme(
+				darkScheme === null ? browserDarkScheme : darkScheme === 'true',
+			);
+		};
+		getColorTheme();
+	}, []);
+
 	return (
 		<>
 			{loading ? (
