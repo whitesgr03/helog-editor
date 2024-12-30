@@ -14,19 +14,19 @@
 	color: var(--dark-scheme-color);
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
 	.model {
 		width: 55%;
 	}
 }
 
-@media (min-width: 700px) {
+@media (width >= 700px) {
 	.model {
 		width: 45%;
 	}
 }
 
-@media (min-width: 1300px) {
+@media (width >= 1300px) {
 	.model {
 		width: 35%;
 	}
