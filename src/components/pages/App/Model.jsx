@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Styles
 import styles from '.Model.module.css';
 import imageStyles from '../../../styles/image.module.css';
-import buttonStlyes from '../../../styles/button.module.css';
+import buttonStyles from '../../../styles/button.module.css';
 import bgcStyles from '../../../styles/bgc.module.css';
 
 export const Model = ({ onModel, model }) => {
@@ -22,7 +22,7 @@ export const Model = ({ onModel, model }) => {
 					className={buttonStyles['close-btn']}
 					data-close-model
 				>
-					<span className={`${imageStyles.icon} ${buttonStlyes.close}`} />
+					<span className={`${imageStyles.icon} ${buttonStyles.close}`} />
 				</button>
 				{model}
 			</div>
