@@ -28,12 +28,18 @@ const defaultAlert = {
 };
 
 export const App = () => {
+	const [darkTheme, setDarkTheme] = useState(false);
 	const [model, setModel] = useState(null);
 	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
 
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	const handleColorTheme = () => {
+		setDarkTheme(!darkTheme);
+		localStorage.setItem('darkTheme', JSON.stringify(!darkTheme));
+	};
 
 	const handleAlert = ({ message, error = false }) =>
 		setAlert({ message, error });
