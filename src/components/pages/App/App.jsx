@@ -56,7 +56,7 @@ export const App = () => {
 						<Header
 							user={user}
 							darkTheme={darkTheme}
-							onSwitchColorTheme={onColorTheme}
+							onColorTheme={handleColorTheme}
 						/>
 						{alert.message !== '' && (
 							<Alert onCloseAlert={handleCloseAlert} alert={alert} />
