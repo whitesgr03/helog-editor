@@ -27,8 +27,7 @@
 
 .post-create li {
 	list-style: revert;
-	margin-block-start: 1em;
-	margin-block-end: 1em;
+	margin-block: 1em;
 }
 
 .link {
