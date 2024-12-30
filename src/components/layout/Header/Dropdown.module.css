@@ -115,7 +115,7 @@
 	cursor: pointer;
 }
 
-@media (min-width: 450px) {
+@media (width >= 450px) {
 	.dropdown {
 		min-width: 40%;
 	}
@@ -159,19 +159,19 @@
 	}
 }
 
-@media (min-width: 700px) {
+@media (width >= 700px) {
 	.dropdown {
 		min-width: 30%;
 	}
 }
 
-@media (min-width: 1000px) {
+@media (width >= 1000px) {
 	.dropdown {
 		min-width: 25%;
 	}
 }
 
-@media (min-width: 1300px) {
+@media (width >= 1300px) {
 	.dropdown {
 		min-width: 20%;
 	}
