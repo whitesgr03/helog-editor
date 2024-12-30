@@ -3,11 +3,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/index.css";
 
 import UserProvider from "./components/UserProvider";
-import Error from "./components/layout/Error";
-import NotFound from "./components/layout/NotFound";
-import Dashboard from "./components/Dashboard";
-import App from "./components/App";
-import PostCreate from "./components/PostCreate";
+import { Error } from "./components/utils/Error/Error";
+import { NotFound } from "./components/utils/Error/NotFound";
+import { Dashboard } from "./components/pages/Dashboard/Dashboard";
+import { App } from "./components/pages/App/App";
+import { PostCreate } from "./components/pages/Post/PostCreate";
 import Callback from "./components/Callback";
 
 const router = () => (
