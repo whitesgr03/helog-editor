@@ -1,15 +1,15 @@
-.deleteModel {
+.delete-model {
 	padding: 15px;
 	display: flex;
 	flex-direction: column;
 	row-gap: 20px;
 }
 
-.deleteModel .title {
+.delete-model .title {
 	font-weight: 700;
 }
 
-.deleteModel .content {
+.delete-model .content {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -17,28 +17,28 @@
 	row-gap: 10px;
 }
 
-.deleteModel .content > p {
+.delete-model .content > p {
 	text-align: center;
 }
 
-.deleteModel .buttonWrap {
+.delete-model .button-wrap {
 	display: flex;
 	justify-content: space-evenly;
 }
 
-.deleteModel .buttonWrap button {
+.delete-model .button-wrap button {
 	width: 40%;
 }
 
 @media (min-width: 450px) {
-	.deleteModel {
+	.delete-model {
 		padding: 20px;
 		row-gap: 40px;
 	}
 }
 
 @media (min-width: 1000px) {
-	.deleteModel {
+	.delete-model {
 		padding: 30px 40px;
 	}
 }
