@@ -10,7 +10,7 @@ import { App } from "./components/pages/App/App";
 import { PostCreate } from "./components/pages/Post/PostCreate";
 import Callback from "./components/Callback";
 
-const router = () => (
+export const Router = () => (
 	<RouterProvider
 		router={createBrowserRouter([
 			{
@@ -49,5 +49,3 @@ const router = () => (
 		])}
 	/>
 );
-
-export default router;
