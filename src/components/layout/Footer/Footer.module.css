@@ -18,6 +18,7 @@
 	width: var(--icon-size-mobile);
 	height: var(--icon-size-mobile);
 }
+
 /* Pseudo classes */
 .link:hover {
 	border-color: var(--light-scheme-highlight);
@@ -30,31 +31,34 @@
 	border-top: 1px solid var(--dark-scheme-color);
 	color: var(--dark-scheme-color);
 }
+
 :global(.dark) .link {
 	color: var(--dark-scheme-color);
 }
+
 :global(.dark) .link:hover {
 	border-color: var(--dark-scheme-highlight);
 }
 
-@media (min-width: 450px) {
+@media (width >= 450px) {
 	.address {
 		display: none;
 	}
 }
-@media (min-width: 1000px) {
+
+@media (width >= 1000px) {
 	.footer {
 		padding: 20px;
 	}
 }
 
-@media (min-width: 1300px) {
+@media (width >= 1300px) {
 	.address {
 		display: block;
 	}
 }
 
-@media (min-width: 1300px) {
+@media (width >= 1300px) {
 	.footer {
 		padding: 20px 5%;
 	}
