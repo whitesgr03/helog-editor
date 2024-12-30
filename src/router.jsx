@@ -16,10 +16,6 @@ export const Router = () => (
 				element: <App />,
 				children: [
 					{
-						path: '*',
-						element: <NotFound />,
-					},
-					{
 						index: true,
 						element: <Dashboard />,
 					},
@@ -29,6 +25,10 @@ export const Router = () => (
 						element: <PostCreate />,
 					},
 				],
+			},
+			{
+				path: '*',
+				element: <NotFound />,
 			},
 			{
 				path: 'error',
