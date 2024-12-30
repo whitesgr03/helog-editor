@@ -17,7 +17,7 @@
 .icon {
 	vertical-align: middle;
 	display: inline-block;
-	background-color: currentColor;
+	background-color: currentcolor;
 	mask-repeat: no-repeat;
 	mask-size: 100% 100%;
 	pointer-events: none;
