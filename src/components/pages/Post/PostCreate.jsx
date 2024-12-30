@@ -176,10 +176,10 @@ export const PostCreate = () => {
 	]);
 
 	return (
-		<div id={'postEditor'} className={styles.postCreate}>
-			<div className={styles.buttonWrap}>
+		<div id={'postEditor'} className={styles['postCreate']}>
+			<div className={styles['button-wrap']}>
 				<Link to="/" className={styles.link}>
-					<span className={`${styles.leftArrow} ${imageStyles.icon}`} />
+					<span className={`${styles['left-arrow']} ${imageStyles.icon}`} />
 					Back to Dashboard
 				</Link>
 				{(firstCreatePostId || state?.publish === false) && (
@@ -226,19 +226,22 @@ export const PostCreate = () => {
 						}}
 					/>
 					<div
-						className={`${styles.imageWrap} ${
-							activeUpload ? styles.showUpload : ''
+						className={`${styles['image-wrap']} ${
+							activeUpload ? styles['show-upload'] : ''
 						}`}
 					>
-						<button className={styles.uploadBtn} onClick={handleActiveUpload}>
+						<button
+							className={styles['upload-btn']}
+							onClick={handleActiveUpload}
+						>
 							{data.mainImage === ''
 								? 'Upload main image'
 								: `${activeUpload ? 'Hide' : 'Show'} main image`}
-							<span className={`${styles.downArrow} ${imageStyles.icon}`} />
+							<span className={`${styles['down-arrow']} ${imageStyles.icon}`} />
 						</button>
-						<div className={styles.mainImageWrap}>
+						<div className={styles['main-image-wrap']}>
 							<div
-								className={`${styles.mainImage} 
+								className={`${styles['main-image']} 
 							${data.mainImage === '' ? styles.hide : ''}
 							`}
 							>
@@ -247,7 +250,7 @@ export const PostCreate = () => {
 										mainImageRef.current.execCommand('mceImage');
 									}}
 								>
-									<div className={styles.buttonText}>
+									<div className={styles['button-text']}>
 										<span>Set Main Image Source</span>
 										<span>{'( only jpeg, png, webp )'}</span>
 									</div>
