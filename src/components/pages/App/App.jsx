@@ -1,5 +1,5 @@
 // Packages
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import {
 	Outlet,
 	useOutletContext,
@@ -19,8 +19,6 @@ import { Alert } from './Alert';
 import { Model } from './Model';
 
 // Utils
-import handleGetAuthCode from '../../../utils/handleGetAuthCode';
-import { verifyToken, exChangeToken } from '../../../utils/handleToken';
 import { getUser } from '../../../utils/handleUser';
 
 // Variables
@@ -53,82 +51,9 @@ export const App = () => {
 		setAlert({ message, error });
 	const handleCloseAlert = () => setAlert(defaultAlert);
 
-	const handleTokenExpire = useCallback(async () => {
-		const result = await verifyToken(accessToken);
-
-		const handleError = message => {
-			const errorMessage =
-				message === 'The request requires higher privileges.';
-
-			errorMessage && localStorage.removeItem('heLog.login-exp');
-			errorMessage && onUser(null);
-			onError(message);
-			navigate('/error');
-		};
-
-		return !result.success
-			? result.message === 'The token provided is expired.'
-				? true
-				: handleError(result.message)
-			: false;
-	}, [accessToken, navigate, onError, onUser]);
-	const handleExChangeToken = useCallback(async () => {
-		const result = await exChangeToken(refreshToken);
-
-		const handleError = message => {
-			const errorMessage =
-				message === 'The request requires higher privileges.';
-
-			errorMessage && localStorage.removeItem('heLog.login-exp');
-			errorMessage && onUser(null);
-
-			onError(message);
-			navigate('/error');
-		};
-
-		const handleSuccess = () => {
-			onAccessToken(result.data.access_token);
-			return result.data.access_token;
-		};
-
-		return result.success ? handleSuccess() : handleError(result.message);
-	}, [onAccessToken, refreshToken, navigate, onError, onUser]);
-
 	useEffect(() => {
 		sessionStorage.setItem('heLog.lastPath', location.pathname);
 	}, [location]);
-	useEffect(() => {
-		!refreshToken && handleGetAuthCode();
-	}, [refreshToken]);
-	useEffect(() => {
-		const handleGetUserInfo = async () => {
-			ignore.current = true;
-
-			const isTokenExpire = await handleTokenExpire();
-			const newAccessToken = isTokenExpire && (await handleExChangeToken());
-
-			const result = await getUser(newAccessToken || accessToken);
-
-			const handleResult = () => {
-				result.success ? onUser(result.data) : onError(result.message);
-				setLoading(false);
-			};
-
-			result && handleResult();
-		};
-
-		user
-			? setLoading(false)
-			: !ignore.current && accessToken && handleGetUserInfo();
-	}, [
-		user,
-		accessToken,
-		ignore,
-		onUser,
-		onError,
-		handleTokenExpire,
-		handleExChangeToken,
-	]);
 
 	return (
 		<>
@@ -154,8 +79,6 @@ export const App = () => {
 									darkTheme,
 									user,
 									accessToken,
-									onVerifyTokenExpire: handleTokenExpire,
-									onExChangeToken: handleExChangeToken,
 									onModel: setModel,
 									onAlert: handleAlert,
 								}}
