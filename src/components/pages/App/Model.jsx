@@ -11,7 +11,7 @@ export const Model = ({ onModel, model }) => {
 	const handleCloseModel = e => e.target.dataset.closeModel && onModel(null);
 	return (
 		<div
-			className={bgcStyles.blurWindow}
+			className={bgcStyles['blur-window']}
 			onClick={handleCloseModel}
 			data-close-model
 			data-testid={'blurBgc'}
@@ -19,7 +19,7 @@ export const Model = ({ onModel, model }) => {
 			<div className={styles.model}>
 				<button
 					type="button"
-					className={buttonStlyes.closeBtn}
+					className={buttonStyles['close-btn']}
 					data-close-model
 				>
 					<span className={`${imageStyles.icon} ${buttonStlyes.close}`} />
