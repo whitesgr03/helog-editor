@@ -67,7 +67,7 @@ export const App = () => {
 			{loading ? (
 				<Loading />
 			) : (
-				<div className={styles.app} data-testid="app">
+				<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
 					{model && <Model onModel={setModel} model={model} />}
 					<div className={styles['header-bar']}>
 						<Header
