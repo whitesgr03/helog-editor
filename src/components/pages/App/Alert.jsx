@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 // Styles
 import styles from "./Alert.module.css";
 
-const Alert = ({ alert, onCloseAlert }) => {
+export const Alert = ({ alert, onCloseAlert }) => {
 	const [activeAlert, setActiveAlert] = useState(false);
 	const [pauseAlert, setPauseAlert] = useState(false);
 	const timerId = useRef(null);
@@ -62,5 +62,3 @@ Alert.propTypes = {
 	alert: PropTypes.object,
 	onCloseAlert: PropTypes.func,
 };
-
-export default Alert;

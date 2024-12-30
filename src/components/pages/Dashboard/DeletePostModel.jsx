@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import styles from "./DeletePostModel.module.css";
 import buttonStyles from "../../../styles/button.module.css";
 
-const DeletePostModel = ({ onDelete, title }) => {
+export const DeletePostModel = ({ onDelete, title }) => {
 	return (
 		<div className={styles.deleteModel}>
 			<span className={styles.title}>Delete Post</span>
@@ -30,4 +30,3 @@ DeletePostModel.propTypes = {
 	onDelete: PropTypes.func,
 };
 
-export default DeletePostModel;

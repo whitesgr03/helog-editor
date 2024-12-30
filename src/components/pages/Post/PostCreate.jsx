@@ -46,7 +46,7 @@ const defaultData = {
 	content: "",
 };
 
-const PostCreate = () => {
+export const PostCreate = () => {
 	const {
 		darkTheme,
 		accessToken,
@@ -417,5 +417,3 @@ const PostCreate = () => {
 		</div>
 	);
 };
-
-export default PostCreate;

@@ -2,7 +2,7 @@
 import styles from "./Loading.module.css";
 import imageStyles from "../../styles/image.module.css";
 
-const Loading = () => {
+export const Loading = () => {
 	return (
 		<div className={styles.loading}>
 			<span className={`${imageStyles.icon} ${styles.load}`} />
@@ -11,4 +11,4 @@ const Loading = () => {
 	);
 };
 
-export default Loading;
+

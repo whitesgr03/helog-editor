@@ -2,7 +2,7 @@
 import styles from "./Error.module.css";
 import imageStyles from "../../../styles/image.module.css";
 
-const NotFound = () => {
+export const NotFound = () => {
 	return (
 		<div className={styles.error}>
 			<span className={`${imageStyles.icon} ${styles.alert}`} />
@@ -15,5 +15,3 @@ const NotFound = () => {
 		</div>
 	);
 };
-
-export default NotFound;

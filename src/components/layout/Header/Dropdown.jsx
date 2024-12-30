@@ -6,7 +6,7 @@ import styles from "./Dropdown.module.css";
 import buttonStyles from "../../../styles/button.module.css";
 import imageStyles from "../../../styles/image.module.css";
 
-const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
+export const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 	return (
 		<div className={styles.dropdown}>
 			{user?.name && (
@@ -47,5 +47,3 @@ Dropdown.propTypes = {
 	darkTheme: PropTypes.bool,
 	onSwitchColorTheme: PropTypes.func,
 };
-
-export default Dropdown;

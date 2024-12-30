@@ -7,7 +7,7 @@ import imageStyles from "../../../styles/image.module.css";
 import buttonStlyes from "../../../styles/button.module.css";
 import bgcStyles from "../../../styles/bgc.module.css";
 
-const Model = ({ onModel, model }) => {
+export const Model = ({ onModel, model }) => {
 	const handleCloseModel = e => e.target.dataset.closeModel && onModel(null);
 	return (
 		<div
@@ -36,5 +36,3 @@ Model.propTypes = {
 	onModel: PropTypes.func,
 	model: PropTypes.object,
 };
-
-export default Model;

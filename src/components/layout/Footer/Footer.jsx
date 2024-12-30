@@ -6,7 +6,7 @@ import imageStyles from "../../../styles/image.module.css";
 // Components
 import Address from "./Address";
 
-const Footer = () => {
+export const Footer = () => {
 	return (
 		<footer className={styles.footer}>
 			<div className={contactStyles.container}>
@@ -21,5 +21,3 @@ const Footer = () => {
 		</footer>
 	);
 };
-
-export default Footer;

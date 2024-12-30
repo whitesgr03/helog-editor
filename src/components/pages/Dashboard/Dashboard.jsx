@@ -14,7 +14,7 @@ import Error from "./layout/Error";
 // Utils
 import { getPosts } from "../../../utils/handlePost";
 
-const Dashboard = () => {
+export const Dashboard = () => {
 	const { accessToken, onVerifyTokenExpire, onExChangeToken } =
 		useOutletContext();
 	const [posts, setPosts] = useState([]);
@@ -92,5 +92,3 @@ const Dashboard = () => {
 		</div>
 	);
 };
-
-export default Dashboard;

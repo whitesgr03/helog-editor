@@ -29,7 +29,7 @@ const defaultAlert = {
 	error: false,
 };
 
-const App = () => {
+export const App = () => {
 	const {
 		darkTheme,
 		user,
@@ -173,5 +173,3 @@ const App = () => {
 		</>
 	);
 };
-
-export default App;

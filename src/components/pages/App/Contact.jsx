@@ -4,7 +4,7 @@ import styles from "./Contact.module.css";
 // Components
 import Address from "./Footer/Address";
 
-const Contact = () => {
+export const Contact = () => {
 	return (
 		<div className={styles.contact}>
 			<h3>Contact</h3>
@@ -16,4 +16,4 @@ const Contact = () => {
 	);
 };
 
-export default Contact;
+

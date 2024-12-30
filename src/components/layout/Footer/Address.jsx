@@ -2,7 +2,7 @@
 import styles from "./Address.module.css";
 import imageStyles from "../../../styles/image.module.css";
 
-const Address = () => {
+export const Address = () => {
 	return (
 		<address>
 			<a href="mailto:whitesgr03@gmail.com">
@@ -12,5 +12,3 @@ const Address = () => {
 		</address>
 	);
 };
-
-export default Address;

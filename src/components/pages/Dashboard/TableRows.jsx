@@ -14,7 +14,7 @@ import DeletePostModel from "./layout/DeletePostModel";
 // Utils
 import { updatePost, deletePost } from "../utils/handlePost";
 
-const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
+export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	const {
 		accessToken,
 		onVerifyTokenExpire,
@@ -138,4 +138,4 @@ TableRows.propTypes = {
 	onPublishing: PropTypes.func,
 };
 
-export default TableRows;
+

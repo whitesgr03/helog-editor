@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import styles from "./Error.module.css";
 import imageStyles from "../../../styles/image.module.css";
 
-const Error = ({ message = null }) => {
+export const Error = ({ message = null }) => {
 	const { error } = useOutletContext();
 
 	const errorMessage =
@@ -32,5 +32,3 @@ const Error = ({ message = null }) => {
 Error.propTypes = {
 	message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
-
-export default Error;
