@@ -2,7 +2,7 @@ import handleFetch from "./handleFetch";
 
 const url = `${import.meta.env.VITE_RESOURCE_URL}/blog/posts`;
 
-const getPosts = async ({ token }) => {
+export const getPosts = async ({ token }) => {
 	const options = {
 		method: "GET",
 		headers: {
@@ -11,7 +11,8 @@ const getPosts = async ({ token }) => {
 	};
 	return await handleFetch(url, options);
 };
-const getPost = async ({ postId }) => {
+
+export const getPost = async ({ postId }) => {
 	const options = {
 		method: "GET",
 	};
@@ -19,7 +20,8 @@ const getPost = async ({ postId }) => {
 
 	return result;
 };
-const createPost = async ({ token, data }) => {
+
+export const createPost = async ({ token, data }) => {
 	const options = {
 		method: "POST",
 		headers: {
@@ -31,7 +33,8 @@ const createPost = async ({ token, data }) => {
 
 	return await handleFetch(url, options);
 };
-const updatePost = async ({ token, data, postId }) => {
+
+export const updatePost = async ({ token, data, postId }) => {
 	const options = {
 		method: "PUT",
 		headers: {
@@ -42,7 +45,8 @@ const updatePost = async ({ token, data, postId }) => {
 	};
 	return await handleFetch(`${url}/${postId}`, options);
 };
-const deletePost = async ({ token, postId }) => {
+
+export const deletePost = async ({ token, postId }) => {
 	const options = {
 		method: "DELETE",
 		headers: {
@@ -51,5 +55,3 @@ const deletePost = async ({ token, postId }) => {
 	};
 	return await handleFetch(`${url}/${postId}`, options);
 };
-
-export { getPosts, getPost, createPost, updatePost, deletePost };

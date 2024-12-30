@@ -2,7 +2,7 @@ import handleFetch from "./handleFetch";
 
 const url = `${import.meta.env.VITE_RESOURCE_URL}/blog/user`;
 
-const getUser = async token => {
+export const getUser = async token => {
 	const options = {
 		method: "GET",
 		headers: {
@@ -12,7 +12,8 @@ const getUser = async token => {
 
 	return await handleFetch(url, options);
 };
-const updateUser = async (token, fields) => {
+
+export const updateUser = async (token, fields) => {
 	const options = {
 		method: "PUT",
 		headers: {
@@ -23,7 +24,8 @@ const updateUser = async (token, fields) => {
 	};
 	return await handleFetch(url, options);
 };
-const deleteUser = async token => {
+
+export const deleteUser = async token => {
 	const options = {
 		method: "DELETE",
 		headers: {
@@ -32,5 +34,3 @@ const deleteUser = async token => {
 	};
 	return await handleFetch(url, options);
 };
-
-export { getUser, updateUser, deleteUser };
