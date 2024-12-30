@@ -29,6 +29,7 @@ const defaultAlert = {
 
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(false);
+	const [user, setUser] = useState(null);
 	const [model, setModel] = useState(null);
 	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
@@ -60,6 +61,24 @@ export const App = () => {
 			);
 		};
 		getColorTheme();
+	}, []);
+
+	useEffect(() => {
+		const controller = new AbortController();
+		const { signal } = controller;
+
+		const handleGetUser = async () => {
+			const result = await getUser({ signal });
+
+			const handleResult = () => {
+				result.success && setUser(result.data);
+				setLoading(false);
+			};
+
+			result && handleResult();
+		};
+		handleGetUser();
+		return () => controller.abort();
 	}, []);
 
 	return (
