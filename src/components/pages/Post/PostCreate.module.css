@@ -1,30 +1,31 @@
-.postCreate {
+.post-create {
 	padding: 5%;
 	display: flex;
 	flex-direction: column;
 	row-gap: 15px;
 }
 
-.postCreate a {
+.post-create a {
 	text-decoration: revert;
 }
 
-.postCreate h2,
-.postCreate h3,
-.postCreate h5 {
+.post-create h2,
+.post-create h3,
+.post-create h5 {
 	margin: revert;
 }
 
-.postCreate p {
+.post-create p {
 	margin: revert;
 }
 
-.postCreate ol,
-.postCreate ul {
+.post-create ol,
+.post-create ul {
 	padding: revert;
 	margin: revert;
 }
-.postCreate li {
+
+.post-create li {
 	list-style: revert;
 	margin-block-start: 1em;
 	margin-block-end: 1em;
@@ -37,38 +38,38 @@
 	text-decoration: none;
 }
 
-.buttonWrap {
+.button-wrap {
 	display: flex;
 	justify-content: space-between;
 }
 
-.buttonWrap button {
+.button-wrap button {
 	padding: 10px;
 }
 
-.imageWrap {
+.image-wrap {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 	row-gap: 5px;
 }
 
-.uploadBtn {
+.upload-btn {
 	font-weight: bold;
 	align-self: self-start;
 }
 
-.mainImageWrap {
-	max-height: 0px;
+.main-image-wrap {
+	max-height: 0;
 	transition: max-height 0.15s ease-out;
 }
 
-.imageWrap.showUpload .mainImageWrap {
+.image-wrap.show-upload .main-image-wrap {
 	max-height: 1000px;
 	transition: max-height 0.3s ease-in;
 }
 
-.mainImage.hide {
+.main-image.hide {
 	position: relative;
 	width: 100%;
 	padding-top: 56.25%;
@@ -76,11 +77,11 @@
 	border-style: dashed;
 }
 
-.mainImage button {
+.main-image button {
 	display: none;
 }
 
-.mainImage.hide button {
+.main-image.hide button {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -89,23 +90,23 @@
 	height: 100%;
 }
 
-.mainImage .buttonText {
+.main-image .button-text {
 	display: flex;
 	flex-direction: column;
 	row-gap: 5px;
 	color: var(--dark-scheme-placeholder);
 }
 
-.mainImage :global(#editorImage) {
+.main-image :global(#editor-image) {
 	padding-top: 56.25%;
 	outline: none;
 }
 
-.mainImage :global(#editorImage) p {
+.main-image :global(#editor-image) p {
 	margin: 0;
 }
 
-.mainImage.hide :global(#editorImage) {
+.main-image.hide :global(#editor-image) {
 	padding: 0;
 	opacity: 0;
 	visibility: hidden;
@@ -113,7 +114,7 @@
 	height: 0;
 }
 
-.mainImage :global(#editorImage) img {
+.main-image :global(#editor-image) img {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -124,16 +125,16 @@
 	outline: none;
 }
 
-.postCreate :global(#editorTitle),
-.postCreate :global(#editorContent) {
+.post-create :global(#editor-title),
+.post-create :global(#editor-content) {
 	outline: 0;
 }
 
-.postCreate :global(#editorImage) {
+.post-create :global(#editor-image) {
 	cursor: pointer;
 }
 
-.postCreate
+.post-create
 	:global(
 		.mce-content-body:not([dir="rtl"])[data-mce-placeholder]:not(
 				.mce-visualblocks
@@ -146,28 +147,28 @@
 	cursor: text;
 }
 
-.postCreate :global(#editorContent) figure {
+.post-create :global(#editor-content) figure {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	row-gap: 15px;
 }
 
-.postCreate :global(#editorContent) img {
+.post-create :global(#editor-content) img {
 	display: block;
 	margin: 0 auto;
 	max-width: 100%;
 	object-fit: cover;
 }
 
-.postCreate
-	:global(#editorContent.mce-content-body:not([dir="rtl"]) blockquote) {
+.post-create
+	:global(#editor-content.mce-content-body:not([dir="rtl"]) blockquote) {
 	border-left: 2px solid var(--dark-scheme-placeholder);
 	margin-left: 1.5rem;
 	padding-left: 1rem;
 }
 
-.postCreate :global(#editorContent pre[class*="language-"]) {
+.post-create :global(#editor-content pre[class*="language-"]) {
 	background-color: var(--light-scheme-layout-bgc);
 	text-shadow: none;
 	font-family: unset;
@@ -196,20 +197,23 @@
 	display: none;
 }
 
-.leftArrow {
+.left-arrow {
 	--size: var(--icon-size-desktop);
+
 	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='208' height='208' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M18 10a.75.75 0 0 1-.75.75H4.66l2.1 1.95a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 1 1 1.02 1.1l-2.1 1.95h12.59A.75.75 0 0 1 18 10' clip-rule='evenodd'/%3E%3C/svg%3E");
 	height: var(--size);
 	width: var(--size);
 }
-.downArrow {
+
+.down-arrow {
 	--size: var(--icon-size-desktop);
+
 	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='208' height='208' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' d='m15 8l-4.03 6L7 8z'/%3E%3C/svg%3E");
 	height: var(--size);
 	width: var(--size);
 }
 
-.imageWrap:not(.showUpload) .downArrow {
+.image-wrap:not(.show-upload) .down-arrow {
 	transform: rotate(-90deg);
 }
 
@@ -219,32 +223,33 @@
 }
 
 /* Dark scheme classes */
-:global(.dark) .uploadBtn {
-	color: var(--dark-scheme-color);
-}
-:global(.dark) .postCreate {
+:global(.dark) .upload-btn {
 	color: var(--dark-scheme-color);
 }
 
-:global(.dark) .postCreate :global(#editorContent pre[class*="language-"]) {
+:global(.dark) .post-create {
+	color: var(--dark-scheme-color);
+}
+
+:global(.dark) .post-create :global(#editor-content pre[class*="language-"]) {
 	background-color: var(--dark-scheme-input-bgc);
 	color: var(--dark-scheme-color);
 }
 
 :global(.dark)
-	.postCreate
-	:global(#editorContent.mce-content-body:not([dir="rtl"]) blockquote) {
+	.post-create
+	:global(#editor-content.mce-content-body:not([dir="rtl"]) blockquote) {
 	border-color: var(--dark-scheme-color);
 }
 
 @media (min-width: 450px) {
-	.postCreate {
+	.post-create {
 		padding: 5% 10%;
 	}
 }
 
 @media (min-width: 700px) {
-	.postCreate {
+	.post-create {
 		padding: 5% 15%;
 	}
 
@@ -258,19 +263,21 @@
 }
 
 @media (min-width: 1000px) {
-	.postCreate {
+	.post-create {
 		padding: 5% 10%;
 	}
-	.mainImageWrap {
+
+	.main-image-wrap {
 		padding: 0 10%;
 	}
+  
 	.editors {
 		row-gap: 40px;
 	}
 }
 
 @media (min-width: 1600px) {
-	.postCreate {
+	.post-create {
 		padding: 5% 0;
 	}
 }
