@@ -95,7 +95,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	};
 
 	return (
-		<tr className={`${styles.tableRows} ${loading ? styles.loading : ''}`}>
+		<tr className={`${styles['table-rows']} ${loading ? styles.loading : ''}`}>
 			<td title={post.title}>{post.title}</td>
 			<td>
 				<button
@@ -110,12 +110,12 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 			<td>
 				<span>{format(post.lastModified, 'MMMM d, y')}</span>
 			</td>
-			<td className={styles.buttonWrap}>
+			<td className={styles['button-wrap']}>
 				<Link to="/post/editor" state={postState}>
 					<span className={`${imageStyles.icon} ${styles.edit}`} />
 				</Link>
 			</td>
-			<td className={styles.buttonWrap}>
+			<td className={styles['button-wrap']}>
 				<button onClick={handleActiveModel}>
 					<span className={`${imageStyles.icon} ${styles.delete}`} />
 				</button>
