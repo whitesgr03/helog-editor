@@ -5,10 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite --open --port=7001 --host helog-editor.localtest.me",
-		"devRemote": "vite --port=7001 --host",
 		"build": "vite build",
-		"lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview",
 		"test": "vitest --coverage",
 		"coverage": "vitest run --coverage"
 	},
