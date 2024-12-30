@@ -7,9 +7,6 @@
 	pointer-events: none;
 }
 
-.tableRows.loading .switch {
-	opacity: 0.3;
-}
 
 .table-rows td:not(.button-wrap) {
 	padding: 20px 10px;
@@ -42,6 +39,10 @@
 	align-items: center;
 	justify-content: center;
 	column-gap: 10px;
+}
+
+.table-rows.loading .switch {
+	opacity: 0.3;
 }
 
 .switch > div {
