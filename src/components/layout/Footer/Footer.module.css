@@ -1,11 +1,11 @@
 .footer {
 	display: flex;
-	flex-direction: column;
 	row-gap: 10px;
-	padding: 10px 15px;
+	flex-direction: column;
 	align-items: center;
-	background-color: var(--light-scheme-layout-bgc);
 	box-shadow: 0 -5px 5px 1px var(--light-scheme-layout-shadow);
+	background-color: var(--light-scheme-layout-bgc);
+	padding: 10px 15px;
 }
 
 .link {
@@ -26,9 +26,9 @@
 
 /* Dark scheme classes */
 :global(.dark) .footer {
-	background-color: var(--dark-scheme-layout-bgc);
 	box-shadow: none;
 	border-top: 1px solid var(--dark-scheme-color);
+	background-color: var(--dark-scheme-layout-bgc);
 	color: var(--dark-scheme-color);
 }
 
