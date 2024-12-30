@@ -30,14 +30,14 @@
 	width: 40%;
 }
 
-@media (min-width: 450px) {
+@media (width >= 450px) {
 	.delete-model {
 		padding: 20px;
 		row-gap: 40px;
 	}
 }
 
-@media (min-width: 1000px) {
+@media (width >= 1000px) {
 	.delete-model {
 		padding: 30px 40px;
 	}
