@@ -1,22 +1,23 @@
 .alert {
+	display: flex;
 	position: absolute;
 	top: 100%;
-	left: 0;
 	right: 0;
-	z-index: -1;
-	display: flex;
-	align-items: center;
+	left: 0;
 	justify-content: center;
+	align-items: center;
+	transform: translateY(-100%);
+	z-index: -1;
+	transition: transform 0.3s ease-in-out;
+	background-color: var(--light-scheme-highlight);
 	height: var(--icon-size-mobile);
 	color: var(--dark-scheme-color);
-	background-color: var(--light-scheme-highlight);
-	transform: translateY(-100%);
-	transition: transform 0.3s ease-in-out;
 }
 
 .alert.active {
 	transform: translateY(0%);
 }
+
 .alert.active.top {
 	z-index: 1;
 }
