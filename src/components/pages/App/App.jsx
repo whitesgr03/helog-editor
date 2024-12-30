@@ -51,10 +51,6 @@ export const App = () => {
 		setAlert({ message, error });
 	const handleCloseAlert = () => setAlert(defaultAlert);
 
-	useEffect(() => {
-		sessionStorage.setItem('heLog.lastPath', location.pathname);
-	}, [location]);
-
 	return (
 		<>
 			{loading ? (
