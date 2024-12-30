@@ -1,17 +1,17 @@
 // Packages
-import { useOutletContext, Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { useOutletContext, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // Styles
-import styles from "./Error.module.css";
-import imageStyles from "../../../styles/image.module.css";
+import styles from './Error.module.css';
+import imageStyles from '../../../styles/image.module.css';
 
 export const Error = ({ message = null }) => {
 	const { error } = useOutletContext();
 
 	const errorMessage =
-		(typeof message === "string" && message) ||
-		"Please come back later or if you have any questions, please contact us.";
+		(typeof message === 'string' && message) ||
+		'Please come back later or if you have any questions, please contact us.';
 
 	console.error(message || error);
 

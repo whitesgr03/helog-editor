@@ -1,31 +1,31 @@
 // Packages
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 import {
 	Outlet,
 	useOutletContext,
 	useLocation,
 	useNavigate,
-} from "react-router-dom";
+} from 'react-router-dom';
 
 // Styles
-import styles from "./App.module.css";
+import styles from './App.module.css';
 
 // Components
-import { Header } from "../../layout/Header/Header";
-import { Footer } from "../../layout/Footer/Footer";
-import { Contact } from "./Contact";
-import { Loading } from "../../utils/Loading";
-import { Alert } from "./Alert";
-import { Model } from "./Model";
+import { Header } from '../../layout/Header/Header';
+import { Footer } from '../../layout/Footer/Footer';
+import { Contact } from './Contact';
+import { Loading } from '../../utils/Loading';
+import { Alert } from './Alert';
+import { Model } from './Model';
 
 // Utils
-import handleGetAuthCode from "../../../utils/handleGetAuthCode";
-import { verifyToken, exChangeToken } from "../../../utils/handleToken";
-import { getUser } from "../../../utils/handleUser";
+import handleGetAuthCode from '../../../utils/handleGetAuthCode';
+import { verifyToken, exChangeToken } from '../../../utils/handleToken';
+import { getUser } from '../../../utils/handleUser';
 
 // Variables
 const defaultAlert = {
-	message: "",
+	message: '',
 	error: false,
 };
 
@@ -58,16 +58,16 @@ export const App = () => {
 
 		const handleError = message => {
 			const errorMessage =
-				message === "The request requires higher privileges.";
+				message === 'The request requires higher privileges.';
 
-			errorMessage && localStorage.removeItem("heLog.login-exp");
+			errorMessage && localStorage.removeItem('heLog.login-exp');
 			errorMessage && onUser(null);
 			onError(message);
-			navigate("/error");
+			navigate('/error');
 		};
 
 		return !result.success
-			? result.message === "The token provided is expired."
+			? result.message === 'The token provided is expired.'
 				? true
 				: handleError(result.message)
 			: false;
@@ -77,13 +77,13 @@ export const App = () => {
 
 		const handleError = message => {
 			const errorMessage =
-				message === "The request requires higher privileges.";
+				message === 'The request requires higher privileges.';
 
-			errorMessage && localStorage.removeItem("heLog.login-exp");
+			errorMessage && localStorage.removeItem('heLog.login-exp');
 			errorMessage && onUser(null);
 
 			onError(message);
-			navigate("/error");
+			navigate('/error');
 		};
 
 		const handleSuccess = () => {
@@ -95,7 +95,7 @@ export const App = () => {
 	}, [onAccessToken, refreshToken, navigate, onError, onUser]);
 
 	useEffect(() => {
-		sessionStorage.setItem("heLog.lastPath", location.pathname);
+		sessionStorage.setItem('heLog.lastPath', location.pathname);
 	}, [location]);
 	useEffect(() => {
 		!refreshToken && handleGetAuthCode();
@@ -105,8 +105,7 @@ export const App = () => {
 			ignore.current = true;
 
 			const isTokenExpire = await handleTokenExpire();
-			const newAccessToken =
-				isTokenExpire && (await handleExChangeToken());
+			const newAccessToken = isTokenExpire && (await handleExChangeToken());
 
 			const result = await getUser(newAccessToken || accessToken);
 
@@ -144,11 +143,8 @@ export const App = () => {
 							darkTheme={darkTheme}
 							onSwitchColorTheme={onColorTheme}
 						/>
-						{alert.message !== "" && (
-							<Alert
-								onCloseAlert={handleCloseAlert}
-								alert={alert}
-							/>
+						{alert.message !== '' && (
+							<Alert onCloseAlert={handleCloseAlert} alert={alert} />
 						)}
 					</div>
 					<div className={styles.container}>

@@ -1,9 +1,9 @@
 // Packages
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // Styles
-import styles from "./DeletePostModel.module.css";
-import buttonStyles from "../../../styles/button.module.css";
+import styles from './DeletePostModel.module.css';
+import buttonStyles from '../../../styles/button.module.css';
 
 export const DeletePostModel = ({ onDelete, title }) => {
 	return (
@@ -29,4 +29,3 @@ DeletePostModel.propTypes = {
 	title: PropTypes.string,
 	onDelete: PropTypes.func,
 };
-

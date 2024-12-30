@@ -1,18 +1,18 @@
 // Packages
-import { useState } from "react";
-import { useOutletContext, Link } from "react-router-dom";
-import { format } from "date-fns";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import { useOutletContext, Link } from 'react-router-dom';
+import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 // Styles
-import styles from "./TableRows.module.css";
-import imageStyles from "../../../styles/image.module.css";
+import styles from './TableRows.module.css';
+import imageStyles from '../../../styles/image.module.css';
 
 // Components
-import { DeletePostModel } from "./DeletePostModel";
+import { DeletePostModel } from './DeletePostModel';
 
 // Utils
-import { updatePost, deletePost } from "../utils/handlePost";
+import { updatePost, deletePost } from '../utils/handlePost';
 
 export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	const {
@@ -28,9 +28,9 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 		postId: post._id,
 		publish: post.publish,
 		data: {
-			content: post.content ?? "",
-			title: post.title ?? "",
-			mainImage: post.mainImage ?? "",
+			content: post.content ?? '',
+			title: post.title ?? '',
+			mainImage: post.mainImage ?? '',
 		},
 	};
 
@@ -51,7 +51,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 			const handleSuccess = async () => {
 				await onGetPosts();
 				onAlert({
-					message: `${!post.publish ? "Published" : "Unpublished"} ${
+					message: `${!post.publish ? 'Published' : 'Unpublished'} ${
 						post.title
 					} `,
 					error: false,
@@ -95,13 +95,11 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	};
 
 	return (
-		<tr className={`${styles.tableRows} ${loading ? styles.loading : ""}`}>
+		<tr className={`${styles.tableRows} ${loading ? styles.loading : ''}`}>
 			<td title={post.title}>{post.title}</td>
 			<td>
 				<button
-					className={`${styles.switch} ${
-						post.publish ? styles.active : ""
-					}`}
+					className={`${styles.switch} ${post.publish ? styles.active : ''}`}
 					onClick={handleUpdatePublish}
 				>
 					<div>
@@ -110,7 +108,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 				</button>
 			</td>
 			<td>
-				<span>{format(post.lastModified, "MMMM d, y")}</span>
+				<span>{format(post.lastModified, 'MMMM d, y')}</span>
 			</td>
 			<td className={styles.buttonWrap}>
 				<Link to="/post/editor" state={postState}>

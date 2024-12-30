@@ -1,18 +1,18 @@
 // Package
-import { useEffect, useState, useCallback, useRef } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
 
 // Styles
-import styles from "./Dashboard.module.css";
-import buttonStyles from "../../../styles/button.module.css";
+import styles from './Dashboard.module.css';
+import buttonStyles from '../../../styles/button.module.css';
 
 // Component
-import { TableRows } from "../../TableRows";
-import { Loading } from "../../utils/Loading";
-import { Error } from "../../utils/Error/Error";
+import { TableRows } from '../../TableRows';
+import { Loading } from '../../utils/Loading';
+import { Error } from '../../utils/Error/Error';
 
 // Utils
-import { getPosts } from "../../../utils/handlePost";
+import { getPosts } from '../../../utils/handlePost';
 
 export const Dashboard = () => {
 	const { accessToken, onVerifyTokenExpire, onExChangeToken } =
@@ -58,9 +58,7 @@ export const Dashboard = () => {
 		<div className={styles.dashboard}>
 			<h2>Dashboard</h2>
 			<div className={styles.buttonWrap}>
-				<span>
-					{posts.length > 0 && `Total posts: ${posts.length}`}
-				</span>
+				<span>{posts.length > 0 && `Total posts: ${posts.length}`}</span>
 				<Link to="/post/editor" className={buttonStyles.success}>
 					New Post
 				</Link>

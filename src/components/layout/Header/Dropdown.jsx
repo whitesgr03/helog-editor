@@ -1,10 +1,10 @@
 // Packages
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // Styles
-import styles from "./Dropdown.module.css";
-import buttonStyles from "../../../styles/button.module.css";
-import imageStyles from "../../../styles/image.module.css";
+import styles from './Dropdown.module.css';
+import buttonStyles from '../../../styles/button.module.css';
+import imageStyles from '../../../styles/image.module.css';
 
 export const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 	return (
@@ -22,16 +22,13 @@ export const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 			)}
 			<ul>
 				<li>
-					<button
-						className={buttonStyles.theme}
-						onClick={onSwitchColorTheme}
-					>
+					<button className={buttonStyles.theme} onClick={onSwitchColorTheme}>
 						<span
 							className={`${imageStyles.icon} ${
 								darkTheme ? styles.moon : styles.sun
 							}`}
 						/>
-						{darkTheme ? "Dark" : "Light"} mode
+						{darkTheme ? 'Dark' : 'Light'} mode
 						<div>
 							<div />
 						</div>

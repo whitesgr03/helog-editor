@@ -1,6 +1,6 @@
 // Styles
-import styles from "./Loading.module.css";
-import imageStyles from "../../styles/image.module.css";
+import styles from './Loading.module.css';
+import imageStyles from '../../styles/image.module.css';
 
 export const Loading = () => {
 	return (
@@ -10,5 +10,3 @@ export const Loading = () => {
 		</div>
 	);
 };
-
-

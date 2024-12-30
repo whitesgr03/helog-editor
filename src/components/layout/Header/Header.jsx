@@ -1,16 +1,16 @@
 // Packages
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 // Styles
-import styles from "./Header.module.css";
-import dropdownStyles from "./Dropdown.module.css";
-import buttonStyles from "../../../styles/button.module.css";
-import imageStyles from "../../../styles/image.module.css";
-import bgcStyles from "../../../styles/bgc.module.css";
+import styles from './Header.module.css';
+import dropdownStyles from './Dropdown.module.css';
+import buttonStyles from '../../../styles/button.module.css';
+import imageStyles from '../../../styles/image.module.css';
+import bgcStyles from '../../../styles/bgc.module.css';
 
 // Components
-import { Dropdown } from "./Dropdown";
+import { Dropdown } from './Dropdown';
 
 export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);
@@ -23,9 +23,7 @@ export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 			<header className={styles.header}>
 				<a
 					className={styles.logo}
-					href={`${
-						import.meta.env.VITE_HELOG_URL
-					}?darkTheme=${darkTheme}`}
+					href={`${import.meta.env.VITE_HELOG_URL}?darkTheme=${darkTheme}`}
 					onClick={handleCloseDropdown}
 				>
 					<h1>HeLog</h1>
@@ -36,25 +34,21 @@ export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 							<button onClick={onSwitchColorTheme}>
 								<div className={buttonStyles.theme}>
 									<span
-										data-testid={"icon"}
+										data-testid={'icon'}
 										className={`${imageStyles.icon} ${
-											darkTheme
-												? dropdownStyles.moon
-												: dropdownStyles.sun
+											darkTheme ? dropdownStyles.moon : dropdownStyles.sun
 										}`}
 									/>
 									<div>
 										<div />
 									</div>
 								</div>
-								<span>{darkTheme ? "Dark" : "Light"} mode</span>
+								<span>{darkTheme ? 'Dark' : 'Light'} mode</span>
 							</button>
 						</li>
 						<li>
 							<button onClick={handleActiveDropdown}>
-								<span
-									className={`${imageStyles.icon} ${styles.account}`}
-								/>
+								<span className={`${imageStyles.icon} ${styles.account}`} />
 								Account
 							</button>
 						</li>

@@ -1,49 +1,49 @@
 // Packages
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 import {
 	useOutletContext,
 	useNavigate,
 	useLocation,
 	Link,
-} from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
+} from 'react-router-dom';
+import { Editor } from '@tinymce/tinymce-react';
 
 // Styles
-import buttonStyles from "../styles/utils/button.module.css";
-import styles from "../styles/PostCreate.module.css";
-import imageStyles from "../styles/utils/image.module.css";
+import buttonStyles from '../styles/utils/button.module.css';
+import styles from '../styles/PostCreate.module.css';
+import imageStyles from '../styles/utils/image.module.css';
 
 // Utils
-import { createPost, updatePost } from "../../../utils/handlePost";
-import { escaping } from "../../../utils/handleEscape";
+import { createPost, updatePost } from '../../../utils/handlePost';
+import { escaping } from '../../../utils/handleEscape';
 
 // Components
-import { Loading } from "../../utils/Loading";
+import { Loading } from '../../utils/Loading';
 
 // Variables
 const editorContentInit = {
 	selection_toolbar: {
-		quickbars_selection_toolbar: "bold italic link blocks blockquote",
-		link_default_target: "_blank",
-		link_assume_external_targets: "https",
+		quickbars_selection_toolbar: 'bold italic link blocks blockquote',
+		link_default_target: '_blank',
+		link_assume_external_targets: 'https',
 		link_context_toolbar: true,
 		link_title: false,
-		block_formats: "Large=h3; Normal=p; Small=h5",
+		block_formats: 'Large=h3; Normal=p; Small=h5',
 	},
 	insert_toolbar: {
-		quickbars_insert_toolbar: "bullist numlist image codesample hr",
+		quickbars_insert_toolbar: 'bullist numlist image codesample hr',
 		image_uploadtab: false,
 		typeahead_urls: false,
 	},
 	image_toolbar: {
-		quickbars_image_toolbar: "image",
+		quickbars_image_toolbar: 'image',
 	},
 };
 
 const defaultData = {
-	title: "",
-	mainImage: "",
-	content: "",
+	title: '',
+	mainImage: '',
+	content: '',
 };
 
 export const PostCreate = () => {
@@ -62,8 +62,8 @@ export const PostCreate = () => {
 			? {
 					...state.data,
 					title: escaping(state.data.title),
-			  }
-			: defaultData
+				}
+			: defaultData,
 	);
 
 	const [data, setData] = useState(
@@ -71,12 +71,12 @@ export const PostCreate = () => {
 			? {
 					...state.data,
 					title: escaping(state.data.title),
-			  }
-			: defaultData
+				}
+			: defaultData,
 	);
 	const [firstCreatePostId, setFirstCreatePostId] = useState(null);
 	const [activeUpload, setActiveUpload] = useState(
-		data.mainImage === "" ? false : true
+		data.mainImage === '' ? false : true,
 	);
 
 	const [publishing, setPublishing] = useState(false);
@@ -109,7 +109,7 @@ export const PostCreate = () => {
 					message: `${data.title} Published`,
 					error: false,
 				});
-				navigate("/");
+				navigate('/');
 			};
 
 			result.success
@@ -124,15 +124,14 @@ export const PostCreate = () => {
 
 	useEffect(() => {
 		const handleSetPost = async () => {
-			onAlert({ message: "Saving post..." });
+			onAlert({ message: 'Saving post...' });
 			setSaving(true);
 			setPreviousData(data);
 			const obj = {};
 			data.title !== previousData.title && (obj.title = data.title);
 			data.mainImage !== previousData.mainImage &&
 				(obj.mainImage = data.mainImage);
-			data.content !== previousData.content &&
-				(obj.content = data.content);
+			data.content !== previousData.content && (obj.content = data.content);
 
 			const isTokenExpire = await onVerifyTokenExpire();
 			const newAccessToken = isTokenExpire && (await onExChangeToken());
@@ -143,17 +142,17 @@ export const PostCreate = () => {
 							token: newAccessToken || accessToken,
 							data: obj,
 							postId: firstCreatePostId || state?.postId,
-					  })
+						})
 					: await createPost({ token: accessToken, data: obj });
 
 			result.success
 				? !firstCreatePostId &&
-				  !state?.postId &&
-				  setFirstCreatePostId(result.data.post.id)
+					!state?.postId &&
+					setFirstCreatePostId(result.data.post.id)
 				: onAlert({ message: result.message, error: true });
 
 			setSaving(false);
-			onAlert({ message: "Saved post" });
+			onAlert({ message: 'Saved post' });
 		};
 
 		!saving &&
@@ -177,27 +176,22 @@ export const PostCreate = () => {
 	]);
 
 	return (
-		<div id={"postEditor"} className={styles.postCreate}>
+		<div id={'postEditor'} className={styles.postCreate}>
 			<div className={styles.buttonWrap}>
 				<Link to="/" className={styles.link}>
-					<span
-						className={`${styles.leftArrow} ${imageStyles.icon}`}
-					/>
+					<span className={`${styles.leftArrow} ${imageStyles.icon}`} />
 					Back to Dashboard
 				</Link>
 				{(firstCreatePostId || state?.publish === false) && (
-					<button
-						className={buttonStyles.success}
-						onClick={handlePublish}
-					>
-						{publishing ? "Publishing" : "Publish"}
+					<button className={buttonStyles.success} onClick={handlePublish}>
+						{publishing ? 'Publishing' : 'Publish'}
 					</button>
 				)}
 			</div>
 			<div className={styles.container}>
 				<div
 					className={`${styles.editors}  ${
-						loadCount < 3 ? styles.loading : ""
+						loadCount < 3 ? styles.loading : ''
 					}`}
 				>
 					<Editor
@@ -205,11 +199,10 @@ export const PostCreate = () => {
 						key={darkTheme}
 						apiKey="pij84itqipqt5x0yzq0178p8ujv9yddap26oyc410q1yyrxr"
 						onInit={(_evt, editor) => {
-							loadCount < 3 &&
-								setLoadCount(loadCount => loadCount + 1);
+							loadCount < 3 && setLoadCount(loadCount => loadCount + 1);
 							titleRef.current = editor;
-							JSON.stringify(data) ===
-								JSON.stringify(defaultData) && editor.focus();
+							JSON.stringify(data) === JSON.stringify(defaultData) &&
+								editor.focus();
 						}}
 						tagName="h2"
 						onEditorChange={(value, editor) => {
@@ -222,61 +215,48 @@ export const PostCreate = () => {
 						}}
 						value={data.title}
 						init={{
-							entity_encoding: "raw",
-							skin: darkTheme ? "oxide-dark" : "oxide",
-							placeholder: "The post title...",
+							entity_encoding: 'raw',
+							skin: darkTheme ? 'oxide-dark' : 'oxide',
+							placeholder: 'The post title...',
 							menubar: false,
 							toolbar: false,
 							inline: true,
-							plugins: "wordcount",
+							plugins: 'wordcount',
 							paste_as_text: true,
 						}}
 					/>
 					<div
 						className={`${styles.imageWrap} ${
-							activeUpload ? styles.showUpload : ""
+							activeUpload ? styles.showUpload : ''
 						}`}
 					>
-						<button
-							className={styles.uploadBtn}
-							onClick={handleActiveUpload}
-						>
-							{data.mainImage === ""
-								? "Upload main image"
-								: `${
-										activeUpload ? "Hide" : "Show"
-								  } main image`}
-							<span
-								className={`${styles.downArrow} ${imageStyles.icon}`}
-							/>
+						<button className={styles.uploadBtn} onClick={handleActiveUpload}>
+							{data.mainImage === ''
+								? 'Upload main image'
+								: `${activeUpload ? 'Hide' : 'Show'} main image`}
+							<span className={`${styles.downArrow} ${imageStyles.icon}`} />
 						</button>
 						<div className={styles.mainImageWrap}>
 							<div
 								className={`${styles.mainImage} 
-							${data.mainImage === "" ? styles.hide : ""}
+							${data.mainImage === '' ? styles.hide : ''}
 							`}
 							>
 								<button
 									onClick={() => {
-										mainImageRef.current.execCommand(
-											"mceImage"
-										);
+										mainImageRef.current.execCommand('mceImage');
 									}}
 								>
 									<div className={styles.buttonText}>
 										<span>Set Main Image Source</span>
-										<span>
-											{"( only jpeg, png, webp )"}
-										</span>
+										<span>{'( only jpeg, png, webp )'}</span>
 									</div>
 								</button>
 								<Editor
 									apiKey="pij84itqipqt5x0yzq0178p8ujv9yddap26oyc410q1yyrxr"
 									id="editorImage"
 									onInit={(_evt, editor) => {
-										setLoadCount(
-											loadCount => loadCount + 1
-										);
+										setLoadCount(loadCount => loadCount + 1);
 										mainImageRef.current = editor;
 									}}
 									onEditorChange={(value, editor) => {
@@ -298,7 +278,7 @@ export const PostCreate = () => {
 												target.remove();
 												setData({
 													...data,
-													mainImage: "",
+													mainImage: '',
 												});
 
 												editor.hide();
@@ -308,14 +288,13 @@ export const PostCreate = () => {
 											image.src = url;
 										};
 
-										target.nodeName === "IMG" &&
-											handleImage(target.src);
+										target.nodeName === 'IMG' && handleImage(target.src);
 									}}
 									init={{
 										inline: true,
 										menubar: false,
 										toolbar: false,
-										plugins: ["image", "quickbars"],
+										plugins: ['image', 'quickbars'],
 										image_uploadtab: false,
 										image_dimensions: false,
 										image_description: false,
@@ -323,7 +302,7 @@ export const PostCreate = () => {
 										typeahead_urls: false,
 										quickbars_selection_toolbar: false,
 										quickbars_insert_toolbar: false,
-										quickbars_image_toolbar: "image",
+										quickbars_image_toolbar: 'image',
 									}}
 									onKeyDown={() => false}
 									onPaste={() => false}
@@ -343,8 +322,8 @@ export const PostCreate = () => {
 							const newLineCount =
 								value
 									?.match(/(?<=>)[^<>\n]+(?=<)/g)
-									?.join(" ")
-									?.replace(/\s/g, "")
+									?.join(' ')
+									?.replace(/\s/g, '')
 									?.match(/(?<=)&nbsp;(?=)/g) ?? [];
 							const contentWordCount =
 								editor.plugins.wordcount.body.getCharacterCountWithoutSpaces() +
@@ -356,22 +335,22 @@ export const PostCreate = () => {
 						}}
 						onObjectResized={evt => {
 							evt.target.setAttribute(
-								"style",
-								`width:${evt.width}px;height:${evt.height}px;`
+								'style',
+								`width:${evt.width}px;height:${evt.height}px;`,
 							);
 						}}
 						onNodeChange={evt => {
 							const target = evt.element;
 
 							const handleImage = url => {
-								const isSetStyle = target.hasAttribute("style");
-								const width = target.getAttribute("width");
-								const height = target.getAttribute("height");
+								const isSetStyle = target.hasAttribute('style');
+								const width = target.getAttribute('width');
+								const height = target.getAttribute('height');
 
 								!isSetStyle &&
 									target.setAttribute(
-										"style",
-										`width:${width}px;height:${height}px;`
+										'style',
+										`width:${width}px;height:${height}px;`,
 									);
 
 								const image = new Image();
@@ -380,30 +359,28 @@ export const PostCreate = () => {
 									target.remove();
 									setData({
 										...data,
-										content:
-											contentRef.current.getContent(),
+										content: contentRef.current.getContent(),
 									});
 								};
 
 								image.src = url;
 							};
 
-							target.nodeName === "IMG" &&
-								handleImage(target.src);
+							target.nodeName === 'IMG' && handleImage(target.src);
 						}}
 						value={data.content}
 						init={{
-							placeholder: "The post content...",
+							placeholder: 'The post content...',
 							inline: true,
 							menubar: false,
 							toolbar: false,
 							plugins: [
-								"quickbars",
-								"image",
-								"codesample",
-								"link",
-								"lists",
-								"wordcount",
+								'quickbars',
+								'image',
+								'codesample',
+								'link',
+								'lists',
+								'wordcount',
 							],
 							...editorContentInit.selection_toolbar,
 							...editorContentInit.insert_toolbar,
