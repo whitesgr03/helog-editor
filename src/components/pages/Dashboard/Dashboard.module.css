@@ -1,22 +1,22 @@
 .dashboard {
-	padding: 5%;
 	display: flex;
-	flex-direction: column;
 	row-gap: 15px;
+	flex-direction: column;
+	padding: 5%;
 }
 
 .container {
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
 	flex: 1 1 100%;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
 }
 
 .button-wrap {
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .button-wrap span {
@@ -24,33 +24,32 @@
 }
 
 .button-wrap a {
-	padding: 10px;
 	display: flex;
 	align-items: center;
+	padding: 10px;
 }
 
 .dashboard table {
 	display: block;
+	box-shadow: 0 0 20px rgba(var(--light-scheme-highlight-rgb) 0.35);
+	border-collapse: collapse;
 	width: 100%;
 	overflow-x: auto;
 	white-space: nowrap;
-	border-collapse: collapse;
-	box-shadow: 0 0 20px rgba(var(--light-scheme-highlight-rgb) 0.35);
 }
 
 .dashboard tr {
-	border-left: 2px solid var(--light-scheme-highlight);
 	border-right: 2px solid var(--light-scheme-highlight);
+	border-left: 2px solid var(--light-scheme-highlight);
 }
 
 .dashboard th {
-  background-color: var(--light-scheme-highlight);
-	color: var(--dark-scheme-color);
-	padding: 20px 10px;
-	font-weight: bolder;
-	border-left: 2px solid var(--light-scheme-highlight);
 	border-right: 2px solid var(--light-scheme-highlight);
-
+	border-left: 2px solid var(--light-scheme-highlight);
+	background-color: var(--light-scheme-highlight);
+	padding: 20px 10px;
+	color: var(--dark-scheme-color);
+	font-weight: bolder;
 }
 
 .dashboard tbody tr {
@@ -88,9 +87,9 @@
 }
 
 :global(.dark) .dashboard th {
-	border-left: 2px solid var(--dark-scheme-table);
 	border-right: 2px solid var(--dark-scheme-table);
-  background-color: var(--dark-scheme-table);
+	border-left: 2px solid var(--dark-scheme-table);
+	background-color: var(--dark-scheme-table);
 	color: var(--light-scheme-color);
 }
 
