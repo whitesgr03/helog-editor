@@ -27,7 +27,7 @@
 	color: var(--dark-scheme-highlight);
 }
 
-@media (min-width: 700px) {
+@media (width >= 700px) {
 	.load {
 		--size: calc(var(--icon-size-mobile) * 1.5);
 	}
