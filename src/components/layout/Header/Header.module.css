@@ -37,7 +37,7 @@
 	color: var(--light-scheme-color);
 }
 
-.list li.toggleBtn {
+.list li.toggle-btn {
 	display: none;
 }
 
@@ -78,7 +78,7 @@
 }
 
 @media (min-width: 450px) {
-	.list li.toggleBtn {
+	.list li.toggle-btn {
 		display: block;
 	}
 	.pencil,
