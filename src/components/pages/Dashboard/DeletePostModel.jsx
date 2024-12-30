@@ -7,13 +7,13 @@ import buttonStyles from '../../../styles/button.module.css';
 
 export const DeletePostModel = ({ onDelete, title }) => {
 	return (
-		<div className={styles.deleteModel}>
+		<div className={styles['delete-model']}>
 			<span className={styles.title}>Delete Post</span>
 			<div className={styles.content}>
 				<p>Do you really want to delete?</p>
 				<p>{title}</p>
 			</div>
-			<div className={styles.buttonWrap}>
+			<div className={styles['button-wrap']}>
 				<button className={buttonStyles.cancel} data-close-model>
 					Cancel
 				</button>
