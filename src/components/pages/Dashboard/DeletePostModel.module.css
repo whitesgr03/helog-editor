@@ -1,8 +1,8 @@
 .delete-model {
-	padding: 15px;
 	display: flex;
-	flex-direction: column;
 	row-gap: 20px;
+	flex-direction: column;
+	padding: 15px;
 }
 
 .delete-model .title {
@@ -11,10 +11,10 @@
 
 .delete-model .content {
 	display: flex;
+	row-gap: 10px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	row-gap: 10px;
 }
 
 .delete-model .content > p {
@@ -32,8 +32,8 @@
 
 @media (width >= 450px) {
 	.delete-model {
-		padding: 20px;
 		row-gap: 40px;
+		padding: 20px;
 	}
 }
 
