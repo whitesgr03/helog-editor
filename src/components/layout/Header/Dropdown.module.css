@@ -28,7 +28,7 @@
 	align-items: center;
 	row-gap: 5px;
 	padding: 10px;
-	max-width: 0px;
+	max-width: 0;
 	min-width: 100%;
 }
 
