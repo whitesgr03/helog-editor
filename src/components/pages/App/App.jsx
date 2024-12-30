@@ -137,7 +137,7 @@ export const App = () => {
 			) : (
 				<div className={styles.app} data-testid="app">
 					{model && <Model onModel={setModel} model={model} />}
-					<div className={styles.headerBar}>
+					<div className={styles['header-bar']}>
 						<Header
 							user={user}
 							darkTheme={darkTheme}
