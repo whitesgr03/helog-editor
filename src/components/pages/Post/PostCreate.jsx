@@ -15,7 +15,7 @@ import imageStyles from "../styles/utils/image.module.css";
 
 // Utils
 import { createPost, updatePost } from "../../../utils/handlePost";
-import escaping from "../../../utils/handleEscape";
+import { escaping } from "../../../utils/handleEscape";
 
 // Components
 import { Loading } from "../../utils/Loading";
