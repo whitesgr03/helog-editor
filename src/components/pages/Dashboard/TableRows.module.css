@@ -161,20 +161,20 @@
 	color: var(--dark-scheme-highlight);
 }
 
-@media (min-width: 900px) {
-	.tableRows td:first-of-type {
+@media (width >= 900px) {
+	.table-rows td:first-of-type {
 		max-width: 300px;
 	}
 }
 
-@media (min-width: 1200px) {
-	.tableRows td:first-of-type {
+@media (width >= 1200px) {
+	.table-rows td:first-of-type {
 		max-width: 400px;
 	}
 }
 
-@media (min-width: 1600px) {
-	.tableRows td:first-of-type {
+@media (width >= 1600px) {
+	.table-rows td:first-of-type {
 		max-width: 500px;
 	}
 }
