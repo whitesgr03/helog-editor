@@ -3,7 +3,7 @@
 	align-items: center;
 	justify-content: space-between;
 	background-color: var(--light-scheme-layout-bgc);
-	box-shadow: 0px 5px 5px 1px var(--light-scheme-layout-shadow);
+	box-shadow: 0 5px 5px 1px var(--light-scheme-layout-shadow);
 }
 
 .header > a {
