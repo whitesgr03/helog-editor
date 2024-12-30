@@ -2,7 +2,7 @@
 import styles from "./Contact.module.css";
 
 // Components
-import Address from "./Footer/Address";
+import { Address } from "./Footer/Address";
 
 export const Contact = () => {
 	return (
@@ -15,5 +15,3 @@ export const Contact = () => {
 		</div>
 	);
 };
-
-

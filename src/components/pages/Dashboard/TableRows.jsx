@@ -9,7 +9,7 @@ import styles from "./TableRows.module.css";
 import imageStyles from "../../../styles/image.module.css";
 
 // Components
-import DeletePostModel from "./layout/DeletePostModel";
+import { DeletePostModel } from "./DeletePostModel";
 
 // Utils
 import { updatePost, deletePost } from "../utils/handlePost";
@@ -137,5 +137,3 @@ TableRows.propTypes = {
 	publishing: PropTypes.bool,
 	onPublishing: PropTypes.func,
 };
-
-

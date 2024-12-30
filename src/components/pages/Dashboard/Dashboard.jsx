@@ -7,9 +7,9 @@ import styles from "./Dashboard.module.css";
 import buttonStyles from "../../../styles/button.module.css";
 
 // Component
-import TableRows from "../../TableRows";
-import Loading from "../../utils/Loading";
-import Error from "./layout/Error";
+import { TableRows } from "../../TableRows";
+import { Loading } from "../../utils/Loading";
+import { Error } from "../../utils/Error/Error";
 
 // Utils
 import { getPosts } from "../../../utils/handlePost";

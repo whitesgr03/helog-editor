@@ -18,7 +18,7 @@ import { createPost, updatePost } from "../../../utils/handlePost";
 import escaping from "../../../utils/handleEscape";
 
 // Components
-import Loading from "../../utils/Loading";
+import { Loading } from "../../utils/Loading";
 
 // Variables
 const editorContentInit = {

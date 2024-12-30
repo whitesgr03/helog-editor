@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 // Components
-import Loading from "./layout/Loading";
+import { Loading } from "./utils/Loading";
 
 // Utils
 import { createToken } from "../utils/handleToken";

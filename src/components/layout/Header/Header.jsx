@@ -10,7 +10,7 @@ import imageStyles from "../../../styles/image.module.css";
 import bgcStyles from "../../../styles/bgc.module.css";
 
 // Components
-import Dropdown from "./Dropdown";
+import { Dropdown } from "./Dropdown";
 
 export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);

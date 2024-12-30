@@ -11,12 +11,12 @@ import {
 import styles from "./App.module.css";
 
 // Components
-import Header from "../../layout/Header/Header";
-import Footer from "../../layout/Footer/Footer";
-import Contact from "./Contact";
-import Loading from "../../utils/Loading";
-import Alert from "./Alert";
-import Model from "./Model";
+import { Header } from "../../layout/Header/Header";
+import { Footer } from "../../layout/Footer/Footer";
+import { Contact } from "./Contact";
+import { Loading } from "../../utils/Loading";
+import { Alert } from "./Alert";
+import { Model } from "./Model";
 
 // Utils
 import handleGetAuthCode from "../../../utils/handleGetAuthCode";
