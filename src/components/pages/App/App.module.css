@@ -1,27 +1,27 @@
 .app {
-	height: 100%;
-	overflow: auto;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	overflow: auto;
 }
 
 .header-bar {
-	z-index: 2;
 	position: sticky;
 	top: 0;
-	left: 0;
 	right: 0;
+	left: 0;
+	z-index: 2;
 }
 
 .container {
 	display: flex;
-	flex-direction: column;
 	flex: 1 1 100%;
+	flex-direction: column;
 }
 
 .app main {
-	height: 100%;
 	width: 100%;
+	height: 100%;
 }
 
 .app main > * {
@@ -31,7 +31,7 @@
 
 @media (width >= 1300px) {
 	.app main {
-		max-width: 1300px;
 		margin: 0 auto;
+		max-width: 1300px;
 	}
 }
