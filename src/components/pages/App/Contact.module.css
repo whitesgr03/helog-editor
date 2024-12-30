@@ -4,14 +4,14 @@
 
 .container {
 	display: flex;
-	align-items: center;
 	column-gap: 20px;
+	align-items: center;
 }
 
 .container a {
 	display: flex;
-	align-items: center;
 	column-gap: 10px;
+	align-items: center;
 }
 
 .container a em {
@@ -32,10 +32,10 @@
 @media (width >= 450px) {
 	.contact {
 		display: flex;
-		flex-direction: column;
 		row-gap: 15px;
-		padding: 0 10% 5%;
+		flex-direction: column;
 		background-color: var(--light-scheme-main-bgc);
+		padding: 0 10% 5%;
 	}
 
 	.email {
@@ -48,7 +48,7 @@
 		background-color: var(--dark-scheme-layout-bgc);
 		color: var(--dark-scheme-color);
 	}
-  
+
 	:global(.dark) .contact a {
 		color: var(--dark-scheme-color);
 	}
@@ -62,8 +62,8 @@
 
 @media (width >= 1000px) {
 	.contact {
-		padding: 0 10% 5%;
 		row-gap: 20px;
+		padding: 0 10% 5%;
 	}
 }
 
