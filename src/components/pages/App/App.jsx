@@ -12,6 +12,7 @@ import { Contact } from './Contact';
 import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
 import { Error } from '../../utils/Error/Error';
+import { Modal } from './Modal';
 
 // Utils
 import { getUser } from '../../../utils/handleUser';
@@ -25,6 +26,7 @@ const defaultAlert = {
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(false);
 	const [user, setUser] = useState(null);
+	const [modal, setModal] = useState(null);
 	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
@@ -38,6 +40,12 @@ export const App = () => {
 	const handleAlert = ({ message, error = false }) =>
 		setAlert({ message, error });
 	const handleCloseAlert = () => setAlert(defaultAlert);
+
+	const handleActiveModal = ({ component, clickToClose = true }) => {
+		document.body.removeAttribute('style');
+		component && (document.body.style.overflow = 'hidden');
+		component ? setModal({ component, clickToClose }) : setModal(null);
+	};
 
 	useEffect(() => {
 		const getColorTheme = () => {
@@ -92,6 +100,14 @@ export const App = () => {
 				<Loading />
 			) : (
 				<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
+					{modal && (
+						<Modal
+							onActiveModal={handleActiveModal}
+							clickToClose={modal.clickToClose}
+						>
+							{modal.component}
+						</Modal>
+					)}
 					<div className={styles['header-bar']}>
 						<Header
 							user={user}
@@ -107,6 +123,7 @@ export const App = () => {
 							<Outlet
 								context={{
 									user,
+									onActiveModal: handleActiveModal,
 									onAlert: handleAlert,
 								}}
 							/>
