@@ -33,11 +33,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 			onPublishing(true);
 			setLoading(true);
 
-			const isTokenExpire = await onVerifyTokenExpire();
-			const newAccessToken = isTokenExpire && (await onExChangeToken());
-
 			const result = await updatePost({
-				token: newAccessToken || accessToken,
 				data: { publish: !post.publish },
 				postId: post._id,
 			});
