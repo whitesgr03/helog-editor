@@ -1,11 +1,6 @@
 // Packages
 import { useState, useEffect } from 'react';
-import {
-	Outlet,
-	useOutletContext,
-	useLocation,
-	useNavigate,
-} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 // Styles
 import styles from './App.module.css';
@@ -17,6 +12,7 @@ import { Contact } from './Contact';
 import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
 import { Model } from './Model';
+import { Error } from '../../utils/Error/Error';
 
 // Utils
 import { getUser } from '../../../utils/handleUser';
@@ -33,9 +29,8 @@ export const App = () => {
 	const [model, setModel] = useState(null);
 	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
-
-	const navigate = useNavigate();
-	const location = useLocation();
+	const [error, setError] = useState(false);
+	const [reGetUser, setReGetUser] = useState(false);
 
 	const handleColorTheme = () => {
 		setDarkTheme(!darkTheme);
@@ -71,19 +66,31 @@ export const App = () => {
 			const result = await getUser({ signal });
 
 			const handleResult = () => {
-				result.success && setUser(result.data);
+				reGetUser && setReGetUser(false);
+
+				const handleSuccess = () => {
+					error && setError(false);
+					setUser(result.data);
+				};
+
+				result.success
+					? handleSuccess()
+					: result.status === 500 && setError(result.message);
+
 				setLoading(false);
 			};
 
 			result && handleResult();
 		};
-		handleGetUser();
+		(reGetUser || !user) && handleGetUser();
 		return () => controller.abort();
-	}, []);
+	}, [reGetUser, user, error]);
 
 	return (
 		<>
-			{loading ? (
+			{error ? (
+				<Error onReGetUser={setReGetUser} />
+			) : loading ? (
 				<Loading />
 			) : (
 				<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
