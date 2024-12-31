@@ -109,9 +109,7 @@ export const App = () => {
 						<main>
 							<Outlet
 								context={{
-									darkTheme,
 									user,
-									accessToken,
 									onModel: setModel,
 									onAlert: handleAlert,
 								}}
