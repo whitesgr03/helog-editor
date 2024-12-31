@@ -21,38 +21,37 @@ export const Dashboard = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [publishing, setPublishing] = useState(false);
-	const ignore = useRef(false);
 
-	const handleGetPosts = useCallback(async () => {
-		ignore.current = true;
-		const isTokenExpire = await onVerifyTokenExpire();
-		const newAccessToken = isTokenExpire && (await onExChangeToken());
-
-		const result = await getPosts({
-			token: newAccessToken || accessToken,
-		});
-
-		const handleResult = () => {
-			result.success ? setPosts(result.data) : setError(result.message);
-			setLoading(false);
-		};
-
-		result && handleResult();
-	}, [accessToken, onVerifyTokenExpire, onExChangeToken]);
 
 	const trs = posts.map(post => (
 		<TableRows
 			key={post._id}
 			post={post}
 			publishing={publishing}
-			onGetPosts={handleGetPosts}
 			onPublishing={setPublishing}
 		/>
 	));
 
 	useEffect(() => {
-		!ignore.current && handleGetPosts();
-	}, [handleGetPosts]);
+		const controller = new AbortController();
+		const { signal } = controller;
+
+		const handleGetPosts = async () => {
+			const result = await getPosts({ signal });
+
+			const handleResult = () => {
+				result.success ? setPosts(result.data) : setError(result.message);
+
+				setLoading(false);
+			};
+
+			result && handleResult();
+		};
+		handleGetPosts();
+		return () => controller.abort();
+  }, []);
+  
+  
 
 	return (
 		<div className={styles.dashboard}>
