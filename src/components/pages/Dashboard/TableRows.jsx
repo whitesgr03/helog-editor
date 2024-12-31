@@ -1,5 +1,4 @@
 // Packages
-import { useState } from 'react';
 import { useOutletContext, Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -16,7 +15,6 @@ import { updatePost, deletePost } from '../utils/handlePost';
 
 export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	const { onActiveModal } = useOutletContext();
-	const [loading, setLoading] = useState(false);
 
 	const postState = {
 		postId: post._id,
@@ -31,7 +29,6 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	const handleUpdatePublish = async () => {
 		const handleUpdate = async () => {
 			onPublishing(true);
-			setLoading(true);
 
 			const result = await updatePost({
 				data: { publish: !post.publish },
@@ -52,7 +49,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 				? await handleSuccess()
 				: onAlert({ message: result.message, error: true });
 
-			setLoading(false);
+
 			onPublishing(false);
 		};
 
@@ -85,7 +82,9 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	};
 
 	return (
-		<tr className={`${styles['table-rows']} ${loading ? styles.loading : ''}`}>
+		<tr
+			className={`${styles['table-rows']} ${publishing ? styles.loading : ''}`}
+		>
 			<td title={post.title}>{post.title}</td>
 			<td>
 				<button
@@ -110,7 +109,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 					<span className={`${imageStyles.icon} ${styles.delete}`} />
 				</button>
 			</td>
-			{loading && (
+			{publishing && (
 				<td className={styles.loadIcon}>
 					<span className={`${imageStyles.icon} ${styles.load}`} />
 				</td>
