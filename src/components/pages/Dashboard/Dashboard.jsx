@@ -1,5 +1,5 @@
 // Package
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
 // Styles
@@ -9,14 +9,11 @@ import buttonStyles from '../../../styles/button.module.css';
 // Component
 import { TableRows } from '../../TableRows';
 import { Loading } from '../../utils/Loading';
-import { Error } from '../../utils/Error/Error';
 
 // Utils
 import { getPosts } from '../../../utils/handlePost';
 
 export const Dashboard = () => {
-	const { accessToken, onVerifyTokenExpire, onExChangeToken } =
-		useOutletContext();
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -49,9 +46,7 @@ export const Dashboard = () => {
 		};
 		handleGetPosts();
 		return () => controller.abort();
-  }, []);
-  
-  
+	}, []);
 
 	return (
 		<div className={styles.dashboard}>
