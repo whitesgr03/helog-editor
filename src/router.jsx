@@ -7,6 +7,7 @@ import { NotFound } from './components/utils/Error/NotFound';
 import { Dashboard } from './components/pages/Dashboard/Dashboard';
 import { App } from './components/pages/App/App';
 import { PostCreate } from './components/pages/Post/PostCreate';
+import { Authentication } from './components/utils/Authentication/Authentication';
 
 export const Router = () => (
 	<RouterProvider
@@ -17,7 +18,11 @@ export const Router = () => (
 				children: [
 					{
 						index: true,
-						element: <Dashboard />,
+						element: (
+							<Authentication>
+								<Dashboard />
+							</Authentication>
+						),
 					},
 
 					{
