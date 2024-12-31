@@ -21,15 +21,6 @@ export const Dashboard = () => {
 
 	const { pathname: previousPath } = useLocation();
 
-	const trs = posts.map(post => (
-		<TableRows
-			key={post._id}
-			post={post}
-			publishing={publishing}
-			onPublishing={setPublishing}
-		/>
-	));
-
 	useEffect(() => {
 		const controller = new AbortController();
 		const { signal } = controller;
@@ -76,7 +67,16 @@ export const Dashboard = () => {
 										<th>Delete</th>
 									</tr>
 								</thead>
-								<tbody>{trs}</tbody>
+								<tbody>
+									{posts.map(post => (
+										<TableRows
+											key={post._id}
+											post={post}
+											publishing={publishing}
+											onPublishing={setPublishing}
+										/>
+									))}
+								</tbody>
 							</table>
 						) : (
 							<p>There are not posts.</p>
