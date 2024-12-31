@@ -11,7 +11,6 @@ import { Footer } from '../../layout/Footer/Footer';
 import { Contact } from './Contact';
 import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
-import { Model } from './Model';
 import { Error } from '../../utils/Error/Error';
 
 // Utils
@@ -26,7 +25,6 @@ const defaultAlert = {
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(false);
 	const [user, setUser] = useState(null);
-	const [model, setModel] = useState(null);
 	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
@@ -94,7 +92,6 @@ export const App = () => {
 				<Loading />
 			) : (
 				<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
-					{model && <Model onModel={setModel} model={model} />}
 					<div className={styles['header-bar']}>
 						<Header
 							user={user}
@@ -110,7 +107,6 @@ export const App = () => {
 							<Outlet
 								context={{
 									user,
-									onModel: setModel,
 									onAlert: handleAlert,
 								}}
 							/>
