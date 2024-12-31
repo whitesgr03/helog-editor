@@ -1,6 +1,6 @@
 // Package
 import { useEffect, useState } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 
 // Styles
 import styles from './Dashboard.module.css';
@@ -19,6 +19,7 @@ export const Dashboard = () => {
 	const [error, setError] = useState(null);
 	const [publishing, setPublishing] = useState(false);
 
+	const { pathname: previousPath } = useLocation();
 
 	const trs = posts.map(post => (
 		<TableRows
@@ -49,38 +50,40 @@ export const Dashboard = () => {
 	}, []);
 
 	return (
-		<div className={styles.dashboard}>
-			<h2>Dashboard</h2>
-			<div className={styles['button-wrap']}>
-				<span>{posts.length > 0 && `Total posts: ${posts.length}`}</span>
-				<Link to="/post/editor" className={buttonStyles.success}>
-					New Post
-				</Link>
-			</div>
-			{loading ? (
+		<>
+			{error ? (
+				<Navigate to="/error" state={{ error, previousPath }} />
+			) : loading ? (
 				<Loading />
-			) : error ? (
-				<Error message={error} />
 			) : (
-				<div className={styles.container}>
-					{posts.length > 0 ? (
-						<table>
-							<thead>
-								<tr>
-									<th>Title</th>
-									<th>Publish</th>
-									<th>Last Modified</th>
-									<th>Edit</th>
-									<th>Delete</th>
-								</tr>
-							</thead>
-							<tbody>{trs}</tbody>
-						</table>
-					) : (
-						<p>There are not posts.</p>
-					)}
+				<div className={styles.dashboard}>
+					<h2>Dashboard</h2>
+					<div className={styles['button-wrap']}>
+						<span>{posts.length > 0 && `Total posts: ${posts.length}`}</span>
+						<Link to="/post/editor" className={buttonStyles.success}>
+							New Post
+						</Link>
+					</div>
+					<div className={styles.container}>
+						{posts.length > 0 ? (
+							<table>
+								<thead>
+									<tr>
+										<th>Title</th>
+										<th>Publish</th>
+										<th>Last Modified</th>
+										<th>Edit</th>
+										<th>Delete</th>
+									</tr>
+								</thead>
+								<tbody>{trs}</tbody>
+							</table>
+						) : (
+							<p>There are not posts.</p>
+						)}
+					</div>
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
