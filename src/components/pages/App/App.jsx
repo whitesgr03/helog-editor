@@ -123,6 +123,7 @@ export const App = () => {
 							<Outlet
 								context={{
 									user,
+									onUser: setUser,
 									onActiveModal: handleActiveModal,
 									onAlert: handleAlert,
 								}}
