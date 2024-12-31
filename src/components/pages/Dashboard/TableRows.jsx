@@ -15,6 +15,7 @@ import { DeletePostModel } from './DeletePostModel';
 import { updatePost, deletePost } from '../utils/handlePost';
 
 export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
+	const { onActiveModal } = useOutletContext();
 	const [loading, setLoading] = useState(false);
 
 	const postState = {
