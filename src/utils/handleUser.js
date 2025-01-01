@@ -4,7 +4,7 @@ const url = `${import.meta.env.VITE_RESOURCE_URL}/blog/user`;
 
 export const getUser = async token => {
 	const options = {
-		method: "GET",
+		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
@@ -15,10 +15,10 @@ export const getUser = async token => {
 
 export const updateUser = async (token, fields) => {
 	const options = {
-		method: "PUT",
+		method: 'PUT',
 		headers: {
 			Authorization: `Bearer ${token}`,
-			"Content-Type": "application/json",
+			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(fields),
 	};
@@ -27,7 +27,7 @@ export const updateUser = async (token, fields) => {
 
 export const deleteUser = async token => {
 	const options = {
-		method: "DELETE",
+		method: 'DELETE',
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
