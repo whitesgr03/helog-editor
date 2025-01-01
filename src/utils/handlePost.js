@@ -1,4 +1,4 @@
-import handleFetch from "./handleFetch";
+import { handleFetch } from './handleFetch';
 
 const url = `${import.meta.env.VITE_RESOURCE_URL}/blog/posts`;
 
