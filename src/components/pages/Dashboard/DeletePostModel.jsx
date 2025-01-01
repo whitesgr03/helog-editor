@@ -53,6 +53,7 @@ export const DeletePostModel = ({ id, title }) => {
 					className={buttonStyles.error}
 					onClick={() => !loading && handleDeletePost()}
 				>
+					{loading && <span className={buttonStyles['load-icon']} />}
 					Delete
 				</button>
 			</div>
