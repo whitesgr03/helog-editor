@@ -37,6 +37,7 @@ export const DeletePostModel = ({ id, title }) => {
 
 		setLoading(false);
 	};
+
 	return (
 		<div className={styles['delete-model']}>
 			<span className={styles.title}>Delete Post</span>
