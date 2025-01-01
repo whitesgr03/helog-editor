@@ -46,7 +46,11 @@ export const DeletePostModel = ({ id, title }) => {
 				<p>{title}</p>
 			</div>
 			<div className={styles['button-wrap']}>
-				<button className={buttonStyles.cancel} data-close-model>
+				<button
+					className={buttonStyles.cancel}
+					data-close-model
+					onClick={() => onActiveModal({ component: null })}
+				>
 					Cancel
 				</button>
 				<button
