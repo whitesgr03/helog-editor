@@ -66,6 +66,6 @@ export const DeletePostModel = ({ id, title }) => {
 };
 
 DeletePostModel.propTypes = {
+	id: PropTypes.string,
 	title: PropTypes.string,
-	onDelete: PropTypes.func,
 };
