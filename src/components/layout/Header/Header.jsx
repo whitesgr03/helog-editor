@@ -20,11 +20,7 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 	return (
 		<>
 			<header className={styles.header}>
-				<a
-					className={styles.logo}
-					href={import.meta.env.VITE_HELOG_URL}
-					onClick={handleCloseDropdown}
-				>
+				<a className={styles.logo} href={import.meta.env.VITE_HELOG_URL}>
 					<h1>HeLog</h1>
 				</a>
 				<nav>
