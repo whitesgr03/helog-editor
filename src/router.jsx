@@ -23,15 +23,15 @@ export const Router = () => (
 						path: 'post/editor',
 						element: <PostCreate />,
 					},
+					{
+						path: '*',
+						element: <NotFound />,
+					},
+					{
+						path: 'error',
+						element: <Error />,
+					},
 				],
-			},
-			{
-				path: '*',
-				element: <NotFound />,
-			},
-			{
-				path: 'error',
-				element: <Error />,
 			},
 		])}
 	/>
