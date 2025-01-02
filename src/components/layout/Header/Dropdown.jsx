@@ -6,7 +6,7 @@ import styles from './Dropdown.module.css';
 import buttonStyles from '../../../styles/button.module.css';
 import imageStyles from '../../../styles/image.module.css';
 
-export const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
+export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 	return (
 		<div className={styles.dropdown}>
 			{user?.name && (
@@ -22,7 +22,7 @@ export const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 			)}
 			<ul>
 				<li>
-					<button className={buttonStyles.theme} onClick={onSwitchColorTheme}>
+					<button className={buttonStyles.theme} onClick={onColorTheme}>
 						<span
 							className={`${imageStyles.icon} ${
 								darkTheme ? styles.moon : styles.sun
@@ -42,5 +42,5 @@ export const Dropdown = ({ user, darkTheme, onSwitchColorTheme }) => {
 Dropdown.propTypes = {
 	user: PropTypes.object,
 	darkTheme: PropTypes.bool,
-	onSwitchColorTheme: PropTypes.func,
+	onColorTheme: PropTypes.func,
 };
