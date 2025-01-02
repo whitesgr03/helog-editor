@@ -81,7 +81,7 @@ export const App = () => {
 
 				result.success
 					? handleSuccess()
-					: result.status === 500 && setError(result.message);
+					: result.status >= 500 && setError(result.message);
 
 				setLoading(false);
 			};
