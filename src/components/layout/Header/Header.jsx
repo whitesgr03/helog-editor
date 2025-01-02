@@ -11,7 +11,7 @@ import bgcStyles from '../../../styles/bgc.module.css';
 // Components
 import { Dropdown } from './Dropdown';
 
-export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
+export const Header = ({ user, darkTheme, onColorTheme }) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);
 
 	const handleActiveDropdown = () => setActiveDropdown(!activeDropdown);
@@ -30,7 +30,7 @@ export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 				<nav>
 					<ul className={styles.list}>
 						<li className={styles['toggle-btn']}>
-							<button onClick={onSwitchColorTheme}>
+							<button onClick={onColorTheme}>
 								<div className={buttonStyles.theme}>
 									<span
 										data-testid={'icon'}
@@ -57,7 +57,7 @@ export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 					<Dropdown
 						user={user}
 						darkTheme={darkTheme}
-						onSwitchColorTheme={onSwitchColorTheme}
+						onColorTheme={onColorTheme}
 					/>
 				)}
 			</header>
@@ -74,5 +74,5 @@ export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 Header.propTypes = {
 	user: PropTypes.object,
 	darkTheme: PropTypes.bool,
-	onSwitchColorTheme: PropTypes.func,
+	onColorTheme: PropTypes.func,
 };
