@@ -45,7 +45,7 @@ export const Dashboard = () => {
 			{error ? (
 				<Navigate to="/error" state={{ error, previousPath }} />
 			) : loading ? (
-				<Loading />
+				<Loading text={'Loading...'} />
 			) : (
 				<div className={styles.dashboard}>
 					<h2>Dashboard</h2>
