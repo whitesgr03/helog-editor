@@ -1,28 +1,38 @@
 // Packages
-import { useOutletContext, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Styles
 import styles from './Error.module.css';
 import imageStyles from '../../../styles/image.module.css';
 
-export const Error = ({ message = null }) => {
-	const { error } = useOutletContext();
-
-	const errorMessage =
-		(typeof message === 'string' && message) ||
-		'Please come back later or if you have any questions, please contact us.';
-
-	console.error(message || error);
+export const Error = ({ onReGetUser }) => {
+	const { state } = useLocation();
 
 	return (
 		<div className={styles.error}>
 			<span className={`${imageStyles.icon} ${styles.alert}`} />
 			<div className={styles.message}>
 				<p>Our apologies, there has been an error.</p>
-				<p>{errorMessage}</p>
+				{state?.customMessage ? (
+					<p>{state?.error}</p>
+				) : (
+					<p>
+						Please come back later, or if you have any questions, contact us.
+					</p>
+				)}
 			</div>
-			<Link to="/" className={styles.link}>
+			{state?.previousPath && (
+				<Link to={state.previousPath} className={styles.link}>
+					Go Back
+				</Link>
+			)}
+
+			<Link
+				to="/"
+				className={styles.link}
+				onClick={() => onReGetUser && onReGetUser(true)}
+			>
 				Back to Home Page.
 			</Link>
 		</div>
@@ -30,5 +40,5 @@ export const Error = ({ message = null }) => {
 };
 
 Error.propTypes = {
-	message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+	onReGetUser: PropTypes.func,
 };
