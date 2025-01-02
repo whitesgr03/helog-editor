@@ -1,6 +1,5 @@
 // Packages
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { string } from 'yup';
 import isEmpty from 'lodash.isempty';
@@ -20,8 +19,6 @@ export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 	const [debounce, setDebounce] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const timer = useRef(null);
-	const navigate = useNavigate();
-	const { pathname: previousPath } = useLocation();
 
 	const handleUpdate = async () => {
 		setLoading(true);
@@ -34,13 +31,16 @@ export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 			onActiveModal({ component: null });
 		};
 
+		const handleError = () => {
+			onError(result.message);
+			onActiveModal({ component: null });
+		};
+
 		result.success
 			? handleSetUser()
 			: result.fields
 				? setInputErrors({ ...result.fields })
-				: navigate('/error', {
-						state: { error: result.message, previousPath },
-					});
+				: handleError();
 
 		setLoading(false);
 	};
