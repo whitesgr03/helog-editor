@@ -10,9 +10,9 @@ import { Editor } from '@tinymce/tinymce-react';
 import isEqual from 'lodash.isequal';
 
 // Styles
-import buttonStyles from '../styles/utils/button.module.css';
-import styles from '../styles/PostCreate.module.css';
-import imageStyles from '../styles/utils/image.module.css';
+import buttonStyles from '../../../styles/button.module.css';
+import styles from './PostCreate.module.css';
+import imageStyles from '../../../styles/image.module.css';
 
 // Utils
 import { createPost, updatePost } from '../../../utils/handlePost';
