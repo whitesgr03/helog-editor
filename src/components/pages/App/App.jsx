@@ -13,6 +13,8 @@ import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
 import { Error } from '../../utils/Error/Error';
 import { Modal } from './Modal';
+import { CreateUsername } from '../Account/CreateUsername';
+import { Login } from '../Account/Login';
 
 // Utils
 import { getUser } from '../../../utils/handleUser';
@@ -96,8 +98,6 @@ export const App = () => {
 		<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
 			{error ? (
 				<Error onReGetUser={setReGetUser} />
-			) : loading ? (
-				<Loading />
 			) : (
 				<>
 					{modal && (
@@ -120,7 +120,9 @@ export const App = () => {
 					</div>
 					<div className={styles.container}>
 						<main>
-							{user ? (
+							{loading ? (
+								<Loading text={'Loading...'} />
+							) : user ? (
 								user.username ? (
 									<Outlet
 										context={{
