@@ -7,7 +7,7 @@ import styles from './Dashboard.module.css';
 import buttonStyles from '../../../styles/button.module.css';
 
 // Component
-import { TableRows } from '../../TableRows';
+import { TableRows } from './TableRows';
 import { Loading } from '../../utils/Loading';
 
 // Utils
