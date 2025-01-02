@@ -47,13 +47,7 @@ const defaultData = {
 };
 
 export const PostCreate = () => {
-	const {
-		darkTheme,
-		accessToken,
-		onVerifyTokenExpire,
-		onExChangeToken,
-		onAlert,
-	} = useOutletContext();
+	const { darkTheme, onAlert } = useOutletContext();
 	const navigate = useNavigate();
 	const { state } = useLocation();
 
@@ -95,11 +89,8 @@ export const PostCreate = () => {
 	const handlePublish = async () => {
 		const handleUpdate = async () => {
 			setPublishing(true);
-			const isTokenExpire = await onVerifyTokenExpire();
-			const newAccessToken = isTokenExpire && (await onExChangeToken());
 
 			const result = await updatePost({
-				token: newAccessToken || accessToken,
 				data: { publish: true },
 				postId: firstCreatePostId || state.postId,
 			});
@@ -133,17 +124,15 @@ export const PostCreate = () => {
 				(obj.mainImage = data.mainImage);
 			data.content !== previousData.content && (obj.content = data.content);
 
-			const isTokenExpire = await onVerifyTokenExpire();
-			const newAccessToken = isTokenExpire && (await onExChangeToken());
-
 			const result =
 				firstCreatePostId || state?.postId
 					? await updatePost({
-							token: newAccessToken || accessToken,
 							data: obj,
 							postId: firstCreatePostId || state?.postId,
 						})
-					: await createPost({ token: accessToken, data: obj });
+					: await createPost({
+							data: obj,
+						});
 
 			result.success
 				? !firstCreatePostId &&
@@ -163,17 +152,7 @@ export const PostCreate = () => {
 		return () => {
 			clearTimeout(timer.current);
 		};
-	}, [
-		firstCreatePostId,
-		state,
-		saving,
-		data,
-		previousData,
-		accessToken,
-		onVerifyTokenExpire,
-		onExChangeToken,
-		onAlert,
-	]);
+	}, [firstCreatePostId, state, saving, data, previousData, onAlert]);
 
 	return (
 		<div id={'postEditor'} className={styles['postCreate']}>
