@@ -120,14 +120,33 @@ export const App = () => {
 					</div>
 					<div className={styles.container}>
 						<main>
-							<Outlet
-								context={{
-									user,
-									onUser: setUser,
-									onActiveModal: handleActiveModal,
-									onAlert: handleAlert,
-								}}
-							/>
+							{user ? (
+								user.username ? (
+									<Outlet
+										context={{
+											user,
+											onUser: setUser,
+											onActiveModal: handleActiveModal,
+											onAlert: handleAlert,
+										}}
+									/>
+								) : (
+									!modal &&
+									handleActiveModal({
+										component: (
+											<CreateUsername
+												onActiveModal={handleActiveModal}
+												onUser={setUser}
+												onAlert={handleAlert}
+												onError={setError}
+											/>
+										),
+										clickToClose: false,
+									})
+								)
+							) : (
+								<Login />
+							)}
 						</main>
 						<Contact />
 						<Footer />
