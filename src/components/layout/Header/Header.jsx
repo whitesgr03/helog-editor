@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 // Styles
 import styles from './Header.module.css';
-import dropdownStyles from './Dropdown.module.css';
 import buttonStyles from '../../../styles/button.module.css';
 import imageStyles from '../../../styles/image.module.css';
 import bgcStyles from '../../../styles/bgc.module.css';
@@ -36,7 +35,7 @@ export const Header = ({ user, darkTheme, onSwitchColorTheme }) => {
 									<span
 										data-testid={'icon'}
 										className={`${imageStyles.icon} ${
-											darkTheme ? dropdownStyles.moon : dropdownStyles.sun
+											darkTheme ? styles.moon : styles.sun
 										}`}
 									/>
 									<div>
