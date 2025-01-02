@@ -7,6 +7,7 @@ import {
 	Link,
 } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+import isEqual from 'lodash.isequal';
 
 // Styles
 import buttonStyles from '../styles/utils/button.module.css';
@@ -145,8 +146,8 @@ export const PostCreate = () => {
 		};
 
 		!saving &&
-			JSON.stringify(data) !== JSON.stringify(previousData) &&
-			JSON.stringify(data) !== JSON.stringify(defaultData) &&
+			!isEqual(data, previousData) &&
+			!isEqual(data, defaultData) &&
 			(timer.current = setTimeout(() => handleSetPost(), 2000));
 
 		return () => {
@@ -180,8 +181,7 @@ export const PostCreate = () => {
 						onInit={(_evt, editor) => {
 							loadCount < 3 && setLoadCount(loadCount => loadCount + 1);
 							titleRef.current = editor;
-							JSON.stringify(data) === JSON.stringify(defaultData) &&
-								editor.focus();
+							isEqual(data, defaultData) && editor.focus();
 						}}
 						tagName="h2"
 						onEditorChange={(value, editor) => {
