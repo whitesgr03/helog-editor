@@ -371,7 +371,7 @@ export const PostCreate = () => {
 						}}
 					/>
 				</div>
-				{loadCount < 3 && <Loading />}
+				{loadCount < 3 && <Loading text={'Loading...'} />}
 			</div>
 		</div>
 	);
