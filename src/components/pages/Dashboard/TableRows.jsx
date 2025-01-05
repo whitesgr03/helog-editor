@@ -1,5 +1,11 @@
 // Packages
-import { useOutletContext, Link } from 'react-router-dom';
+import { useState } from 'react';
+import {
+	useOutletContext,
+	Link,
+	useNavigate,
+	useLocation,
+} from 'react-router-dom';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
@@ -11,10 +17,13 @@ import imageStyles from '../../../styles/image.module.css';
 import { DeletePostModel } from './DeletePostModel';
 
 // Utils
-import { updatePost, deletePost } from '../utils/handlePost';
+import { updatePost } from '../../../utils/handlePost';
 
-export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
-	const { onActiveModal } = useOutletContext();
+export const TableRows = ({ post, publishing, onPublishing, onUpdatePost }) => {
+	const { onActiveModal, onAlert } = useOutletContext();
+	const { pathname: previousPath } = useLocation();
+	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 
 	const postState = {
 		postId: post._id,
@@ -28,6 +37,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 
 	const handleUpdatePublish = async () => {
 		const handleUpdate = async () => {
+			setLoading(true);
 			onPublishing(true);
 
 			const result = await updatePost({
@@ -36,21 +46,22 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 			});
 
 			const handleSuccess = async () => {
-				await onGetPosts();
+				const { title, publish } = result.data;
+				onUpdatePost(result.data);
 				onAlert({
-					message: `${!post.publish ? 'Published' : 'Unpublished'} ${
-						post.title
-					} `,
+					message: `Post ${title} is ${publish ? 'Published' : 'Unpublished'}`,
 					error: false,
 				});
 			};
 
 			result.success
 				? await handleSuccess()
-				: onAlert({ message: result.message, error: true });
-
+				: navigate('/dashboard/error', {
+						state: { error: result.message, previousPath },
+					});
 
 			onPublishing(false);
+			setLoading(false);
 		};
 
 		!publishing && (await handleUpdate());
@@ -82,9 +93,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 	};
 
 	return (
-		<tr
-			className={`${styles['table-rows']} ${publishing ? styles.loading : ''}`}
-		>
+		<tr className={`${styles['table-rows']} ${loading ? styles.loading : ''}`}>
 			<td title={post.title}>{post.title}</td>
 			<td>
 				<button
@@ -109,7 +118,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 					<span className={`${imageStyles.icon} ${styles.delete}`} />
 				</button>
 			</td>
-			{publishing && (
+			{loading && (
 				<td className={styles['load-icon']}>
 					<span className={`${imageStyles.icon} ${styles.load}`} />
 				</td>
@@ -120,7 +129,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 
 TableRows.propTypes = {
 	post: PropTypes.object,
-	onGetPosts: PropTypes.func,
 	publishing: PropTypes.bool,
 	onPublishing: PropTypes.func,
+	onUpdatePost: PropTypes.func,
 };
