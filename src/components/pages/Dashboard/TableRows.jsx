@@ -73,31 +73,6 @@ export const TableRows = ({
 		!publishing && (await handleUpdate());
 	};
 
-	const handleActiveModel = () => {
-		const handleDelete = async () => {
-			const isTokenExpire = await onVerifyTokenExpire();
-			const newAccessToken = isTokenExpire && (await onExChangeToken());
-
-			const result = await deletePost({
-				token: newAccessToken || accessToken,
-				postId: post._id,
-			});
-
-			const handleSuccess = async () => {
-				await onGetPosts();
-				onAlert({ message: `Deleted ${post.title}`, error: false });
-			};
-
-			result.success
-				? await handleSuccess()
-				: onAlert({ message: result.message, error: true });
-
-			onModel(null);
-		};
-
-		onModel(<DeletePostModel onDelete={handleDelete} title={post.title} />);
-	};
-
 	return (
 		<tr className={`${styles['table-rows']} ${loading ? styles.loading : ''}`}>
 			<td title={post.title}>{post.title}</td>
@@ -120,7 +95,21 @@ export const TableRows = ({
 				</Link>
 			</td>
 			<td className={styles['button-wrap']}>
-				<button onClick={handleActiveModel}>
+				<button
+					onClick={() =>
+						onActiveModal({
+							component: (
+								<DeletePostModel
+									id={post._id}
+									title={post.title}
+									onActiveModal={onActiveModal}
+									onAlert={onAlert}
+									onDeletePost={onDeletePost}
+								/>
+							),
+						})
+					}
+				>
 					<span className={`${imageStyles.icon} ${styles.delete}`} />
 				</button>
 			</td>
