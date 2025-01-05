@@ -36,7 +36,7 @@ export const createPost = async ({ data }) => {
 
 export const updatePost = async ({ data, postId }) => {
 	const options = {
-		method: 'PUT',
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
 		},
