@@ -25,6 +25,10 @@ export const Dashboard = () => {
 		setPosts(posts.map(post => (post.id === newPost.id ? newPost : post)));
 	};
 
+	const handleDeletePost = id => {
+		setPosts(posts.filter(post => post.id !== id));
+	};
+
 	useEffect(() => {
 		const controller = new AbortController();
 		const { signal } = controller;
@@ -79,6 +83,7 @@ export const Dashboard = () => {
 											publishing={publishing}
 											onPublishing={setPublishing}
 											onUpdatePost={handleUpdatePost}
+											onDeletePost={handleDeletePost}
 										/>
 									))}
 								</tbody>
