@@ -97,7 +97,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 				</button>
 			</td>
 			<td>
-				<span>{format(post.lastModified, 'MMMM d, y')}</span>
+				<span>{format(post.updatedAt, 'MMMM d, y')}</span>
 			</td>
 			<td className={styles['button-wrap']}>
 				<Link to="/post/editor" state={postState}>
