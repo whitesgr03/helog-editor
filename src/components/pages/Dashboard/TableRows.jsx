@@ -110,7 +110,7 @@ export const TableRows = ({ post, onGetPosts, publishing, onPublishing }) => {
 				</button>
 			</td>
 			{publishing && (
-				<td className={styles.loadIcon}>
+				<td className={styles['load-icon']}>
 					<span className={`${imageStyles.icon} ${styles.load}`} />
 				</td>
 			)}
