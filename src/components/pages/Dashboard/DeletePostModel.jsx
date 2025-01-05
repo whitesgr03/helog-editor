@@ -1,16 +1,22 @@
 // Packages
 import { useState } from 'react';
-import { useOutletContext, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Styles
 import styles from './DeletePostModel.module.css';
 import buttonStyles from '../../../styles/button.module.css';
 
+// Utils
 import { deletePost } from '../../../utils/handlePost';
 
-export const DeletePostModel = ({ id, title }) => {
-	const { onActiveModal, onAlert, onPosts } = useOutletContext();
+export const DeletePostModel = ({
+	id,
+	title,
+	onActiveModal,
+	onAlert,
+	onDeletePost,
+}) => {
 	const [loading, setLoading] = useState(false);
 
 	const { pathname: previousPath } = useLocation();
@@ -24,7 +30,7 @@ export const DeletePostModel = ({ id, title }) => {
 		});
 
 		const handleSuccess = () => {
-			onPosts(result.data);
+			onDeletePost(id);
 			onAlert({ message: `Deleted ${title} successfully`, error: false });
 			onActiveModal({ component: null });
 		};
@@ -68,4 +74,7 @@ export const DeletePostModel = ({ id, title }) => {
 DeletePostModel.propTypes = {
 	id: PropTypes.string,
 	title: PropTypes.string,
+	onActiveModal: PropTypes.func,
+	onAlert: PropTypes.func,
+	onDeletePost: PropTypes.func,
 };
