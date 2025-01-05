@@ -175,7 +175,7 @@ export const PostCreate = () => {
 					}`}
 				>
 					<Editor
-						id="editorTitle"
+						id="editor-title"
 						key={darkTheme}
 						apiKey="pij84itqipqt5x0yzq0178p8ujv9yddap26oyc410q1yyrxr"
 						onInit={(_evt, editor) => {
@@ -235,8 +235,7 @@ export const PostCreate = () => {
 									</div>
 								</button>
 								<Editor
-									apiKey="pij84itqipqt5x0yzq0178p8ujv9yddap26oyc410q1yyrxr"
-									id="editorImage"
+									id="editor-image"
 									onInit={(_evt, editor) => {
 										setLoadCount(loadCount => loadCount + 1);
 										mainImageRef.current = editor;
@@ -293,8 +292,7 @@ export const PostCreate = () => {
 						</div>
 					</div>
 					<Editor
-						id="editorContent"
-						apiKey="pij84itqipqt5x0yzq0178p8ujv9yddap26oyc410q1yyrxr"
+						id="editor-content"
 						onInit={(_evt, editor) => {
 							setLoadCount(loadCount => loadCount + 1);
 							contentRef.current = editor;
