@@ -78,7 +78,7 @@ export const Dashboard = () => {
 								<tbody>
 									{posts.map(post => (
 										<TableRows
-											key={post._id}
+											key={post.id}
 											post={post}
 											publishing={publishing}
 											onPublishing={setPublishing}
