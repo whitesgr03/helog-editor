@@ -23,3 +23,13 @@ export const updateUser = async fields => {
 	};
 	return await handleFetch(url, options);
 };
+
+export const getUserPostList = async ({ signal }) => {
+	const options = {
+		method: 'GET',
+		signal,
+		credentials: 'include',
+	};
+
+	return await handleFetch(`${url}/posts`, options);
+};

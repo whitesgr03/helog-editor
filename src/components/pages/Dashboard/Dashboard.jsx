@@ -11,7 +11,7 @@ import { TableRows } from './TableRows';
 import { Loading } from '../../utils/Loading';
 
 // Utils
-import { getPosts } from '../../../utils/handlePost';
+import { getUserPostList } from '../../../utils/handleUser';
 
 export const Dashboard = () => {
 	const [posts, setPosts] = useState([]);
@@ -26,7 +26,7 @@ export const Dashboard = () => {
 		const { signal } = controller;
 
 		const handleGetPosts = async () => {
-			const result = await getPosts({ signal });
+			const result = await getUserPostList({ signal });
 
 			const handleResult = () => {
 				result.success ? setPosts(result.data) : setError(result.message);
