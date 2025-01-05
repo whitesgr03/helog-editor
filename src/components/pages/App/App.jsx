@@ -1,6 +1,6 @@
 // Packages
 import { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 
 // Styles
 import styles from './App.module.css';
@@ -26,13 +26,16 @@ const defaultAlert = {
 };
 
 export const App = () => {
-	const [darkTheme, setDarkTheme] = useState(false);
+	const [darkTheme, setDarkTheme] = useState(null);
 	const [user, setUser] = useState(null);
 	const [modal, setModal] = useState(null);
 	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [reGetUser, setReGetUser] = useState(false);
+
+	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
 
 	const handleColorTheme = () => {
 		setDarkTheme(!darkTheme);
@@ -51,20 +54,24 @@ export const App = () => {
 
 	useEffect(() => {
 		const getColorTheme = () => {
+			const themeParams = searchParams.get('theme');
 			const darkScheme = localStorage.getItem('darkTheme');
-
 			const browserDarkScheme =
 				window.matchMedia('(prefers-color-scheme: dark)')?.matches ?? false;
 
-			darkScheme === null &&
-				localStorage.setItem('darkTheme', browserDarkScheme);
+			const theme =
+				themeParams !== null
+					? themeParams
+					: darkScheme !== null
+						? darkScheme
+						: browserDarkScheme;
 
-			setDarkTheme(
-				darkScheme === null ? browserDarkScheme : darkScheme === 'true',
-			);
+			localStorage.setItem('darkTheme', theme);
+			setDarkTheme(theme === 'true');
+			navigate('/');
 		};
-		getColorTheme();
-	}, []);
+		darkTheme === null && getColorTheme();
+	}, [navigate, darkTheme, searchParams]);
 
 	useEffect(() => {
 		const controller = new AbortController();
