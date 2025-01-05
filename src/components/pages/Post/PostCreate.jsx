@@ -142,7 +142,7 @@ export const PostCreate = () => {
 				: onAlert({ message: result.message, error: true });
 
 			setSaving(false);
-			onAlert({ message: 'Saved post' });
+			onAlert({ message: 'Auto save post' });
 		};
 
 		!saving &&
