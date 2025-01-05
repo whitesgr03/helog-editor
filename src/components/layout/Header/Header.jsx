@@ -20,7 +20,10 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 	return (
 		<>
 			<header className={styles.header}>
-				<a className={styles.logo} href={import.meta.env.VITE_HELOG_URL}>
+				<a
+					className={styles.logo}
+					href={`${import.meta.env.VITE_HELOG_URL}?theme=${darkTheme}`}
+				>
 					<h1>HeLog</h1>
 				</a>
 				<nav>
