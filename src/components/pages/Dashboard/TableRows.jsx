@@ -19,7 +19,13 @@ import { DeletePostModel } from './DeletePostModel';
 // Utils
 import { updatePost } from '../../../utils/handlePost';
 
-export const TableRows = ({ post, publishing, onPublishing, onUpdatePost }) => {
+export const TableRows = ({
+	post,
+	publishing,
+	onPublishing,
+	onUpdatePost,
+	onDeletePost,
+}) => {
 	const { onActiveModal, onAlert } = useOutletContext();
 	const { pathname: previousPath } = useLocation();
 	const navigate = useNavigate();
@@ -132,4 +138,5 @@ TableRows.propTypes = {
 	publishing: PropTypes.bool,
 	onPublishing: PropTypes.func,
 	onUpdatePost: PropTypes.func,
+	onDeletePost: PropTypes.func,
 };
