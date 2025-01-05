@@ -43,7 +43,7 @@ export const DeletePostModel = ({ id, title }) => {
 			<span className={styles.title}>Delete Post</span>
 			<div className={styles.content}>
 				<p>Do you really want to delete?</p>
-				<p>{title}</p>
+				<p className={styles['post-title']}>{title}</p>
 			</div>
 			<div className={styles['button-wrap']}>
 				<button

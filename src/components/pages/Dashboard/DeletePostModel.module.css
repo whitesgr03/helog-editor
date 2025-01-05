@@ -30,6 +30,15 @@
 	width: 40%;
 }
 
+.post-title {
+	width: 100%;
+	overflow: scroll;
+	font-style: italic;
+	font-weight: bolder;
+	font-size: 1.5rem;
+	white-space: nowrap;
+}
+
 @media (width >= 450px) {
 	.delete-model {
 		row-gap: 40px;
