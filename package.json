@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite --open --port=7001",
-		"build": "vite build",
+		"build": "npm run postinstall && vite build",
 		"test": "vitest --coverage",
 		"coverage": "vitest run --coverage",
 		"postinstall": "node ./postinstall.js"
