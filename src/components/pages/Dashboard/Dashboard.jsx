@@ -21,6 +21,10 @@ export const Dashboard = () => {
 
 	const { pathname: previousPath } = useLocation();
 
+	const handleUpdatePost = newPost => {
+		setPosts(posts.map(post => (post.id === newPost.id ? newPost : post)));
+	};
+
 	useEffect(() => {
 		const controller = new AbortController();
 		const { signal } = controller;
@@ -74,6 +78,7 @@ export const Dashboard = () => {
 											post={post}
 											publishing={publishing}
 											onPublishing={setPublishing}
+											onUpdatePost={handleUpdatePost}
 										/>
 									))}
 								</tbody>
