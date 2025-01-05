@@ -177,7 +177,8 @@ export const PostCreate = () => {
 					<Editor
 						id="editor-title"
 						key={darkTheme}
-						apiKey="pij84itqipqt5x0yzq0178p8ujv9yddap26oyc410q1yyrxr"
+						tinymceScriptSrc="/tinymce/tinymce.min.js"
+						licenseKey="gpl"
 						onInit={(_evt, editor) => {
 							loadCount < 3 && setLoadCount(loadCount => loadCount + 1);
 							titleRef.current = editor;
@@ -235,6 +236,8 @@ export const PostCreate = () => {
 									</div>
 								</button>
 								<Editor
+									tinymceScriptSrc="/tinymce/tinymce.min.js"
+									licenseKey="gpl"
 									id="editor-image"
 									onInit={(_evt, editor) => {
 										setLoadCount(loadCount => loadCount + 1);
@@ -293,6 +296,8 @@ export const PostCreate = () => {
 					</div>
 					<Editor
 						id="editor-content"
+						tinymceScriptSrc="/tinymce/tinymce.min.js"
+						licenseKey="gpl"
 						onInit={(_evt, editor) => {
 							setLoadCount(loadCount => loadCount + 1);
 							contentRef.current = editor;
