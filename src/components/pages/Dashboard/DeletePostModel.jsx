@@ -10,6 +10,9 @@ import buttonStyles from '../../../styles/button.module.css';
 // Utils
 import { deletePost } from '../../../utils/handlePost';
 
+// Components
+import { Loading } from '../../utils/Loading';
+
 export const DeletePostModel = ({
 	id,
 	title,
@@ -45,29 +48,32 @@ export const DeletePostModel = ({
 	};
 
 	return (
-		<div className={styles['delete-model']}>
-			<span className={styles.title}>Delete Post</span>
-			<div className={styles.content}>
-				<p>Do you really want to delete?</p>
-				<p className={styles['post-title']}>{title}</p>
+		<>
+			{loading && <Loading text={'Deleting...'} light={true} shadow={true} />}
+			<div className={styles['delete-model']}>
+				<span className={styles.title}>Delete Post</span>
+				<div className={styles.content}>
+					<p>Do you really want to delete?</p>
+					<p className={styles['post-title']}>{title}</p>
+				</div>
+				<div className={styles['button-wrap']}>
+					<button
+						className={buttonStyles.cancel}
+						data-close-model
+						onClick={() => onActiveModal({ component: null })}
+					>
+						Cancel
+					</button>
+					<button
+						className={buttonStyles.error}
+						onClick={() => !loading && handleDeletePost()}
+					>
+						{loading && <span className={buttonStyles['load-icon']} />}
+						Delete
+					</button>
+				</div>
 			</div>
-			<div className={styles['button-wrap']}>
-				<button
-					className={buttonStyles.cancel}
-					data-close-model
-					onClick={() => onActiveModal({ component: null })}
-				>
-					Cancel
-				</button>
-				<button
-					className={buttonStyles.error}
-					onClick={() => !loading && handleDeletePost()}
-				>
-					{loading && <span className={buttonStyles['load-icon']} />}
-					Delete
-				</button>
-			</div>
-		</div>
+		</>
 	);
 };
 
