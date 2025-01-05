@@ -156,7 +156,7 @@ export const PostCreate = () => {
 	}, [firstCreatePostId, state, saving, data, previousData, onAlert]);
 
 	return (
-		<div id={'postEditor'} className={styles['postCreate']}>
+		<div className={styles['post-create']}>
 			<div className={styles['button-wrap']}>
 				<Link to="/" className={styles.link}>
 					<span className={`${styles['left-arrow']} ${imageStyles.icon}`} />
