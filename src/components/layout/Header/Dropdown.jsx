@@ -9,7 +9,7 @@ import imageStyles from '../../../styles/image.module.css';
 export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 	return (
 		<div className={styles.dropdown}>
-			{user?.username && (
+			{user?.username ? (
 				<>
 					<div className={styles.profile}>
 						<div className={styles.avatar}>
@@ -19,6 +19,8 @@ export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 					</div>
 					<p>Welcome to HeLog Editor</p>
 				</>
+			) : (
+				<p>Welcome to HeLog Editor</p>
 			)}
 			<ul>
 				<li>
