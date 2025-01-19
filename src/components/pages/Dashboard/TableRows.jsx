@@ -21,8 +21,8 @@ import { updatePost } from '../../../utils/handlePost';
 
 export const TableRows = ({
 	post,
-	publishing,
-	onPublishing,
+	changing,
+	onChanging,
 	onUpdatePost,
 	onDeletePost,
 }) => {
@@ -42,8 +42,8 @@ export const TableRows = ({
 	};
 
 	const handleUpdatePublish = async () => {
+		onChanging(true);
 		setLoading(true);
-		onPublishing(true);
 
 		const result = await updatePost({
 			data: { publish: !post.publish },
@@ -65,8 +65,8 @@ export const TableRows = ({
 					state: { error: result.message, previousPath },
 				});
 
-		onPublishing(false);
 		setLoading(false);
+		onChanging(false);
 	};
 
 	return (
