@@ -180,6 +180,10 @@ img {
 	color: var(--dark-scheme-placeholder);
 }
 
+.dark button {
+	color: var(--dark-scheme-color);
+}
+
 .dark a {
 	color: var(--dark-scheme-color);
 }
