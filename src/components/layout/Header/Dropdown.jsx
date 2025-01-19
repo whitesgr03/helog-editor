@@ -43,19 +43,15 @@ export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 				<Navigate to="/error" state={{ error, previousPath }} />
 			) : (
 				<div className={styles.dropdown}>
-					{user?.username ? (
-						<>
-							<div className={styles.profile}>
-								<div className={styles.avatar}>
-									{user.username.charAt(0).toUpperCase()}
-								</div>
-								<span title={user.username}>{user.username}</span>
+					{user?.username && (
+						<div className={styles.profile}>
+							<div className={styles.avatar}>
+								{user.username.charAt(0).toUpperCase()}
 							</div>
-							<p>Welcome to HeLog Editor</p>
-						</>
-					) : (
-						<p>Welcome to HeLog Editor</p>
+							<span title={user.username}>{user.username}</span>
+						</div>
 					)}
+					<p>Welcome to HeLog Editor</p>
 					<ul>
 						<li>
 							<button className={buttonStyles.theme} onClick={onColorTheme}>
