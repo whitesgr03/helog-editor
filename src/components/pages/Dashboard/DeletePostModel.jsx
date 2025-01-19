@@ -30,7 +30,7 @@ export const DeletePostModel = ({
 
 		const handleSuccess = () => {
 			onDeletePost(id);
-			onAlert({ message: `Post ${title} has been Deleted`, error: false });
+			onAlert({ message: `Post has been Deleted`, error: false });
 		};
 
 		result.success
