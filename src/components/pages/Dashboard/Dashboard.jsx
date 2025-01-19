@@ -1,6 +1,6 @@
 // Package
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
 
 // Styles
 import styles from './Dashboard.module.css';
@@ -10,7 +10,8 @@ import buttonStyles from '../../../styles/button.module.css';
 import { TableRows } from './TableRows';
 
 export const Dashboard = () => {
-	const [posts, setPosts] = useState([]);
+	const { posts } = useOutletContext();
+
 	const [publishing, setPublishing] = useState(false);
 
 	const handleUpdatePost = newPost => {
