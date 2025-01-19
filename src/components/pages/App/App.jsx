@@ -17,6 +17,7 @@ import { Login } from '../Account/Login';
 
 // Utils
 import { getUser } from '../../../utils/handleUser';
+import { getUserPostList } from '../../../utils/handleUser';
 
 // Variables
 const defaultAlert = {
@@ -101,6 +102,24 @@ export const App = () => {
 		(reGetUser || !user) && handleGetUser();
 		return () => controller.abort();
 	}, [reGetUser, user, error]);
+
+	useEffect(() => {
+		const controller = new AbortController();
+		const { signal } = controller;
+
+		const handleGetPosts = async () => {
+			const result = await getUserPostList({ signal });
+
+			const handleResult = () => {
+				result.success ? setPosts(result.data) : setError(result.message);
+				setFetching(false);
+			};
+
+			result && handleResult();
+		};
+		handleGetPosts();
+		return () => controller.abort();
+	}, []);
 
 	return (
 		<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>

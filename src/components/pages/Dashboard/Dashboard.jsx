@@ -10,9 +10,6 @@ import buttonStyles from '../../../styles/button.module.css';
 import { TableRows } from './TableRows';
 import { Loading } from '../../utils/Loading';
 
-// Utils
-import { getUserPostList } from '../../../utils/handleUser';
-
 export const Dashboard = () => {
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -28,25 +25,6 @@ export const Dashboard = () => {
 	const handleDeletePost = id => {
 		setPosts(posts.filter(post => post.id !== id));
 	};
-
-	useEffect(() => {
-		const controller = new AbortController();
-		const { signal } = controller;
-
-		const handleGetPosts = async () => {
-			const result = await getUserPostList({ signal });
-
-			const handleResult = () => {
-				result.success ? setPosts(result.data) : setError(result.message);
-
-				setLoading(false);
-			};
-
-			result && handleResult();
-		};
-		handleGetPosts();
-		return () => controller.abort();
-	}, []);
 
 	return (
 		<>
