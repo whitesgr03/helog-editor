@@ -8,7 +8,6 @@ import styles from './App.module.css';
 // Components
 import { Header } from '../../layout/Header/Header';
 import { Footer } from '../../layout/Footer/Footer';
-import { Contact } from './Contact';
 import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
 import { Error } from '../../utils/Error/Error';
@@ -157,7 +156,6 @@ export const App = () => {
 								<Login />
 							)}
 						</main>
-						<Contact />
 						<Footer />
 					</div>
 				</>

@@ -1,8 +1,6 @@
 // Styles
 import styles from './Footer.module.css';
-import contactStyles from '../../pages/App/Contact.module.css';
 import imageStyles from '../../../styles/image.module.css';
-
 
 export const Footer = () => {
 	return (
