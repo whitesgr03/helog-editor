@@ -10,17 +10,9 @@ import buttonStyles from '../../../styles/button.module.css';
 import { TableRows } from './TableRows';
 
 export const Dashboard = () => {
-	const { posts } = useOutletContext();
+	const { posts, onUpdatePost, onDeletePost } = useOutletContext();
 
 	const [publishing, setPublishing] = useState(false);
-
-	const handleUpdatePost = newPost => {
-		setPosts(posts.map(post => (post.id === newPost.id ? newPost : post)));
-	};
-
-	const handleDeletePost = id => {
-		setPosts(posts.filter(post => post.id !== id));
-	};
 
 	return (
 		<div className={styles.dashboard}>
@@ -50,8 +42,8 @@ export const Dashboard = () => {
 									post={post}
 									publishing={publishing}
 									onPublishing={setPublishing}
-									onUpdatePost={handleUpdatePost}
-									onDeletePost={handleDeletePost}
+									onUpdatePost={onUpdatePost}
+									onDeletePost={onDeletePost}
 								/>
 							))}
 						</tbody>

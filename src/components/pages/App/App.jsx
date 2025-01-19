@@ -58,6 +58,14 @@ export const App = () => {
 		setPosts([newPost, ...posts]);
 	};
 
+	const handleUpdatePost = newPost => {
+		setPosts(posts.map(post => (post.id === newPost.id ? newPost : post)));
+	};
+
+	const handleDeletePost = id => {
+		setPosts(posts.filter(post => post.id !== id));
+	};
+
 	useEffect(() => {
 		const getColorTheme = () => {
 			const themeParams = searchParams.get('theme');
@@ -176,6 +184,9 @@ export const App = () => {
 										onUser: setUser,
 										onActiveModal: handleActiveModal,
 										onAlert: handleAlert,
+										onCreatePost: handleCreatePost,
+										onUpdatePost: handleUpdatePost,
+										onDeletePost: handleDeletePost,
 									}}
 								/>
 							)}
