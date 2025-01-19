@@ -179,3 +179,8 @@ img {
 .dark textarea::placeholder {
 	color: var(--dark-scheme-placeholder);
 }
+
+.dark a {
+	color: var(--dark-scheme-color);
+}
+
