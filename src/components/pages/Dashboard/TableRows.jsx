@@ -54,7 +54,7 @@ export const TableRows = ({
 			const { title, publish } = result.data;
 			onUpdatePost(result.data);
 			onAlert({
-				message: `Post ${title} is ${publish ? 'Published' : 'Unpublished'}`,
+				message: `Post is ${result.data.publish ? 'Published' : 'Unpublished'}.`,
 				error: false,
 			});
 		};
