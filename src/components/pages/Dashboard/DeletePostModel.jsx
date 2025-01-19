@@ -39,7 +39,7 @@ export const DeletePostModel = ({
 		};
 
 		result.success
-			? await handleSuccess()
+			? handleSuccess()
 			: navigate('/dashboard/error', {
 					state: { error: result.message, previousPath },
 				});
