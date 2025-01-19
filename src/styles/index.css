@@ -69,10 +69,6 @@
 	overflow-wrap: anywhere;
 }
 
-[hidden] {
-	display: none !important;
-}
-
 body {
 	display: flex;
 	flex-direction: column;
