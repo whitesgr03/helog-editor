@@ -42,35 +42,31 @@ export const TableRows = ({
 	};
 
 	const handleUpdatePublish = async () => {
-		const handleUpdate = async () => {
-			setLoading(true);
-			onPublishing(true);
+		setLoading(true);
+		onPublishing(true);
 
-			const result = await updatePost({
-				data: { publish: !post.publish },
-				postId: post._id,
+		const result = await updatePost({
+			data: { publish: !post.publish },
+			postId: post._id,
+		});
+
+		const handleSuccess = async () => {
+			const { title, publish } = result.data;
+			onUpdatePost(result.data);
+			onAlert({
+				message: `Post ${title} is ${publish ? 'Published' : 'Unpublished'}`,
+				error: false,
 			});
-
-			const handleSuccess = async () => {
-				const { title, publish } = result.data;
-				onUpdatePost(result.data);
-				onAlert({
-					message: `Post ${title} is ${publish ? 'Published' : 'Unpublished'}`,
-					error: false,
-				});
-			};
-
-			result.success
-				? await handleSuccess()
-				: navigate('/dashboard/error', {
-						state: { error: result.message, previousPath },
-					});
-
-			onPublishing(false);
-			setLoading(false);
 		};
 
-		!publishing && (await handleUpdate());
+		result.success
+			? await handleSuccess()
+			: navigate('/dashboard/error', {
+					state: { error: result.message, previousPath },
+				});
+
+		onPublishing(false);
+		setLoading(false);
 	};
 
 	return (
