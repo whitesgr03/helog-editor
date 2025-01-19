@@ -1,6 +1,5 @@
 // Packages
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Styles
@@ -21,9 +20,6 @@ export const DeletePostModel = ({
 	onDeletePost,
 }) => {
 	const [loading, setLoading] = useState(false);
-
-	const { pathname: previousPath } = useLocation();
-	const navigate = useNavigate();
 
 	const handleDeletePost = async () => {
 		setLoading(true);
