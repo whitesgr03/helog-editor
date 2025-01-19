@@ -113,8 +113,8 @@ export const TableRows = ({
 
 TableRows.propTypes = {
 	post: PropTypes.object,
-	publishing: PropTypes.bool,
-	onPublishing: PropTypes.func,
+	changing: PropTypes.bool,
+	onChanging: PropTypes.func,
 	onUpdatePost: PropTypes.func,
 	onDeletePost: PropTypes.func,
 };
