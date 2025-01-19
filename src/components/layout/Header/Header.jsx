@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import styles from './Header.module.css';
 import buttonStyles from '../../../styles/button.module.css';
 import imageStyles from '../../../styles/image.module.css';
-import bgcStyles from '../../../styles/bgc.module.css';
 
 // Components
 import { Dropdown } from './Dropdown';
@@ -53,20 +52,20 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 					</ul>
 				</nav>
 				{activeDropdown && (
-					<Dropdown
-						user={user}
-						darkTheme={darkTheme}
-						onColorTheme={onColorTheme}
-					/>
+					<>
+						<Dropdown
+							user={user}
+							darkTheme={darkTheme}
+							onColorTheme={onColorTheme}
+						/>
+						<div
+							className={styles['transparent-background']}
+							onClick={handleCloseDropdown}
+							data-testid="transparentBgc"
+						/>
+					</>
 				)}
 			</header>
-			{activeDropdown && (
-				<div
-					className={styles['transparent-background']}
-					onClick={handleCloseDropdown}
-					data-testid="transparentBgc"
-				/>
-			)}
 		</>
 	);
 };
