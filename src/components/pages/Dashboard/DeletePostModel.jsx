@@ -34,7 +34,7 @@ export const DeletePostModel = ({
 
 		const handleSuccess = () => {
 			onDeletePost(id);
-			onAlert({ message: `Deleted ${title} successfully`, error: false });
+      onAlert({ message: `Post ${title} has been Deleted`, error: false });
 			onActiveModal({ component: null });
 		};
 
