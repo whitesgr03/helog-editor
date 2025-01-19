@@ -54,21 +54,9 @@
 	color: var(--dark-scheme-highlight);
 }
 
-@media (width >= 450px) {
-	.address {
-		display: none;
-	}
-}
-
 @media (width >= 1000px) {
 	.footer {
 		padding: 20px;
-	}
-}
-
-@media (width >= 1300px) {
-	.address {
-		display: block;
 	}
 }
 
