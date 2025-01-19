@@ -156,6 +156,7 @@ export const App = () => {
 									<Outlet
 										context={{
 											user,
+											posts,
 											onUser: setUser,
 											onActiveModal: handleActiveModal,
 											onAlert: handleAlert,
