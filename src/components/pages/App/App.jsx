@@ -122,11 +122,11 @@ export const App = () => {
 	}, []);
 
 	return (
-		<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
+		<>
 			{error ? (
 				<Error onReGetUser={setReGetUser} />
 			) : (
-				<>
+				<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
 					{modal && (
 						<Modal
 							onActiveModal={handleActiveModal}
@@ -179,8 +179,8 @@ export const App = () => {
 						</main>
 						<Footer />
 					</div>
-				</>
+				</div>
 			)}
-		</div>
+		</>
 	);
 };
