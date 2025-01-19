@@ -13,9 +13,12 @@ export const Footer = () => {
 				<a href="#git" alt="github" className={styles.link}>
 					<span className={`${imageStyles.icon} ${styles.github}`} />
 				</a>
-				<div className={styles.address}>
-					<Address />
-				</div>
+				<address>
+					<a href="mailto:whitesgr03@gmail.com" className={styles.link}>
+						<span className={`${imageStyles.icon} ${styles.email}`} />
+						<em className={styles.emphasis}>whitesgr03@gmail.com</em>
+					</a>
+				</address>
 			</div>
 			<p>&copy; 2024 Designed &amp; coded by Weiss Bai</p>
 		</footer>
