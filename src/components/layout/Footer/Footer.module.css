@@ -9,8 +9,10 @@
 }
 
 .link {
-	border: 2px solid transparent;
-	border-radius: 100%;
+	display: flex;
+	column-gap: 10px;
+	justify-content: center;
+	align-items: center;
 }
 
 .github {
@@ -27,7 +29,7 @@
 
 /* Pseudo classes */
 .link:hover {
-	border-color: var(--light-scheme-highlight);
+	color: var(--light-scheme-highlight);
 }
 
 /* Dark scheme classes */
@@ -43,7 +45,7 @@
 }
 
 :global(.dark) .link:hover {
-	border-color: var(--dark-scheme-highlight);
+	color: var(--dark-scheme-highlight);
 }
 
 @media (width >= 450px) {
