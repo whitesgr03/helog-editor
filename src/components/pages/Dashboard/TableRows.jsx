@@ -75,7 +75,7 @@ export const TableRows = ({
 			<td>
 				<button
 					className={`${styles.switch} ${post.publish ? styles.active : ''}`}
-					onClick={handleUpdatePublish}
+					onClick={() => !changing && handleUpdatePublish()}
 				>
 					<div>
 						<div />
