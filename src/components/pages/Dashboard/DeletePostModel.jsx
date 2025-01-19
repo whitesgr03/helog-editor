@@ -40,8 +40,9 @@ export const DeletePostModel = ({
 
 		result.success
 			? handleSuccess()
-			: navigate('/dashboard/error', {
-					state: { error: result.message, previousPath },
+			: onAlert({
+					message: 'There are some errors occur, please try again later.',
+					error: true,
 				});
 
 		setLoading(false);
