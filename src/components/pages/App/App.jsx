@@ -12,7 +12,7 @@ import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
 import { Error } from '../../utils/Error/Error';
 import { Modal } from './Modal';
-import { CreateUsername } from '../Account/CreateUsername';
+import { CreateUsername } from './CreateUsername';
 import { Login } from '../Account/Login';
 
 // Utils
