@@ -34,8 +34,7 @@ export const DeletePostModel = ({
 
 		const handleSuccess = () => {
 			onDeletePost(id);
-      onAlert({ message: `Post ${title} has been Deleted`, error: false });
-			onActiveModal({ component: null });
+			onAlert({ message: `Post ${title} has been Deleted`, error: false });
 		};
 
 		result.success
@@ -44,6 +43,8 @@ export const DeletePostModel = ({
 					message: 'There are some errors occur, please try again later.',
 					error: true,
 				});
+
+		onActiveModal({ component: null });
 
 		setLoading(false);
 	};
