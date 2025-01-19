@@ -54,6 +54,10 @@ export const App = () => {
 		component ? setModal({ component, clickToClose }) : setModal(null);
 	};
 
+	const handleCreatePost = newPost => {
+		setPosts([newPost, ...posts]);
+	};
+
 	useEffect(() => {
 		const getColorTheme = () => {
 			const themeParams = searchParams.get('theme');
