@@ -125,6 +125,8 @@ export const App = () => {
 		<>
 			{error ? (
 				<Error onReGetUser={setReGetUser} />
+			) : loading || fetching ? (
+				<Loading text={'Loading...'} />
 			) : (
 				<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
 					{modal && (
