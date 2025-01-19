@@ -30,8 +30,10 @@ export const App = () => {
 	const [modal, setModal] = useState(null);
 	const [alert, setAlert] = useState(defaultAlert);
 	const [loading, setLoading] = useState(true);
+	const [fetching, setFetching] = useState(true);
 	const [error, setError] = useState(false);
 	const [reGetUser, setReGetUser] = useState(false);
+	const [posts, setPosts] = useState([]);
 
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
