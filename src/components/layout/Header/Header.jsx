@@ -62,7 +62,7 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 			</header>
 			{activeDropdown && (
 				<div
-					className={bgcStyles['transparent-window']}
+					className={styles['transparent-background']}
 					onClick={handleCloseDropdown}
 					data-testid="transparentBgc"
 				/>
