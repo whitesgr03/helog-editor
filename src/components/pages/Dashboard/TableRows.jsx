@@ -1,11 +1,6 @@
 // Packages
 import { useState } from 'react';
-import {
-	useOutletContext,
-	Link,
-	useNavigate,
-	useLocation,
-} from 'react-router-dom';
+import { useOutletContext, Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
@@ -27,8 +22,6 @@ export const TableRows = ({
 	onDeletePost,
 }) => {
 	const { onActiveModal, onAlert } = useOutletContext();
-	const { pathname: previousPath } = useLocation();
-	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 
 	const postState = {
@@ -51,7 +44,6 @@ export const TableRows = ({
 		});
 
 		const handleSuccess = async () => {
-			const { title, publish } = result.data;
 			onUpdatePost(result.data);
 			onAlert({
 				message: `Post is ${result.data.publish ? 'Published' : 'Unpublished'}.`,
@@ -61,8 +53,9 @@ export const TableRows = ({
 
 		result.success
 			? await handleSuccess()
-			: navigate('/dashboard/error', {
-					state: { error: result.message, previousPath },
+			: onAlert({
+					message: 'There are some errors occur, please try again later.',
+					error: true,
 				});
 
 		setLoading(false);
