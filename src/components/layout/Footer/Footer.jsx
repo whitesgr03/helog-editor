@@ -7,7 +7,7 @@ import imageStyles from '../../../styles/image.module.css';
 export const Footer = () => {
 	return (
 		<footer className={styles.footer}>
-			<div className={contactStyles.container}>
+			<div className={styles.container}>
 				<a href="#git" alt="github" className={styles.link}>
 					<span className={`${imageStyles.icon} ${styles.github}`} />
 				</a>
