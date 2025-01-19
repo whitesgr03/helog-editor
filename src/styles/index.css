@@ -120,7 +120,7 @@ button {
 	cursor: pointer;
 	border: 0;
 	background-color: transparent;
-  color: var(--light-scheme-color);
+	color: var(--light-scheme-color);
 }
 
 ol,
@@ -187,4 +187,3 @@ img {
 .dark a {
 	color: var(--dark-scheme-color);
 }
-
