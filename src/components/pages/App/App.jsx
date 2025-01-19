@@ -149,35 +149,31 @@ export const App = () => {
 					</div>
 					<div className={styles.container}>
 						<main>
-							{loading ? (
-								<Loading text={'Loading...'} />
-							) : user ? (
-								user.username ? (
-									<Outlet
-										context={{
-											user,
-											posts,
-											onUser: setUser,
-											onActiveModal: handleActiveModal,
-											onAlert: handleAlert,
-										}}
-									/>
-								) : (
-									!modal &&
-									handleActiveModal({
-										component: (
-											<CreateUsername
-												onActiveModal={handleActiveModal}
-												onUser={setUser}
-												onAlert={handleAlert}
-												onError={setError}
-											/>
-										),
-										clickToClose: false,
-									})
-								)
-							) : (
+							{!user ? (
 								<Login />
+							) : !user.username ? (
+								!modal &&
+								handleActiveModal({
+									component: (
+										<CreateUsername
+											onActiveModal={handleActiveModal}
+											onUser={setUser}
+											onAlert={handleAlert}
+											onError={setError}
+										/>
+									),
+									clickToClose: false,
+								})
+							) : (
+								<Outlet
+									context={{
+										user,
+										posts,
+										onUser: setUser,
+										onActiveModal: handleActiveModal,
+										onAlert: handleAlert,
+									}}
+								/>
 							)}
 						</main>
 						<Footer />
