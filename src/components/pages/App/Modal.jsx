@@ -20,7 +20,7 @@ export const Modal = ({ onActiveModal, clickToClose, children }) => {
 				{clickToClose && (
 					<button
 						className={styles['modal-button']}
-						title="close-button"
+						title="Close Modal Button"
 						onClick={e =>
 							e.target === e.currentTarget && onActiveModal({ component: null })
 						}
