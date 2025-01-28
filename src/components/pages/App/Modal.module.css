@@ -7,7 +7,7 @@
 	backdrop-filter: blur(4px);
 	animation: fade-in 0.3s forwards;
 	inset: 0;
-	background-color: rgba(var(--light-scheme-color-rgb), 0.9);
+	background-color: rgba(var(--light-scheme-color-rgb), 0.5);
 	padding: 0 5%;
 }
 
