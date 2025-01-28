@@ -18,12 +18,6 @@ export const Router = () => (
 					{
 						path: '/',
 						element: <Dashboard />,
-						children: [
-							{
-								path: 'dashboard/error',
-								element: <Error />,
-							},
-						],
 					},
 					{
 						path: 'editor/post/:postId?',
