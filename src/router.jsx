@@ -6,6 +6,7 @@ import { Error } from './components/utils/Error/Error';
 import { NotFound } from './components/utils/Error/NotFound';
 import { Dashboard } from './components/pages/Dashboard/Dashboard';
 import { App } from './components/pages/App/App';
+import { PostEditor } from './components/pages/Post/PostEditor';
 
 export const Router = () => (
 	<RouterProvider
@@ -23,6 +24,10 @@ export const Router = () => (
 								element: <Error />,
 							},
 						],
+					},
+					{
+						path: 'editor/post/:postId?',
+						element: <PostEditor />,
 					},
 					{
 						path: '*',
