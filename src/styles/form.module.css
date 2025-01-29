@@ -33,6 +33,25 @@
 	color: var(--light-scheme-error);
 }
 
+.error-message {
+	display: flex;
+	position: relative;
+	column-gap: 5px;
+	align-items: center;
+	visibility: hidden;
+	opacity: 0;
+	color: var(--light-scheme-error);
+}
+
+.error-message-no-display {
+	display: none;
+}
+
+.error-message-show {
+	visibility: visible;
+	opacity: 1;
+}
+
 .content label.error input {
 	border-color: var(--light-scheme-error);
 }
