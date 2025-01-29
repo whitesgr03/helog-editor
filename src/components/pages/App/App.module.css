@@ -1,6 +1,8 @@
 .app {
 	display: flex;
+	flex: 1 1 100%;
 	flex-direction: column;
+	justify-content: space-between;
 	background-color: var(--light-scheme-main-bgc);
 }
 
