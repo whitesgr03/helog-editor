@@ -1,6 +1,6 @@
 import { object } from 'yup';
 
-export const verifySchema = async ({ data, schema }) => {
+export const verifySchema = async ({ data, schema, context }) => {
 	let result = {
 		success: true,
 		fields: {},
@@ -10,6 +10,7 @@ export const verifySchema = async ({ data, schema }) => {
 		await object(schema).noUnknown().validate(data, {
 			abortEarly: false,
 			stripUnknown: true,
+			context,
 		});
 	} catch (err) {
 		for (const error of err.inner) {
