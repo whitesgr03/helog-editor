@@ -42,12 +42,10 @@
 }
 
 .error {
-	composes: content;
 	background-color: var(--light-scheme-error);
 }
 
 .cancel {
-	composes: content;
 	color: var(--light-scheme-color);
 }
 
