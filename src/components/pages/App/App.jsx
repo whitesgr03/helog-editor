@@ -59,11 +59,11 @@ export const App = () => {
 	};
 
 	const handleUpdatePost = newPost => {
-		setPosts(posts.map(post => (post.id === newPost.id ? newPost : post)));
+		setPosts(posts.map(post => (post._id === newPost._id ? newPost : post)));
 	};
 
 	const handleDeletePost = id => {
-		setPosts(posts.filter(post => post.id !== id));
+		setPosts(posts.filter(post => post._id !== id));
 	};
 
 	useEffect(() => {
