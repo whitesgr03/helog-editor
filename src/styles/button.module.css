@@ -27,10 +27,6 @@
 	height: var(--size);
 }
 
-.success .load-icon {
-	display: none;
-}
-
 .success.loading::after {
 	position: absolute;
 	top: 50%;
