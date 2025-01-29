@@ -27,7 +27,6 @@
 	position: relative;
 	visibility: hidden;
 	opacity: 0;
-	margin-left: 30px;
 	color: var(--light-scheme-error);
 }
 
