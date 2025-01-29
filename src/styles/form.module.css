@@ -107,3 +107,9 @@
 :global(.dark) .content label:hover > textarea {
 	border-color: var(--dark-scheme-highlight);
 }
+
+@media (width >= 650px) {
+	.error-message-no-display {
+		display: flex;
+	}
+}
