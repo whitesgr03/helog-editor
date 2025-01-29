@@ -27,16 +27,6 @@
 	height: var(--size);
 }
 
-@keyframes shimmer {
-	0% {
-		transform: translate(0%, -50%);
-	}
-
-	100% {
-		transform: translate(200%, -50%);
-	}
-}
-
 .success.loading .load-icon {
 	display: block;
 	width: var(--icon-size-desktop);
