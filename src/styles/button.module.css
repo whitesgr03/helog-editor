@@ -1,4 +1,9 @@
 .content {
+	display: flex;
+	position: relative;
+	column-gap: 10px;
+	justify-content: center;
+	align-items: center;
 	cursor: pointer;
 	border: 2px solid var(--light-scheme-color);
 	border-radius: 5px;
