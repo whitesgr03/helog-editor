@@ -27,6 +27,12 @@
 	height: var(--size);
 }
 
+@keyframes spin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 .error {
 	composes: content;
 	background-color: var(--light-scheme-error);
