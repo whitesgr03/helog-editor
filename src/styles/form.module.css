@@ -24,7 +24,10 @@
 }
 
 .content label + div {
+	display: flex;
 	position: relative;
+	column-gap: 5px;
+	align-items: center;
 	visibility: hidden;
 	opacity: 0;
 	color: var(--light-scheme-error);
