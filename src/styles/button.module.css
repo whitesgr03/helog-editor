@@ -27,11 +27,6 @@
 	height: var(--size);
 }
 
-.success.loading .load-icon {
-	display: block;
-	width: var(--icon-size-desktop);
-}
-
 .error {
 	composes: content;
 	background-color: var(--light-scheme-error);
