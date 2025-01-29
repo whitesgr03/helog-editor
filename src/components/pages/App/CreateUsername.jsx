@@ -13,6 +13,9 @@ import imageStyles from '../../../styles/image.module.css';
 import { updateUser } from '../../../utils/handleUser';
 import { verifySchema } from '../../../utils/verifySchema';
 
+// Components
+import { Loading } from '../../utils/Loading';
+
 export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 	const [inputErrors, setInputErrors] = useState({});
 	const [formFields, setFormFields] = useState({ username: '' });
@@ -104,7 +107,8 @@ export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 	}, [debounce, formFields]);
 
 	return (
-		<div className={formStyles.form}>
+		<>
+			{loading && <Loading text={'Saving...'} light={true} shadow={true} />}
 			<form className={formStyles.content} onSubmit={handleSubmit}>
 				<div className={formStyles['label-wrap']}>
 					<label
@@ -130,15 +134,12 @@ export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 
 				<button
 					type="submit"
-					className={`${buttonStyles.success} ${loading ? buttonStyles.loading : ''}`}
+					className={`${buttonStyles.content} ${buttonStyles.success}`}
 				>
-					<span className={buttonStyles.text}>
-						Save
-						<span className={`${imageStyles.icon} ${buttonStyles.loadIcon}`} />
-					</span>
+					Save
 				</button>
 			</form>
-		</div>
+		</>
 	);
 };
 
