@@ -33,6 +33,14 @@
 	}
 }
 
+.highlight {
+	background-color: var(--light-scheme-highlight);
+}
+
+.success {
+	background-color: var(--light-scheme-success);
+}
+
 .error {
 	composes: content;
 	background-color: var(--light-scheme-error);
