@@ -122,6 +122,11 @@
 	color: var(--dark-scheme-color);
 }
 
+:global(.dark) .highlight {
+	background-color: var(--dark-scheme-highlight);
+	color: var(--light-scheme-color);
+}
+
 :global(.dark) .cancel {
 	background-color: var(--dark-scheme-color);
 	color: var(--light-scheme-color);
