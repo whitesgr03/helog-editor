@@ -33,14 +33,6 @@
 	color: var(--light-scheme-error);
 }
 
-.content label + div span:first-of-type {
-	position: absolute;
-	top: 50%;
-	right: 100%;
-	transform: translateY(-50%);
-	margin-right: 5px;
-}
-
 .content label.error input {
 	border-color: var(--light-scheme-error);
 }
