@@ -16,6 +16,7 @@
 
 .container {
 	display: flex;
+	position: relative;
 	flex: 1 1 100%;
 	flex-direction: column;
 }
