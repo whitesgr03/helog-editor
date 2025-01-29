@@ -11,13 +11,6 @@
 	color: var(--dark-scheme-color);
 }
 
-.success {
-	composes: content;
-	position: relative;
-	background-color: var(--light-scheme-success);
-	overflow: hidden;
-}
-
 .text {
 	display: flex;
 	column-gap: 10px;
