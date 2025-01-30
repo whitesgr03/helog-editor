@@ -63,7 +63,7 @@ export const TableRows = ({
 	};
 
 	return (
-		<tr className={`${styles['table-rows']} ${loading ? styles.loading : ''}`}>
+		<tr className={styles['table-rows']}>
 			<td title={post.title}>{post.title}</td>
 			<td>
 				<span
