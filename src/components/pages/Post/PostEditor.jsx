@@ -437,7 +437,7 @@ export const PostEditor = () => {
 				</div>
 
 				<div className={styles.editors}>
-					<div>
+					<div className={styles.wrap}>
 						<Editor
 							id="editor-title"
 							key={darkTheme}
@@ -472,7 +472,7 @@ export const PostEditor = () => {
 							)}
 						</div>
 					</div>
-					<div className={styles['preview-wrap']}>
+					<div className={styles.wrap}>
 						<div className={styles['preview']}>
 							<button
 								className={styles['preview-title']}
@@ -524,7 +524,7 @@ export const PostEditor = () => {
 							</span>
 						</div>
 					</div>
-					<div>
+					<div className={styles.wrap}>
 						<Editor
 							id="editor-content"
 							tinymceScriptSrc="/tinymce/tinymce.min.js"

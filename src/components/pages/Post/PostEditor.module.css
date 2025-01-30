@@ -64,7 +64,7 @@
 	padding: 10px;
 }
 
-.preview-wrap {
+.wrap {
 	display: flex;
 	row-gap: 10px;
 	flex-direction: column;
