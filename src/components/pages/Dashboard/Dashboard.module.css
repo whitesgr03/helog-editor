@@ -34,6 +34,11 @@
 	white-space: nowrap;
 }
 
+.thead {
+	background-color: var(--light-scheme-highlight);
+	color: var(--dark-scheme-color);
+}
+
 .dashboard tr {
 	border-right: 2px solid var(--light-scheme-highlight);
 	border-left: 2px solid var(--light-scheme-highlight);

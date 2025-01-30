@@ -29,7 +29,7 @@ export const Dashboard = () => {
 			<div className={styles.container}>
 				{posts.length > 0 ? (
 					<table>
-						<thead>
+						<thead className={styles.thead}>
 							<tr>
 								<th>Title</th>
 								<th>Publish</th>
