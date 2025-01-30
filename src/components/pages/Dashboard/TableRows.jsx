@@ -11,9 +11,6 @@ import imageStyles from '../../../styles/image.module.css';
 // Components
 import { DeletePostModel } from './DeletePostModel';
 
-// Utils
-import { updatePost } from '../../../utils/handlePost';
-
 export const TableRows = ({
 	post,
 	changing,
@@ -23,44 +20,6 @@ export const TableRows = ({
 }) => {
 	const { onActiveModal, onAlert } = useOutletContext();
 	const [loading, setLoading] = useState(false);
-
-	const postState = {
-		postId: post._id,
-		publish: post.publish,
-		data: {
-			content: post.content ?? '',
-			title: post.title ?? '',
-			mainImage: post.mainImage ?? '',
-		},
-	};
-
-	const handleUpdatePublish = async () => {
-		onChanging(true);
-		setLoading(true);
-
-		const result = await updatePost({
-			data: { publish: !post.publish },
-			postId: post._id,
-		});
-
-		const handleSuccess = async () => {
-			onUpdatePost(result.data);
-			onAlert({
-				message: `Post is ${result.data.publish ? 'Published' : 'Unpublished'}.`,
-				error: false,
-			});
-		};
-
-		result.success
-			? await handleSuccess()
-			: onAlert({
-					message: 'There are some errors occur, please try again later.',
-					error: true,
-				});
-
-		setLoading(false);
-		onChanging(false);
-	};
 
 	return (
 		<tr className={styles['tbody-rows']}>
