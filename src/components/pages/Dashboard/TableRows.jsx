@@ -64,7 +64,7 @@ export const TableRows = ({
 
 	return (
 		<tr className={styles['tbody-rows']}>
-			<td title={post.title}>{post.title}</td>
+			<td>{post.title}</td>
 			<td>
 				<span
 					className={`${imageStyles.icon} ${post.publish ? styles.publish : styles.unpublish}`}
