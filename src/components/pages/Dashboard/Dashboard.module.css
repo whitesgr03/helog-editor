@@ -93,7 +93,7 @@
 	}
 }
 
-@media (width >= 775px) {
+@media (width >= 800px) {
 	.dashboard table {
 		display: revert;
 	}
