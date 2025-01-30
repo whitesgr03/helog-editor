@@ -11,13 +11,7 @@ import imageStyles from '../../../styles/image.module.css';
 // Components
 import { DeletePostModel } from './DeletePostModel';
 
-export const TableRows = ({
-	post,
-	changing,
-	onChanging,
-	onUpdatePost,
-	onDeletePost,
-}) => {
+export const TableRows = ({ post, onDeletePost }) => {
 	const { onActiveModal, onAlert } = useOutletContext();
 	const [loading, setLoading] = useState(false);
 
