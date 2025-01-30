@@ -56,14 +56,14 @@ export const DeletePostModel = ({
 				</div>
 				<div className={styles['button-wrap']}>
 					<button
-						className={buttonStyles.cancel}
+						className={`${buttonStyles.content} ${buttonStyles.cancel}`}
 						data-close-model
 						onClick={() => onActiveModal({ component: null })}
 					>
 						Cancel
 					</button>
 					<button
-						className={buttonStyles.error}
+						className={`${buttonStyles.content} ${buttonStyles.error}`}
 						onClick={() => !loading && handleDeletePost()}
 					>
 						{loading && <span className={buttonStyles['load-icon']} />}
