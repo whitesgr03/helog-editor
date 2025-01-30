@@ -1,5 +1,4 @@
 // Package
-import { useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
 // Styles
@@ -10,7 +9,7 @@ import buttonStyles from '../../../styles/button.module.css';
 import { TableRows } from './TableRows';
 
 export const Dashboard = () => {
-	const { posts, onUpdatePost, onDeletePost } = useOutletContext();
+	const { posts, onDeletePost } = useOutletContext();
 
 	return (
 		<div className={styles.dashboard}>
@@ -41,7 +40,6 @@ export const Dashboard = () => {
 								<TableRows
 									key={post._id}
 									post={post}
-									onUpdatePost={onUpdatePost}
 									onDeletePost={onDeletePost}
 								/>
 							))}
