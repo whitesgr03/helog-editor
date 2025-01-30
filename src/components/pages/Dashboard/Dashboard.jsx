@@ -30,7 +30,7 @@ export const Dashboard = () => {
 				{posts.length > 0 ? (
 					<table>
 						<thead className={styles.thead}>
-							<tr>
+							<tr className={styles['thead-rows']}>
 								<th>Title</th>
 								<th>Publish</th>
 								<th>Last Modified</th>

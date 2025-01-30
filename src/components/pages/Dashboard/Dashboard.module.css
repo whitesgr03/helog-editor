@@ -39,6 +39,29 @@
 	color: var(--dark-scheme-color);
 }
 
+.thead-rows {
+	border-right: 2px solid var(--light-scheme-highlight);
+	border-left: 2px solid var(--light-scheme-highlight);
+}
+
+.thead-rows th {
+	padding: 20px 10px;
+}
+
+.thead-rows th:nth-of-type(1) {
+	width: 100%;
+}
+
+.thead-rows th:nth-of-type(2),
+.thead-rows th:nth-of-type(4),
+.thead-rows th:nth-of-type(5) {
+	min-width: 80px;
+}
+
+.thead-rows th:nth-of-type(3) {
+	min-width: 160px;
+}
+
 /* Dark scheme classes */
 :global(.dark) .dashboard {
 	color: var(--dark-scheme-color);
@@ -46,6 +69,16 @@
 
 :global(.dark) .dashboard table {
 	box-shadow: 0 0 20px rgba(var(--dark-scheme-highlight-rgb) 0.35);
+}
+
+:global(.dark) .thead-rows {
+	border: 2px solid var(--dark-scheme-table);
+	border-bottom: 0;
+}
+
+:global(.dark) .thead-rows th {
+	background-color: var(--dark-scheme-table);
+	color: var(--light-scheme-color);
 }
 
 @media (width >= 450px) {
