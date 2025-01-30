@@ -74,7 +74,7 @@ export const TableRows = ({
 				<span>{format(post.updatedAt, 'MMMM d, y')}</span>
 			</td>
 			<td className={styles['button-wrap']}>
-				<Link to="/post/editor" className={styles.link}>
+				<Link to={`/editor/post/${post._id}`} className={styles.link}>
 					<span className={`${imageStyles.icon} ${styles.edit}`} />
 				</Link>
 			</td>
