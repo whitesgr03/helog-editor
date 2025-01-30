@@ -41,7 +41,7 @@ export const Dashboard = () => {
 						<tbody>
 							{posts.map(post => (
 								<TableRows
-									key={post.id}
+									key={post._id}
 									post={post}
 									changing={changing}
 									onChanging={setChanging}
