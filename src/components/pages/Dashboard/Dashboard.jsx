@@ -12,8 +12,6 @@ import { TableRows } from './TableRows';
 export const Dashboard = () => {
 	const { posts, onUpdatePost, onDeletePost } = useOutletContext();
 
-	const [changing, setChanging] = useState(false);
-
 	return (
 		<div className={styles.dashboard}>
 			<h2>Dashboard</h2>
@@ -43,8 +41,6 @@ export const Dashboard = () => {
 								<TableRows
 									key={post._id}
 									post={post}
-									changing={changing}
-									onChanging={setChanging}
 									onUpdatePost={onUpdatePost}
 									onDeletePost={onDeletePost}
 								/>
