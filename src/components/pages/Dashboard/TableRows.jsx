@@ -66,14 +66,9 @@ export const TableRows = ({
 		<tr className={`${styles['table-rows']} ${loading ? styles.loading : ''}`}>
 			<td title={post.title}>{post.title}</td>
 			<td>
-				<button
-					className={`${styles.switch} ${post.publish ? styles.active : ''}`}
-					onClick={() => !changing && handleUpdatePublish()}
-				>
-					<div>
-						<div />
-					</div>
-				</button>
+				<span
+					className={`${imageStyles.icon} ${post.publish ? styles.publish : styles.unpublish}`}
+				/>
 			</td>
 			<td>
 				<span>{format(post.updatedAt, 'MMMM d, y')}</span>
