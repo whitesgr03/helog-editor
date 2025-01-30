@@ -37,6 +37,19 @@
 	text-align: left;
 }
 
+.link {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	color: var(--light-scheme-color);
+}
+
+.delete-button {
+	width: 100%;
+	height: 100%;
+	color: var(--light-scheme-color);
+}
+
 .edit {
 	--size: calc(var(--icon-size-desktop) * 1.33);
 
@@ -57,6 +70,13 @@
 .tbody-rows td:hover {
 	background-color: rgba(var(--light-scheme-table-rgb), 0.5);
 }
+
+.button-wrap:hover .delete-button,
+.button-wrap:hover .link {
+	transform: scale(1.2);
+	color: var(--light-scheme-highlight);
+}
+
 /* Dark scheme classes */
 :global(.dark) .tbody-rows {
 	border: 2px solid var(--dark-scheme-table);
@@ -77,4 +97,9 @@
 
 :global(.dark) .tbody-rows:last-of-type {
 	border-bottom: 4px solid var(--dark-scheme-table);
+}
+
+:global(.dark) .link:hover,
+:global(.dark) .delete-button:hover {
+	color: var(--dark-scheme-highlight);
 }
