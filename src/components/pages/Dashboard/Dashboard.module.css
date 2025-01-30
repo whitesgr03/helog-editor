@@ -99,6 +99,12 @@
 	}
 }
 
+@media (width >= 900px) {
+	.thead-rows th:nth-of-type(3) {
+		min-width: 200px;
+	}
+}
+
 @media (width >= 1000px) {
 	.dashboard {
 		padding: 5% 10%;
