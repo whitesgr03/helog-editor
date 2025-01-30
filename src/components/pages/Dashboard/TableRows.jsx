@@ -98,11 +98,6 @@ export const TableRows = ({
 					<span className={`${imageStyles.icon} ${styles.delete}`} />
 				</button>
 			</td>
-			{loading && (
-				<td className={styles['load-icon']}>
-					<span className={`${imageStyles.icon} ${styles.load}`} />
-				</td>
-			)}
 		</tr>
 	);
 };
