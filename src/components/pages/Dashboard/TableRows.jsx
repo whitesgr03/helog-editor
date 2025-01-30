@@ -1,5 +1,4 @@
 // Packages
-import { useState } from 'react';
 import { useOutletContext, Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -13,7 +12,6 @@ import { DeletePostModel } from './DeletePostModel';
 
 export const TableRows = ({ post, onDeletePost }) => {
 	const { onActiveModal, onAlert } = useOutletContext();
-	const [loading, setLoading] = useState(false);
 
 	return (
 		<tr className={styles['tbody-rows']}>
