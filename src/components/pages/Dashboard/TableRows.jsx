@@ -80,6 +80,7 @@ export const TableRows = ({
 			</td>
 			<td className={styles['button-wrap']}>
 				<button
+					className={styles['delete-button']}
 					onClick={() =>
 						onActiveModal({
 							component: (
