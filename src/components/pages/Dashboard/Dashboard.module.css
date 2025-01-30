@@ -48,25 +48,6 @@
 	box-shadow: 0 0 20px rgba(var(--dark-scheme-highlight-rgb) 0.35);
 }
 
-:global(.dark) .dashboard th {
-	border-right: 2px solid var(--dark-scheme-table);
-	border-left: 2px solid var(--dark-scheme-table);
-	background-color: var(--dark-scheme-table);
-	color: var(--light-scheme-color);
-}
-
-:global(.dark) .dashboard tr:nth-of-type(odd) {
-	background-color: var(--dark-scheme-input-bgc);
-}
-
-:global(.dark) .dashboard tr:nth-of-type(even) {
-	background-color: var(--dark-scheme-switch-bgc);
-}
-
-:global(.dark) .dashboard tbody tr:last-of-type {
-	border-bottom: 4px solid var(--dark-scheme-table);
-}
-
 @media (width >= 450px) {
 	.dashboard {
 		padding: 5% 10%;
