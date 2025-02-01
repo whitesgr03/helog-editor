@@ -222,6 +222,8 @@ export const PostEditor = () => {
 		const handleValidation = async () => {
 			const newFields = { ...editorFields, title: value };
 
+			setEditorFields(newFields);
+
 			const schema = {
 				title: string()
 					.trim()
@@ -241,7 +243,6 @@ export const PostEditor = () => {
 			};
 
 			const handleValid = async () => {
-				setEditorFields(newFields);
 				timer.current = setTimeout(async () => {
 					postId
 						? await handleUpdate(newFields)
@@ -275,6 +276,8 @@ export const PostEditor = () => {
 		const handleValidation = async () => {
 			const newFields = { ...editorFields, content: value };
 
+			setEditorFields(newFields);
+
 			const schema = {
 				content: string()
 					.trim()
@@ -294,7 +297,6 @@ export const PostEditor = () => {
 			};
 
 			const handleValid = () => {
-				setEditorFields(newFields);
 				timer.current = setTimeout(async () => {
 					postId
 						? await handleUpdate(newFields)
