@@ -198,6 +198,13 @@ export const PostEditor = () => {
 
 		timer.current = setTimeout(async () => {
 			postId ? await handleUpdate(newFields) : await handleCreate(newFields);
+
+			onAlert({
+				message: 'Autosaving...',
+				error: false,
+				delay: 1000,
+				autosave: true,
+			});
 		}, 2000);
 	};
 
