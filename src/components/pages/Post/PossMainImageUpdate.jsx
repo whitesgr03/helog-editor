@@ -94,6 +94,5 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 
 PossMainImageUpdate.propTypes = {
 	onActiveModal: PropTypes.func,
-	onAlert: PropTypes.func,
 	onSetMainImage: PropTypes.func,
 };
