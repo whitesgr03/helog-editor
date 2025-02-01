@@ -19,17 +19,11 @@ import { Login } from '../Account/Login';
 import { getUser } from '../../../utils/handleUser';
 import { getUserPostList } from '../../../utils/handleUser';
 
-// Variables
-const defaultAlert = {
-	message: '',
-	error: false,
-};
-
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(null);
 	const [user, setUser] = useState(null);
 	const [modal, setModal] = useState(null);
-	const [alert, setAlert] = useState(defaultAlert);
+	const [alert, setAlert] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [fetching, setFetching] = useState(true);
 	const [error, setError] = useState(false);
@@ -44,9 +38,17 @@ export const App = () => {
 		localStorage.setItem('darkTheme', JSON.stringify(!darkTheme));
 	};
 
-	const handleAlert = ({ message, error = false }) =>
-		setAlert({ message, error });
-	const handleCloseAlert = () => setAlert(defaultAlert);
+	const handleAlert = ({ message, error, delay, autosave }) => {
+		const newAlert = {
+			message,
+			error,
+			delay,
+		};
+
+		setAlert(
+			alert.length < 2 && !autosave ? alert.concat(newAlert) : [newAlert],
+		);
+	};
 
 	const handleActiveModal = ({ component, clickToClose = true }) => {
 		document.body.removeAttribute('style');
@@ -155,9 +157,7 @@ export const App = () => {
 							darkTheme={darkTheme}
 							onColorTheme={handleColorTheme}
 						/>
-						{alert.message !== '' && (
-							<Alert onCloseAlert={handleCloseAlert} alert={alert} />
-						)}
+						<Alert alert={alert} onAlert={setAlert} />
 					</div>
 					<div className={styles.container}>
 						<main>
