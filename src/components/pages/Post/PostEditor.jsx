@@ -349,7 +349,11 @@ export const PostEditor = () => {
 
 			const image = new Image();
 			const handleError = () => {
-				onAlert({ message: 'URL is not a valid image source.' });
+				onAlert({
+					message: 'URL is not a valid image source.',
+					error: true,
+					delay: 3000,
+				});
 				target.remove();
 				document.activeElement.blur();
 			};
