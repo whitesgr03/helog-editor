@@ -124,6 +124,8 @@ export const PostEditor = () => {
 
 		const handleSuccess = () => {
 			setEditorFields(newFields);
+			setPreviousEditorFields(newFields);
+			setFieldsErrors({});
 			onAlert({
 				message: `Post has been ${editorFields.publish ? 'Published' : 'UnPublish'}.`,
 			});
