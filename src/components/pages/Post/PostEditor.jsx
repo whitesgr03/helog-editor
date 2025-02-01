@@ -151,7 +151,6 @@ export const PostEditor = () => {
 		const result = await createPost({ data: fields });
 
 		const handleSuccess = () => {
-			onAlert({ message: 'Autosaving...' });
 			setPreviousEditorFields(fields);
 			onCreatePost(result.data);
 			navigate(`${result.data._id}`);
@@ -172,7 +171,6 @@ export const PostEditor = () => {
 		const result = await updatePost({ postId, data: fields });
 
 		const handleSuccess = () => {
-			onAlert({ message: 'Autosaving...' });
 			setPreviousEditorFields(fields);
 			onUpdatePost(result.data);
 			setFieldsErrors({});
