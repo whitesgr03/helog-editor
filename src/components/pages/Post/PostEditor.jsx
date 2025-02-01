@@ -127,7 +127,9 @@ export const PostEditor = () => {
 			setPreviousEditorFields(newFields);
 			setFieldsErrors({});
 			onAlert({
-				message: `Post has been ${editorFields.publish ? 'Published' : 'UnPublish'}.`,
+				message: `Post has been ${editorFields.publish ? 'UnPublish' : 'Published'}.`,
+				error: false,
+				delay: 2000,
 			});
 			onUpdatePost(result.data);
 		};
