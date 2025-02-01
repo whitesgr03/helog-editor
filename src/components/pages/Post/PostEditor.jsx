@@ -452,7 +452,7 @@ export const PostEditor = () => {
 						{postId && (
 							<button
 								className={`${buttonStyles.content} ${editorFields.publish ? buttonStyles.error : buttonStyles.success}`}
-								onClick={handlePublish}
+								onClick={() => !publishing && handlePublish()}
 							>
 								<span className={buttonStyles.text}>
 									{publishing ? (
