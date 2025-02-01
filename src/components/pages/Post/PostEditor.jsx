@@ -434,16 +434,18 @@ export const PostEditor = () => {
 									!saving && isEmpty(fieldsErrors) && handleSaving()
 								}
 							>
-								{saving ? (
-									<span className={buttonStyles.text}>
-										Saving
-										<span
-											className={`${imageStyles.icon} ${buttonStyles['load']}`}
-										/>
-									</span>
-								) : (
-									<span>Save Post</span>
-								)}
+								<span className={buttonStyles.text}>
+									{saving ? (
+										<>
+											Saving
+											<span
+												className={`${imageStyles.icon} ${buttonStyles['load']}`}
+											/>
+										</>
+									) : (
+										<>Save Post</>
+									)}
+								</span>
 							</button>
 						)}
 
@@ -452,18 +454,20 @@ export const PostEditor = () => {
 								className={`${buttonStyles.content} ${editorFields.publish ? buttonStyles.error : buttonStyles.success}`}
 								onClick={handlePublish}
 							>
-								{publishing ? (
-									<span className={buttonStyles.text}>
-										{editorFields.publish ? 'Unpublishing' : 'Publishing'}
-										<span
-											className={`${imageStyles.icon} ${buttonStyles['load']}`}
-										/>
-									</span>
-								) : (
-									<span>
-										{editorFields.publish ? 'Unpublished' : 'Published'} Post
-									</span>
-								)}
+								<span className={buttonStyles.text}>
+									{publishing ? (
+										<>
+											{editorFields.publish ? 'Unpublishing' : 'Publishing'}
+											<span
+												className={`${imageStyles.icon} ${buttonStyles['load']}`}
+											/>
+										</>
+									) : (
+										<>
+											{editorFields.publish ? 'Unpublished' : 'Published'} Post
+										</>
+									)}
+								</span>
 							</button>
 						)}
 					</div>
