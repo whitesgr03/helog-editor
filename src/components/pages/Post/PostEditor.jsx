@@ -115,13 +115,15 @@ export const PostEditor = () => {
 	const handlePublish = async () => {
 		setPublishing(true);
 
+		const newFields = { ...editorFields, publish: !editorFields.publish };
+
 		const result = await updatePost({
 			postId,
-			data: { ...editorFields, publish: !editorFields.publish },
+			data: newFields,
 		});
 
 		const handleSuccess = () => {
-			setEditorFields({ ...editorFields, publish: !editorFields.publish });
+			setEditorFields(newFields);
 			onAlert({
 				message: `Post has been ${editorFields.publish ? 'Published' : 'UnPublish'}.`,
 			});
