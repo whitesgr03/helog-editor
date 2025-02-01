@@ -377,7 +377,11 @@ export const PostEditor = () => {
 		postId
 			? await handleUpdate(editorFields)
 			: await handleCreate(editorFields);
-
+		onAlert({
+			message: 'Saving...',
+			error: false,
+			delay: 2000,
+		});
 		setSaving(false);
 	};
 
