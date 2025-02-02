@@ -329,7 +329,7 @@ export const PostEditor = () => {
 			: setEditorFields(previousEditorFields);
 	};
 
-	const handleResizeEditor = evt => {
+	const handleResizeImageSize = evt => {
 		evt.target.setAttribute('style', `width:${evt.width}px;`);
 	};
 
@@ -568,7 +568,7 @@ export const PostEditor = () => {
 							contentRef.current = editor;
 						}}
 						onEditorChange={handleChangeContent}
-						onObjectResized={handleResizeEditor}
+						onObjectResized={handleResizeImageSize}
 						onNodeChange={handleContentImages}
 						init={EDITOR_CONTENT_INIT}
 					/>
