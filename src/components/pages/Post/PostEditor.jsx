@@ -467,125 +467,125 @@ export const PostEditor = () => {
 						)}
 					</div>
 				</div>
-
-				<div className={styles.editors}>
-					<div className={styles.wrap}>
-						<Editor
-							id="editor-title"
-							key={darkTheme}
-							tinymceScriptSrc="/tinymce/tinymce.min.js"
-							initialValue={title ?? ''}
-							licenseKey="gpl"
-							tagName="h2"
-							onInit={(_evt, editor) => {
-								setTitleEditorLoad(true);
-								titleRef.current = editor;
-							}}
-							onEditorChange={handleChangeTitle}
-							init={{
-								...EDITOR_TITLE_INIT,
-								skin: darkTheme ? 'oxide-dark' : 'oxide',
-							}}
-						/>
-						<div className={styles['error-message-wrap']}>
-							<div
-								className={`${formStyles['error-message']} ${fieldsErrors.title ? formStyles['error-message-show'] : formStyles['error-message-no-display']}`}
-							>
-								<span className={`${imageStyles.icon} ${formStyles.alert}`} />
-								<span className={formStyles.placeholder}>
-									{fieldsErrors.title ?? 'Message placeholder'}
-								</span>
-							</div>
-
-							{titleLength > -1 && (
-								<div className={styles.count}>
-									Title word count: {titleLength}
-								</div>
-							)}
-						</div>
-					</div>
-					<div className={styles.wrap}>
-						<div className={styles['preview']}>
-							<button
-								className={styles['preview-title']}
-								onClick={handleShowPreview}
-							>
-								Post main image
-								<span
-									className={`${styles['right-arrow']} ${previewImage ? styles['right-arrow-turn-down'] : ''} ${imageStyles.icon}`}
-								/>
-							</button>
-							<div
-								className={styles['preview-image-wrap']}
-								ref={previewImageWrapRef}
-							>
-								<button
-									className={styles['preview-image']}
-									ref={imageWrapRef}
-									onClick={() =>
-										onActiveModal({
-											component: (
-												<PossMainImageUpdate
-													onActiveModal={onActiveModal}
-													onSetMainImage={handleSetMainImage}
-												/>
-											),
-										})
-									}
-								>
-									{editorFields.mainImage === '' ? (
-										<div className={styles['image-wrap']}>
-											<span>Click to set image url</span>
-										</div>
-									) : (
-										<img
-											className={styles.image}
-											src={editorFields.mainImage}
-											alt="Main Image Preview"
-										/>
-									)}
-								</button>
-							</div>
-						</div>
+				<div className={styles.wrap}>
+					<Editor
+						id="editor-title"
+						key={darkTheme}
+						tinymceScriptSrc="/tinymce/tinymce.min.js"
+						initialValue={title ?? ''}
+						licenseKey="gpl"
+						tagName="h2"
+						onInit={(_evt, editor) => {
+							setTitleEditorLoad(true);
+							titleRef.current = editor;
+						}}
+						onEditorChange={handleChangeTitle}
+						init={{
+							...EDITOR_TITLE_INIT,
+							skin: darkTheme ? 'oxide-dark' : 'oxide',
+						}}
+					/>
+					<div className={styles['error-message-wrap']}>
 						<div
-							className={`${formStyles['error-message']} ${fieldsErrors.mainImage ? formStyles['error-message-show'] : ''}`}
+							className={`${formStyles['error-message']} ${fieldsErrors.title ? formStyles['error-message-show'] : formStyles['error-message-no-display']}`}
 						>
 							<span className={`${imageStyles.icon} ${formStyles.alert}`} />
 							<span className={formStyles.placeholder}>
-								{fieldsErrors.mainImage ?? 'Message placeholder'}
+								{fieldsErrors.title ?? 'Message placeholder'}
 							</span>
 						</div>
-					</div>
-					<div className={styles.wrap}>
-						<Editor
-							id="editor-content"
-							tinymceScriptSrc="/tinymce/tinymce.min.js"
-							licenseKey="gpl"
-							initialValue={content ?? ''}
-							onInit={(_evt, editor) => {
-								setContentEditorLoad(true);
-								contentRef.current = editor;
-							}}
-							onEditorChange={handleChangeContent}
-							onObjectResized={handleResizeEditor}
-							onNodeChange={handleContentImages}
-							init={EDITOR_CONTENT_INIT}
-						/>
-						<div className={styles['error-message-wrap']}>
-							<div
-								className={`${formStyles['error-message']} ${fieldsErrors.content ? formStyles['error-message-show'] : formStyles['error-message-no-display']}`}
-							>
-								<span className={`${imageStyles.icon} ${formStyles.alert}`} />
-								<span className={formStyles.placeholder}>
-									{fieldsErrors.content ?? 'Message placeholder'}
-								</span>
+
+						{titleLength > -1 && (
+							<div className={styles.count}>
+								Title word count: {titleLength}
 							</div>
-							{contentLength > -1 && (
-								<div className={styles.count}>
-									Content word count: {contentLength}
-								</div>
-							)}
+						)}
+					</div>
+				</div>
+				<div className={styles.wrap}>
+					<div className={styles['preview']}>
+						<button
+							className={styles['preview-title']}
+							onClick={handleShowPreview}
+						>
+							Post main image
+							<span
+								className={`${styles['right-arrow']} ${previewImage ? styles['right-arrow-turn-down'] : ''} ${imageStyles.icon}`}
+							/>
+						</button>
+						<div
+							className={styles['preview-image-wrap']}
+							ref={previewImageWrapRef}
+						>
+							<button
+								className={styles['preview-image']}
+								ref={imageWrapRef}
+								onClick={() =>
+									onActiveModal({
+										component: (
+											<PossMainImageUpdate
+												onActiveModal={onActiveModal}
+												onSetMainImage={handleSetMainImage}
+											/>
+										),
+									})
+								}
+							>
+								{editorFields.mainImage === '' ? (
+									<div className={styles['image-wrap']}>
+										<span>Click to set image url</span>
+									</div>
+								) : (
+									<img
+										className={styles.image}
+										src={editorFields.mainImage}
+										alt="Main Image Preview"
+									/>
+								)}
+							</button>
 						</div>
+					</div>
+
+					{fieldsErrors.mainImage && (
+						<div
+							className={`${formStyles['error-message']} ${formStyles['error-message-show']}`}
+						>
+							<span className={`${imageStyles.icon} ${formStyles.alert}`} />
+							<span className={formStyles.placeholder}>
+								{fieldsErrors.mainImage}
+							</span>
+						</div>
+					)}
+				</div>
+				<div className={styles.wrap}>
+					<Editor
+						id="editor-content"
+						tinymceScriptSrc="/tinymce/tinymce.min.js"
+						licenseKey="gpl"
+						initialValue={content ?? ''}
+						onInit={(_evt, editor) => {
+							setContentEditorLoad(true);
+							contentRef.current = editor;
+						}}
+						onEditorChange={handleChangeContent}
+						onObjectResized={handleResizeEditor}
+						onNodeChange={handleContentImages}
+						init={EDITOR_CONTENT_INIT}
+					/>
+					<div className={styles['error-message-wrap']}>
+						<div
+							className={`${formStyles['error-message']} ${fieldsErrors.content ? formStyles['error-message-show'] : formStyles['error-message-no-display']}`}
+						>
+							<span className={`${imageStyles.icon} ${formStyles.alert}`} />
+							<span className={formStyles.placeholder}>
+								{fieldsErrors.content ?? 'Message placeholder'}
+							</span>
+						</div>
+						{contentLength > -1 && (
+							<div className={styles.count}>
+								Content word count: {contentLength}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
