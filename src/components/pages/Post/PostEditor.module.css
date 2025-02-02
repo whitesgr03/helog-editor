@@ -101,12 +101,29 @@
 	outline: 0;
 }
 
-.editor
-	:global(
-		.mce-content-body:not([dir='rtl'])[data-mce-placeholder]:not(
-				.mce-visualblocks
-			)::before
-	) {
+:global(#editor-content) a {
+	color: revert;
+	text-decoration: revert;
+	text-underline-offset: 2px;
+}
+
+:global(#editor-content) p,
+:global(#editor-content) h3,
+:global(#editor-content) h5 {
+	margin: revert;
+	font-weight: normal;
+}
+
+:global(#editor-content) ol,
+:global(#editor-content) ul {
+	margin: revert;
+	padding: revert;
+}
+
+:global(#editor-content) li {
+	margin-block: 1em;
+	list-style: revert;
+}
 	top: 50%;
 	left: auto;
 	transform: translateY(-50%);
