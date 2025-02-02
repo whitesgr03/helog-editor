@@ -157,6 +157,14 @@
 	text-shadow: none;
 }
 
+:global(#editor-content) :global(.tag) {
+	color: var(--light-scheme-error);
+}
+
+:global(#editor-content) :global(.operator) {
+	background-color: transparent;
+}
+
 .editors {
 	display: flex;
 	row-gap: 15px;
@@ -223,6 +231,10 @@
 :global(.dark) :global(#editor-content) pre {
 	background-color: var(--dark-scheme-input-bgc);
 	color: var(--dark-scheme-color);
+}
+
+:global(.dark) :global(#editor-content) :global(.tag) {
+	color: var(--dark-scheme-error);
 }
 
 :global(.dark)
