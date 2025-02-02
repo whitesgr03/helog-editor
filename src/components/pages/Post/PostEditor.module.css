@@ -96,8 +96,8 @@
 	object-fit: cover;
 }
 
-.editor :global(#editor-title),
-.editor :global(#editor-content) {
+:global(#editor-title),
+:global(#editor-content) {
 	outline: 0;
 }
 
