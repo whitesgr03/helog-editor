@@ -418,7 +418,7 @@ export const PostEditor = () => {
 				<div className={styles['button-container']}>
 					<Link to="/" className={styles.link}>
 						<span className={`${styles['left-arrow']} ${imageStyles.icon}`} />
-						Back to Dashboard
+						Back to dashboard
 					</Link>
 
 					<div className={styles['button-wrap']}>
