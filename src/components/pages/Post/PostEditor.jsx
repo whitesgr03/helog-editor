@@ -413,7 +413,7 @@ export const PostEditor = () => {
 				<Loading text={'Loading...'} />
 			)}
 			<div
-				className={`${styles.container} ${!titleEditorLoad || !contentEditorLoad ? styles.loading : ''}`}
+				className={`${styles.container} ${!titleEditorLoad || !contentEditorLoad ? styles.hide : ''}`}
 			>
 				<div className={styles['button-container']}>
 					<Link to="/" className={styles.link}>
