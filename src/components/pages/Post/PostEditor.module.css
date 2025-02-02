@@ -33,7 +33,7 @@
 
 .container {
 	display: flex;
-	row-gap: 20px;
+	row-gap: 15px;
 	flex-direction: column;
 }
 
