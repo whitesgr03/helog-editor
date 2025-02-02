@@ -165,22 +165,6 @@
 	background-color: transparent;
 }
 
-.editors {
-	display: flex;
-	row-gap: 15px;
-	flex: 1 1 100%;
-	flex-direction: column;
-}
-
-.editors h3,
-.editors h5 {
-	font-weight: normal;
-}
-
-.editors h2 {
-	font-size: 1.5rem;
-}
-
 .left-arrow {
 	--size: var(--icon-size-desktop);
 
@@ -286,10 +270,6 @@
 		padding: 5% 15%;
 	}
 
-	.editors {
-		row-gap: 30px;
-	}
-
 	.container h2 {
 		font-size: 2rem;
 	}
@@ -302,10 +282,6 @@
 
 	.preview-image-wrap {
 		padding: 0 10%;
-	}
-
-	.editors {
-		row-gap: 40px;
 	}
 }
 
