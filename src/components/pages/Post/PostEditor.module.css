@@ -124,12 +124,6 @@
 	margin-block: 1em;
 	list-style: revert;
 }
-	top: 50%;
-	left: auto;
-	transform: translateY(-50%);
-	cursor: text;
-	color: var(--dark-scheme-placeholder);
-}
 
 .editor :global(#editor-content) figure {
 	display: flex;
@@ -143,12 +137,6 @@
 	margin: 0 auto;
 	max-width: 100%;
 	object-fit: cover;
-}
-
-.editor :global(#editor-content.mce-content-body:not([dir='rtl']) blockquote) {
-	margin-left: 1.5rem;
-	border-left: 2px solid var(--dark-scheme-placeholder);
-	padding-left: 1rem;
 }
 
 :global(#editor-content) pre {
@@ -219,12 +207,6 @@
 
 :global(.dark) :global(#editor-content) :global(.tag) {
 	color: var(--dark-scheme-error);
-}
-
-:global(.dark)
-	.editor
-	:global(#editor-content.mce-content-body:not([dir='rtl']) blockquote) {
-	border-color: var(--dark-scheme-color);
 }
 
 :global(.dark) .count {
