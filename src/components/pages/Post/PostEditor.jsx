@@ -446,7 +446,7 @@ export const PostEditor = () => {
 
 						{postId && (
 							<button
-								className={`${buttonStyles.content} ${editorFields.publish ? buttonStyles.error : buttonStyles.success}`}
+								className={`${styles['publish-button']} ${buttonStyles.content} ${editorFields.publish ? buttonStyles.error : buttonStyles.success}`}
 								onClick={() => !publishing && handlePublish()}
 							>
 								<span className={buttonStyles.text}>
