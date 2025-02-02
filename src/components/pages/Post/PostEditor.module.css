@@ -6,31 +6,6 @@
 	padding: 5%;
 }
 
-.editor a {
-	text-decoration: revert;
-}
-
-.editor h2,
-.editor h3,
-.editor h5 {
-	margin: revert;
-}
-
-.editor p {
-	margin: revert;
-}
-
-.editor ol,
-.editor ul {
-	margin: revert;
-	padding: revert;
-}
-
-.editor li {
-	margin-block: 1em;
-	list-style: revert;
-}
-
 .container {
 	display: flex;
 	row-gap: 15px;
