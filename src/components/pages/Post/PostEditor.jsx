@@ -424,7 +424,7 @@ export const PostEditor = () => {
 					<div className={styles['button-wrap']}>
 						{!isEqual(previousEditorFields, editorFields) && (
 							<button
-								className={`${buttonStyles.content} ${buttonStyles.highlight}`}
+								className={`${styles['save-button']} ${buttonStyles.content} ${buttonStyles.highlight}`}
 								onClick={() =>
 									!saving && isEmpty(fieldsErrors) && handleSaving()
 								}
