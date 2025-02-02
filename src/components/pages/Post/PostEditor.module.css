@@ -271,9 +271,3 @@
 		row-gap: 15px;
 	}
 }
-
-@media (width >= 1600px) {
-	.editor {
-		padding: 5% 0;
-	}
-}
