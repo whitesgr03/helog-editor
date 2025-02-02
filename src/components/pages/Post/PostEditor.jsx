@@ -339,10 +339,8 @@ export const PostEditor = () => {
 		const handleCheckMimeTypes = () => {
 			const isSetStyle = target.hasAttribute('style');
 			const width = target.getAttribute('width');
-			const height = target.getAttribute('height');
 
-			!isSetStyle &&
-				target.setAttribute('style', `width:${width}px;height:${height}px;`);
+			!isSetStyle && target.setAttribute('style', `width:${width}px;`);
 
 			const image = new Image();
 			const handleError = () => {
