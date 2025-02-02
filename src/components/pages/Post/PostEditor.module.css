@@ -61,10 +61,6 @@
 	align-items: center;
 }
 
-.button-wrap button {
-	padding: 10px;
-}
-
 .save-button,
 .publish-button {
 	padding: 10px;
