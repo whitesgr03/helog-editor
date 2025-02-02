@@ -159,7 +159,7 @@
 	padding-left: 1rem;
 }
 
-.editor :global(#editor-content pre[class*='language-']) {
+:global(#editor-content) pre {
 	background-color: var(--light-scheme-layout-bgc);
 	font-family: unset;
 	text-shadow: none;
@@ -228,7 +228,7 @@
 	color: var(--dark-scheme-color);
 }
 
-:global(.dark) .editor :global(#editor-content pre[class*='language-']) {
+:global(.dark) :global(#editor-content) pre {
 	background-color: var(--dark-scheme-input-bgc);
 	color: var(--dark-scheme-color);
 }
