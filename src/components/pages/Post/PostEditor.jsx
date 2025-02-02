@@ -330,10 +330,7 @@ export const PostEditor = () => {
 	};
 
 	const handleResizeEditor = evt => {
-		evt.target.setAttribute(
-			'style',
-			`width:${evt.width}px;height:${evt.height}px;`,
-		);
+		evt.target.setAttribute('style', `width:${evt.width}px;`);
 	};
 
 	const handleContentImages = (evt, editor) => {
