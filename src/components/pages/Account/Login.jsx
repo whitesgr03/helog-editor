@@ -21,8 +21,6 @@ export const Login = () => {
 		window.location.assign(
 			`${import.meta.env.VITE_RESOURCE_URL}/account/login/${provider}`,
 		);
-
-		setLoading(false);
 	};
 
 	return (
