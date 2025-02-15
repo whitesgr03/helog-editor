@@ -45,10 +45,9 @@ export const Alert = ({ alert, onAlert }) => {
 		clearTimeout(timer.current);
 		remainingTime.current -= Date.now() - startTime.current;
 	};
-	const handleContinueTimer = e => {
-		const inAlertElement = e.relatedTarget?.closest(`.${styles.alert}`);
-		!inAlertElement && startTimer();
-		!inAlertElement && setPause(false);
+	const handleContinueTimer = () => {
+		setPause(false);
+		alert.length === 1 && startTimer();
 	};
 
 	return (
