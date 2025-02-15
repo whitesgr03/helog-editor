@@ -43,7 +43,9 @@ export const Alert = ({ alert, onAlert }) => {
 	const handlePauseTimer = () => {
 		setPause(true);
 		clearTimeout(timer.current);
-		remainingTime.current -= Date.now() - startTime.current;
+
+		remainingTime.current !== 0 &&
+			(remainingTime.current -= Date.now() - startTime.current);
 	};
 	const handleContinueTimer = () => {
 		setPause(false);
