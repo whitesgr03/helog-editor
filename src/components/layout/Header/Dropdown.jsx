@@ -59,6 +59,7 @@ export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 									className={`${imageStyles.icon} ${
 										darkTheme ? styles.moon : styles.sun
 									}`}
+									data-testid="theme-icon"
 								/>
 								{darkTheme ? 'Dark' : 'Light'} mode
 								<div>
@@ -73,7 +74,10 @@ export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 										className={`${imageStyles.icon} ${loadingStyles.load}`}
 									/>
 								) : (
-									<span className={`${imageStyles.icon} ${styles.logout}`} />
+									<span
+										className={`${imageStyles.icon} ${styles.logout}`}
+										data-testid="loading-icon"
+									/>
 								)}
 								Logout
 							</button>
