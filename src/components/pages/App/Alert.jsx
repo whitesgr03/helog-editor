@@ -53,8 +53,8 @@ export const Alert = ({ alert, onAlert }) => {
 		<div
 			onClick={() => setCancel(true)}
 			onTransitionEnd={handleTransitionend}
-			onMouseOver={() => !pause && handlePauseTimer()}
-			onMouseOut={e => !cancel && alert.length && handleContinueTimer(e)}
+			onMouseEnter={handlePauseTimer}
+			onMouseLeave={handleContinueTimer}
 			className={`${styles.alert} ${alert.length === 1 && !cancel ? styles.active : ''} ${
 				alert[0]?.error || lastAlert.error ? styles.error : ''
 			}`}
