@@ -53,7 +53,7 @@ export const Alert = ({ alert, onAlert }) => {
 	};
 	return (
 		<div
-			onClick={() => setCancel(true)}
+			onClick={endAlert}
 			onTransitionEnd={handleTransitionend}
 			onMouseEnter={handlePauseTimer}
 			onMouseLeave={handleContinueTimer}
