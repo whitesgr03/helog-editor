@@ -48,7 +48,7 @@ export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 							<div className={styles.avatar}>
 								{user.username.charAt(0).toUpperCase()}
 							</div>
-							<span title={user.username}>{user.username}</span>
+							<span>{user.username}</span>
 						</div>
 					)}
 					<p>Welcome to HeLog Editor</p>
