@@ -7,7 +7,6 @@ import styles from './Alert.module.css';
 
 export const Alert = ({ alert, onAlert }) => {
 	const [pause, setPause] = useState(false);
-	const [cancel, setCancel] = useState(false);
 	const timer = useRef('');
 	const startTime = useRef(0);
 	const remainingTime = useRef(0);
@@ -22,10 +21,9 @@ export const Alert = ({ alert, onAlert }) => {
 
 		const nextAlert = alert[1] ? [alert[1]] : [];
 
-		nextAlert.length === 0 && !cancel && setLastAlert(alert[0]);
+		nextAlert.length === 0 && setLastAlert(alert[0]);
 
 		onAlert(nextAlert);
-		setCancel(false);
 	};
 
 	const startTimer = () => {
@@ -57,7 +55,7 @@ export const Alert = ({ alert, onAlert }) => {
 			onTransitionEnd={handleTransitionend}
 			onMouseEnter={handlePauseTimer}
 			onMouseLeave={handleContinueTimer}
-			className={`${styles.alert} ${alert.length === 1 && !cancel ? styles.active : ''} ${
+			className={`${styles.alert} ${alert.length === 1 ? styles.active : ''} ${
 				alert[0]?.error || lastAlert.error ? styles.error : ''
 			}`}
 		>
