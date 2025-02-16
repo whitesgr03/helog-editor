@@ -125,7 +125,9 @@ export const App = () => {
 			const result = await getUserPostList({ signal });
 
 			const handleResult = () => {
-				result.success ? setPosts(result.data) : setError(result.message);
+				result.success
+					? setPosts(result.data)
+					: result.status >= 500 && setError(result.message);
 				setFetching(false);
 			};
 
