@@ -27,6 +27,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 	};
 
 	const handleMainImageUpdate = () => {
+		setLoading(true);
 		const image = new Image();
 
 		const handleError = () => {
@@ -49,8 +50,6 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 	};
 
 	const handleSubmit = async () => {
-		setLoading(true);
-
 		const schema = {
 			url: string()
 				.trim()
@@ -66,7 +65,6 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 		const handleInValid = () => {
 			setError(validationResult.fields.url);
 			setDebounce(false);
-			setLoading(false);
 		};
 
 		const handleValid = async () => {
