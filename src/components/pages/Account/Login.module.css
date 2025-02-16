@@ -23,14 +23,6 @@
 	overflow: hidden;
 }
 
-.federation {
-	display: flex;
-	row-gap: 15px;
-	flex-direction: column;
-	padding: 0 5%;
-	padding-top: 20px;
-}
-
 .federation-button {
 	display: flex;
 	column-gap: 10px;
