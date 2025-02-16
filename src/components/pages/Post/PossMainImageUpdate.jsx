@@ -111,7 +111,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 				>
 					<div className={formStyles['label-wrap']}>
 						<label htmlFor="url" className={`${error ? formStyles.error : ''}`}>
-							Image Url
+							Image URL
 							<input
 								id="url"
 								type="text"
