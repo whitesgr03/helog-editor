@@ -112,7 +112,6 @@
 
 @media (width >= 900px) {
 	.account {
-		justify-content: center;
 		padding: 50px 0;
 	}
 }
