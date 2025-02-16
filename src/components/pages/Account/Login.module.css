@@ -84,8 +84,11 @@
 
 @media (width >= 440px) {
 	.account {
-		row-gap: 20px;
 		padding: 40px 10%;
+	}
+
+	.wrap {
+		row-gap: 20px;
 	}
 }
 
