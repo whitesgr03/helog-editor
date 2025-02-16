@@ -1,6 +1,7 @@
 // Packages
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { string } from 'yup';
 
 // Styles
 import formStyles from '../../../styles/form.module.css';
@@ -10,21 +11,20 @@ import imageStyles from '../../../styles/image.module.css';
 // Component
 import { Loading } from '../../utils/Loading';
 
+// Modules
+import { verifySchema } from '../../../utils/verifySchema';
+
 export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 	const [error, setError] = useState('');
 	const [url, setUrl] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	const handleChange = e => {
-		const { value } = e.target;
-		setUrl(value);
-
-		setError('');
+		setUrl(e.target.value);
+		error !== '' && setDebounce(true);
 	};
 
-	const handleSubmit = async () => {
-		setLoading(true);
-
+	const handleMainImageUpdate = () => {
 		const image = new Image();
 
 		const handleError = () => {
@@ -46,6 +46,36 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 		image.src = url;
 	};
 
+	const handleSubmit = async () => {
+		setLoading(true);
+
+		const schema = {
+			url: string()
+				.trim()
+				.url('Image URL is not a valid URL.')
+				.required('Image URl is required.'),
+		};
+
+		const validationResult = await verifySchema({
+			schema,
+			data: { url },
+		});
+
+		const handleInValid = () => {
+			setError(validationResult.fields.url);
+			setDebounce(false);
+			setLoading(false);
+		};
+
+		const handleValid = async () => {
+			setError('');
+			await handleMainImageUpdate();
+		};
+
+		validationResult.success ? await handleValid() : handleInValid();
+	};
+
+
 	return (
 		<>
 			{loading && <Loading text={'Saving...'} light={true} shadow={true} />}
@@ -54,10 +84,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 					className={formStyles.content}
 					onSubmit={e => {
 						e.preventDefault();
-
-						url === ''
-							? !loading && setError('Url is required.')
-							: !loading && handleSubmit();
+						!loading && handleSubmit();
 					}}
 				>
 					<div className={formStyles['label-wrap']}>
