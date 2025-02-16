@@ -122,7 +122,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 						<div>
 							<span className={`${imageStyles.icon} ${formStyles.alert}`} />
 							<span className={formStyles.placeholder}>
-								{error ?? 'Message placeholder'}
+								{error || 'Message placeholder'}
 							</span>
 						</div>
 					</div>
