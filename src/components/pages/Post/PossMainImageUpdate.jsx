@@ -1,5 +1,5 @@
 // Packages
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { string } from 'yup';
 
@@ -18,6 +18,8 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 	const [error, setError] = useState('');
 	const [url, setUrl] = useState('');
 	const [loading, setLoading] = useState(false);
+	const [debounce, setDebounce] = useState(false);
+	const timer = useRef(null);
 
 	const handleChange = e => {
 		setUrl(e.target.value);
@@ -75,6 +77,26 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 		validationResult.success ? await handleValid() : handleInValid();
 	};
 
+	useEffect(() => {
+		const schema = {
+			url: string()
+				.trim()
+				.url('Image URL is not a valid URL.')
+				.required('Image URL is required.'),
+		};
+		debounce &&
+			(timer.current = setTimeout(async () => {
+				const validationResult = await verifySchema({
+					schema,
+					data: { url },
+				});
+				validationResult.success
+					? setError('')
+					: setError(validationResult.fields.url);
+			}, 500));
+
+		return () => clearTimeout(timer.current);
+	}, [debounce, url]);
 
 	return (
 		<>
