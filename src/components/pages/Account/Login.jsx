@@ -2,7 +2,6 @@
 import { useState } from 'react';
 
 // styles
-import imageStyles from '../../../styles/image.module.css';
 import styles from './Login.module.css';
 
 // Components
@@ -33,7 +32,7 @@ export const Login = () => {
 						className={styles['federation-button']}
 						onClick={() => handleSocialLogin('google')}
 					>
-						<div className={`${imageStyles} ${styles.google}`}>
+						<div className={styles.google}>
 							<img src={googleIcon} alt="Google icon" />
 						</div>
 						Sign in with Google
@@ -42,7 +41,7 @@ export const Login = () => {
 						className={styles['federation-button']}
 						onClick={() => handleSocialLogin('facebook')}
 					>
-						<div className={`${imageStyles} ${styles.facebook}`}>
+						<div className={styles.facebook}>
 							<img src={facebookIcon} alt="Facebook icon" />
 						</div>
 						Sign in with Facebook
