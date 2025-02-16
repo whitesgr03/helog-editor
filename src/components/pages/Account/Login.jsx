@@ -27,7 +27,7 @@ export const Login = () => {
 			<div className={styles.wrap}>
 				<h3 className={styles.title}>User Sign in</h3>
 				<div className={styles.container}>
-					{loading && <Loading text={'Loading...'} />}
+					{loading && <Loading text={'Loading...'} shadow={true} />}
 					<button
 						className={styles['federation-button']}
 						onClick={() => handleSocialLogin('google')}
