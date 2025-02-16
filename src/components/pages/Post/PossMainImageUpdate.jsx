@@ -55,7 +55,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 			url: string()
 				.trim()
 				.url('Image URL is not a valid URL.')
-				.required('Image URl is required.'),
+				.required('Image URL is required.'),
 		};
 
 		const validationResult = await verifySchema({
