@@ -1,8 +1,6 @@
 .account {
 	display: flex;
-	row-gap: 15px;
 	flex: 1 1 100%;
-	flex-direction: column;
 	padding: 5%;
 }
 
