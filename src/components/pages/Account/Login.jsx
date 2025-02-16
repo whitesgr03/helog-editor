@@ -27,26 +27,24 @@ export const Login = () => {
 			<h3 className={styles.title}>User Sign in</h3>
 			<div className={styles.container}>
 				{loading && <Loading text={'Submitting...'} />}
-				<div className={styles.federation}>
-					<button
-						className={styles['federation-button']}
-						onClick={() => handleSocialLogin('google')}
-					>
-						<div className={styles.google}>
-							<img src={googleIcon} alt="Google icon" />
-						</div>
-						Sign in with Google
-					</button>
-					<button
-						className={styles['federation-button']}
-						onClick={() => handleSocialLogin('facebook')}
-					>
-						<div className={styles.facebook}>
-							<img src={facebookIcon} alt="Facebook icon" />
-						</div>
-						Sign in with Facebook
-					</button>
-				</div>
+				<button
+					className={styles['federation-button']}
+					onClick={() => handleSocialLogin('google')}
+				>
+					<div className={styles.google}>
+						<img src={googleIcon} alt="Google icon" />
+					</div>
+					Sign in with Google
+				</button>
+				<button
+					className={styles['federation-button']}
+					onClick={() => handleSocialLogin('facebook')}
+				>
+					<div className={styles.facebook}>
+						<img src={facebookIcon} alt="Facebook icon" />
+					</div>
+					Sign in with Facebook
+				</button>
 			</div>
 		</div>
 	);
