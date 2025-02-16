@@ -94,9 +94,7 @@
 
 @media (width >= 500px) {
 	.account {
-		margin: 0 auto;
 		padding: 40px 5%;
-		max-width: 500px;
 	}
 }
 
