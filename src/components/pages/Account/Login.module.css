@@ -30,9 +30,11 @@
 	border: 2px solid var(--light-scheme-color);
 	border-radius: 5px;
 	background-color: var(--dark-scheme-color-bgc);
+	padding: 10px;
 	width: 100%;
 	min-height: 45px;
 	color: var(--light-scheme-color);
+	white-space: nowrap;
 }
 
 .google {
