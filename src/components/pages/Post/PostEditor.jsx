@@ -381,22 +381,6 @@ export const PostEditor = () => {
 	};
 
 	useEffect(() => {
-		const handleSetContent = () => {
-			setTitle(post?.title ?? '');
-			setContent(post?.content ?? '');
-
-			setTitleLength(titleRef.current.getContent().length);
-			setContentLength(contentRef.current.getContent().length);
-		};
-		title === null &&
-			content === null &&
-			titleEditorLoad &&
-			contentEditorLoad &&
-			handleSetContent();
-		return () => clearTimeout(timer.current);
-	}, [titleEditorLoad, contentEditorLoad, title, content, post]);
-
-	useEffect(() => {
 		const handleFocusTitle = () => {
 			titleRef.current.selection.select(titleRef.current.getBody(), true);
 			titleRef.current.selection.collapse(false);
