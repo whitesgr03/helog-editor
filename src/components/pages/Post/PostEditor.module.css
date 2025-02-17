@@ -111,6 +111,11 @@
 	font-size: 1.5rem;
 }
 
+:global(#editor-content)::before {
+	margin: 1rem 0;
+	line-height: 1.5em;
+}
+
 :global(#editor-content) p,
 :global(#editor-content) h3,
 :global(#editor-content) h5 {
