@@ -56,6 +56,7 @@ describe('DeletePostModel component', () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			id: '0',
+			title: 'target-title',
 			onDeletePost: vi.fn(),
 			onAlert: vi.fn(),
 			onActiveModal: vi.fn(),
@@ -71,11 +72,13 @@ describe('DeletePostModel component', () => {
 		render(<DeletePostModel {...mockProps} />);
 
 		const button = screen.getByRole('button', { name: 'Delete' });
+		const title = screen.getByText(mockProps.title);
 
 		user.click(button);
 
 		const loadingComponent = await screen.findByText('Loading component');
 
+		expect(title).toBeInTheDocument();
 		expect(deletePost).toBeCalledTimes(1);
 		expect(mockProps.onAlert).toBeCalledTimes(1);
 		expect(mockProps.onActiveModal).toBeCalledTimes(1);
