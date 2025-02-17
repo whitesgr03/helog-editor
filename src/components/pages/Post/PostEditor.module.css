@@ -98,6 +98,7 @@
 
 :global(#editor-title),
 :global(#editor-content) {
+	cursor: text;
 	outline: 0;
 }
 
