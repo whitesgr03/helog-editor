@@ -18,6 +18,7 @@ export const TableRows = ({ post, onDeletePost }) => {
 			<td>{post.title}</td>
 			<td>
 				<span
+					data-testId="publish-icon"
 					className={`${imageStyles.icon} ${post.publish ? styles.publish : styles.unpublish}`}
 				/>
 			</td>
@@ -31,6 +32,7 @@ export const TableRows = ({ post, onDeletePost }) => {
 			</td>
 			<td className={styles['button-wrap']}>
 				<button
+					data-testid="delete-button"
 					className={styles['delete-button']}
 					onClick={() =>
 						onActiveModal({
