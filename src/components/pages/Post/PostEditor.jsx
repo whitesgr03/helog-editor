@@ -310,7 +310,7 @@ export const PostEditor = () => {
 					onAlert({
 						message: 'Autosaving...',
 						error: false,
-						delay: 1000,
+						delay: 2000,
 						autosave: true,
 					});
 				}, 2000);
