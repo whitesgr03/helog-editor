@@ -98,7 +98,6 @@ export const PostEditor = () => {
 	const previewImageWrapRef = useRef(null);
 	const timer = useRef(null);
 	const titleRef = useRef(null);
-	const contentRef = useRef(null);
 
 	const navigate = useNavigate();
 
@@ -553,7 +552,6 @@ export const PostEditor = () => {
 							setContent(post?.content ?? '');
 							setContentLength(editor.getContent().length);
 							setContentEditorLoad(true);
-							contentRef.current = editor;
 						}}
 						onEditorChange={handleChangeContent}
 						onObjectResized={handleResizeImageSize}
