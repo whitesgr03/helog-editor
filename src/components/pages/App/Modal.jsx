@@ -21,6 +21,7 @@ export const Modal = ({ onActiveModal, clickToClose, children }) => {
 					<button
 						className={styles['modal-button']}
 						title="Close Modal Button"
+						data-testid="close-btn"
 						onClick={e =>
 							e.target === e.currentTarget && onActiveModal({ component: null })
 						}
