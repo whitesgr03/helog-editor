@@ -383,12 +383,10 @@ export const PostEditor = () => {
 		const handleFocusTitle = () => {
 			titleRef.current.selection.select(titleRef.current.getBody(), true);
 			titleRef.current.selection.collapse(false);
+			titleRef.current.focus();
 		};
-		title !== null &&
-			titleEditorLoad &&
-			contentEditorLoad &&
-			handleFocusTitle();
-	}, [titleEditorLoad, contentEditorLoad, title]);
+		title !== null && handleFocusTitle();
+	}, [title]);
 
 	return (
 		<div className={styles.editor}>
