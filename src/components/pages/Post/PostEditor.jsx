@@ -388,6 +388,10 @@ export const PostEditor = () => {
 		title !== null && handleFocusTitle();
 	}, [title]);
 
+	useEffect(() => {
+		return () => clearTimeout(timer.current);
+	});
+
 	return (
 		<div className={styles.editor}>
 			{(!titleEditorLoad || !contentEditorLoad) && (
