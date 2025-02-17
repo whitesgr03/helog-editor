@@ -58,8 +58,9 @@ export const Alert = ({ alert, onAlert }) => {
 			className={`${styles.alert} ${alert.length === 1 ? styles.active : ''} ${
 				alert[0]?.error || lastAlert.error ? styles.error : ''
 			}`}
+			data-testid="alert"
 		>
-			<p>{alert[0]?.message || lastAlert.message}</p>
+			<p data-testid="message">{alert[0]?.message || lastAlert.message}</p>
 		</div>
 	);
 };
