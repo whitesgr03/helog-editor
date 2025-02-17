@@ -460,6 +460,8 @@ export const PostEditor = () => {
 						licenseKey="gpl"
 						tagName="h2"
 						onInit={(_evt, editor) => {
+							setTitle(post?.title ?? '');
+							setTitleLength(editor.getContent().length);
 							setTitleEditorLoad(true);
 							titleRef.current = editor;
 						}}
@@ -548,6 +550,8 @@ export const PostEditor = () => {
 						licenseKey="gpl"
 						initialValue={content ?? ''}
 						onInit={(_evt, editor) => {
+							setContent(post?.content ?? '');
+							setContentLength(editor.getContent().length);
 							setContentEditorLoad(true);
 							contentRef.current = editor;
 						}}
