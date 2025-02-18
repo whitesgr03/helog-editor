@@ -17,7 +17,11 @@ describe('Dashboard component', () => {
 			onDeletePost: vi.fn(),
 		};
 
-		TableRows.mockImplementation(() => <div>TableRows component</div>);
+		TableRows.mockImplementation(() => (
+			<tr>
+				<td>TableRows component</td>
+			</tr>
+		));
 
 		const router = createMemoryRouter(
 			[
@@ -62,7 +66,11 @@ describe('Dashboard component', () => {
 			onDeletePost: vi.fn(),
 		};
 
-		TableRows.mockImplementation(() => <div>TableRows component</div>);
+		TableRows.mockImplementation(() => (
+			<tr>
+				<td>TableRows component</td>
+			</tr>
+		));
 
 		const router = createMemoryRouter(
 			[
@@ -104,7 +112,11 @@ describe('Dashboard component', () => {
 			onDeletePost: vi.fn(),
 		};
 
-		TableRows.mockImplementation(() => <div>TableRows component</div>);
+		TableRows.mockImplementation(() => (
+			<tr>
+				<td>TableRows component</td>
+			</tr>
+		));
 
 		const router = createMemoryRouter(
 			[
