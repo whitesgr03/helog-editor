@@ -34,7 +34,13 @@ describe('PostList component', () => {
 					children: [
 						{
 							index: true,
-							element: <TableRows {...mockProps} />,
+							element: (
+								<table>
+									<tbody>
+										<TableRows {...mockProps} />
+									</tbody>
+								</table>
+							),
 						},
 					],
 				},
@@ -84,7 +90,13 @@ describe('PostList component', () => {
 					children: [
 						{
 							index: true,
-							element: <TableRows {...mockProps} />,
+							element: (
+								<table>
+									<tbody>
+										<TableRows {...mockProps} />
+									</tbody>
+								</table>
+							),
 						},
 					],
 				},
@@ -133,7 +145,13 @@ describe('PostList component', () => {
 					children: [
 						{
 							index: true,
-							element: <TableRows {...mockProps} />,
+							element: (
+								<table>
+									<tbody>
+										<TableRows {...mockProps} />
+									</tbody>
+								</table>
+							),
 						},
 					],
 				},
@@ -183,7 +201,13 @@ describe('PostList component', () => {
 					children: [
 						{
 							index: true,
-							element: <TableRows {...mockProps} />,
+							element: (
+								<table>
+									<tbody>
+										<TableRows {...mockProps} />
+									</tbody>
+								</table>
+							),
 						},
 						{
 							path: '/editor/post/:postId',
@@ -241,7 +265,13 @@ describe('PostList component', () => {
 					children: [
 						{
 							index: true,
-							element: <TableRows {...mockProps} />,
+							element: (
+								<table>
+									<tbody>
+										<TableRows {...mockProps} />
+									</tbody>
+								</table>
+							),
 						},
 					],
 				},
