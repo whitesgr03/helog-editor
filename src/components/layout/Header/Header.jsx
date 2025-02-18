@@ -24,6 +24,12 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 			</Link>
 			<nav>
 				<ul className={styles.list}>
+					<li>
+						<a href={`${import.meta.env.VITE_HELOG_URL}?theme=${darkTheme}`}>
+							<span className={`${imageStyles.icon} ${styles.blog}`} />
+							Blog
+						</a>
+					</li>
 					<li className={styles['toggle-btn']}>
 						<button onClick={onColorTheme}>
 							<div className={buttonStyles.theme}>
