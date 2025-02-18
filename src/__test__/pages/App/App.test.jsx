@@ -89,8 +89,6 @@ describe('App component', () => {
 			screen.getByText('Loading component'),
 		);
 
-		screen.debug();
-
 		const app = screen.getByTestId('app');
 
 		expect(app).toHaveClass(/dark/);
@@ -258,7 +256,6 @@ describe('App component', () => {
 		await waitForElementToBeRemoved(() =>
 			screen.getByText('Loading component'),
 		);
-		screen.debug();
 
 		const errorComponent = screen.getByText('Error component');
 
@@ -830,8 +827,6 @@ describe('App component', () => {
 		await waitForElementToBeRemoved(() =>
 			screen.getByText('Loading component'),
 		);
-
-		screen.debug();
 
 		const modalButton = screen.getByRole('button', {
 			name: 'Modal button',
