@@ -16,8 +16,7 @@ import { CreateUsername } from './CreateUsername';
 import { Login } from '../Account/Login';
 
 // Utils
-import { getUser } from '../../../utils/handleUser';
-import { getUserPostList } from '../../../utils/handleUser';
+import { getUser, getUserPostList } from '../../../utils/handleUser';
 
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(null);
