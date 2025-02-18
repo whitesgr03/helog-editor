@@ -163,4 +163,47 @@ describe('Header component', () => {
 		expect(dropdownComponent).not.toBeInTheDocument();
 		expect(element).not.toBeInTheDocument();
 	});
+	it('should navigate to "/" path if the "HeLog Editor" link is clicked', async () => {
+		const user = userEvent.setup();
+		const mockProps = {
+			darkTheme: false,
+			onColorTheme: vi.fn(),
+		};
+
+		const router = createMemoryRouter(
+			[
+				{
+					path: '/',
+					element: <div>Dashboard component</div>,
+				},
+				{
+					path: '/header',
+					element: <Header {...mockProps} />,
+				},
+			],
+			{
+				initialEntries: ['/header'],
+				future: {
+					v7_relativeSplatPath: true,
+				},
+			},
+		);
+
+		render(
+			<RouterProvider
+				router={router}
+				future={{
+					v7_startTransition: true,
+				}}
+			/>,
+		);
+
+		const element = screen.getByRole('heading', { level: 1 });
+
+		await user.click(element);
+
+		const dashboardComponent = screen.getByText('Dashboard component');
+
+		expect(dashboardComponent).toBeInTheDocument();
+	});
 });
