@@ -18,7 +18,7 @@ export const TableRows = ({ post, onDeletePost }) => {
 			<td>{post.title}</td>
 			<td>
 				<span
-					data-testId="publish-icon"
+					data-testid="publish-icon"
 					className={`${imageStyles.icon} ${post.publish ? styles.publish : styles.unpublish}`}
 				/>
 			</td>
