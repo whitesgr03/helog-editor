@@ -127,7 +127,7 @@ export const App = () => {
 			const handleResult = () => {
 				result.success
 					? setPosts(result.data)
-					: result.status >= 500 && setError(result.message);
+					: result.status !== 404 && setError(result.message);
 				setFetching(false);
 			};
 
