@@ -142,7 +142,10 @@ export const App = () => {
 			) : loading || fetching ? (
 				<Loading text={'Loading...'} />
 			) : (
-				<div className={`${darkTheme ? 'dark' : ''} ${styles.app}`}>
+				<div
+					className={`${darkTheme ? 'dark' : ''} ${styles.app}`}
+					data-testid="app"
+				>
 					{modal && (
 						<Modal
 							onActiveModal={handleActiveModal}
