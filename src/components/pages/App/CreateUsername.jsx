@@ -59,7 +59,10 @@ export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 			username: string()
 				.trim()
 				.max(30, ({ max }) => `Username must be less than ${max} long.`)
-				.matches(/^[a-zA-Z0-9]\w*$/, 'Username must be alphanumeric.')
+				.matches(
+					/^([a-zA-Z0-9](-|_|\s)?)*[a-zA-Z0-9]$/,
+					'Usernames must be alphanumeric.',
+				)
 				.required('Username is required.'),
 		};
 
@@ -93,7 +96,10 @@ export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 			username: string()
 				.trim()
 				.max(30, ({ max }) => `Username must be less than ${max} long.`)
-				.matches(/^[a-zA-Z0-9]\w*$/, 'Username must be alphanumeric.')
+				.matches(
+					/^([a-zA-Z0-9](-|_|\s)?)*[a-zA-Z0-9]$/,
+					'Usernames must be alphanumeric.',
+				)
 				.required('Username is required.'),
 		};
 		debounce &&
