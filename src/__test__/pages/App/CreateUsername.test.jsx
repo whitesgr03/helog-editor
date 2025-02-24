@@ -13,7 +13,7 @@ vi.mock('../../../utils/handleUser');
 vi.mock('../../../components/utils/Loading');
 
 describe('CreateUsername component', () => {
-	it.only('should change a field values if the field is entered', async () => {
+	it('should change a field values if the field is entered', async () => {
 		const user = userEvent.setup();
 		const mockProps = {};
 
@@ -50,7 +50,7 @@ describe('CreateUsername component', () => {
 
 		expect(usernameField).toHaveValue(mockName);
 	});
-	it.only('should render an error field message if the field validation fails after submission', async () => {
+	it('should render an error field message if the field validation fails after submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {};
 		const router = createMemoryRouter(
@@ -85,7 +85,7 @@ describe('CreateUsername component', () => {
 		expect(usernameField).toHaveClass(/error/);
 		expect(usernameErrorMessage).toHaveTextContent('Username is required.');
 	});
-	it.only('should validate each input after a failed submission', async () => {
+	it('should validate each input after a failed submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {};
 		const router = createMemoryRouter(
@@ -136,7 +136,7 @@ describe('CreateUsername component', () => {
 			);
 		});
 	});
-	it.only('should render an error field message if the username update fails', async () => {
+	it('should render an error field message if the username update fails', async () => {
 		const user = userEvent.setup();
 		const mockProps = {};
 		const mockFetchResult = {
@@ -189,7 +189,7 @@ describe('CreateUsername component', () => {
 		);
 		expect(loadingComponent).not.toBeInTheDocument();
 	});
-	it.only('should render Error component if the username update fails', async () => {
+	it('should render Error component if the username update fails', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			onActiveModal: vi.fn(),
@@ -242,7 +242,7 @@ describe('CreateUsername component', () => {
 		expect(updateUser).toBeCalledTimes(1);
 		expect(loadingComponent).not.toBeInTheDocument();
 	});
-	it.only('should update the username if the username field successfully validates after user submission', async () => {
+	it('should update the username if the username field successfully validates after user submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			onUser: vi.fn(),
