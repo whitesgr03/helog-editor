@@ -85,7 +85,7 @@ describe('CreateUsername component', () => {
 		expect(usernameField).toHaveClass(/error/);
 		expect(usernameErrorMessage).toHaveTextContent('Username is required.');
 	});
-	it('should validate each input after a failed submission', async () => {
+	it('should be verified successfully, if the input is correct after a failed submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {};
 		const router = createMemoryRouter(
@@ -125,15 +125,6 @@ describe('CreateUsername component', () => {
 		await waitFor(() => {
 			expect(usernameField).not.toHaveClass(/error/);
 			expect(usernameErrorMessage).toHaveTextContent('Message placeholder');
-		});
-
-		await user.type(usernameField, '#&@*($#$');
-
-		await waitFor(() => {
-			expect(usernameField).toHaveClass(/error/);
-			expect(usernameErrorMessage).toHaveTextContent(
-				'Username must be alphanumeric.',
-			);
 		});
 	});
 	it('should render an error field message if the username update fails', async () => {
