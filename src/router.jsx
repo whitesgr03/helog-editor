@@ -10,29 +10,32 @@ import { PostEditor } from './components/pages/Post/PostEditor';
 
 export const Router = () => (
 	<RouterProvider
-		router={createBrowserRouter([
-			{
-				path: '/',
-				element: <App />,
-				children: [
-					{
-						index: true,
-						element: <Dashboard />,
-					},
-					{
-						path: 'editor/post/:postId?',
-						element: <PostEditor />,
-					},
-					{
-						path: '*',
-						element: <NotFound />,
-					},
-					{
-						path: 'error',
-						element: <Error />,
-					},
-				],
-			},
-		])}
+		router={createBrowserRouter(
+			[
+				{
+					path: '/',
+					element: <App />,
+					children: [
+						{
+							index: true,
+							element: <Dashboard />,
+						},
+						{
+							path: 'editor/post/:postId?',
+							element: <PostEditor />,
+						},
+						{
+							path: '*',
+							element: <NotFound />,
+						},
+						{
+							path: 'error',
+							element: <Error />,
+						},
+					],
+				},
+			],
+			{ basename: '/posts' },
+		)}
 	/>
 );
