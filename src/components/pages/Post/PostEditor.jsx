@@ -152,7 +152,7 @@ export const PostEditor = () => {
 		const handleSuccess = () => {
 			setPreviousEditorFields(fields);
 			onCreatePost(result.data);
-			navigate(`${result.data._id}`);
+			navigate(`/${result.data._id}/editor`);
 		};
 
 		result.success

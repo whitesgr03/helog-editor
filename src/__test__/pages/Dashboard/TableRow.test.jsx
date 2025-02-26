@@ -176,7 +176,7 @@ describe('PostList component', () => {
 
 		expect(publish).toHaveClass(/unpublish/);
 	});
-	it('should navigate to "/editor/post/:postId?" path if the edit link is clicked', async () => {
+	it('should navigate to "/:postId/editor" path if the edit link is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			post: {
@@ -210,7 +210,7 @@ describe('PostList component', () => {
 							),
 						},
 						{
-							path: '/editor/post/:postId',
+							path: '/:postId/editor',
 							element: <div>PostEditor component</div>,
 						},
 					],

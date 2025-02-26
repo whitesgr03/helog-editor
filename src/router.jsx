@@ -21,7 +21,7 @@ export const Router = () => (
 							element: <Dashboard />,
 						},
 						{
-							path: 'editor/post/:postId?',
+							path: ':postId?/editor',
 							element: <PostEditor />,
 						},
 						{
