@@ -8,6 +8,10 @@ export default defineConfig({
 	html: {
 		cspNonce: randomBytes(16).toString('base64'),
 	},
+	server: {
+		open: '/posts',
+		port: 7001,
+	},
 	test: {
 		globals: true,
 		environment: 'jsdom',
