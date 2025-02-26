@@ -20,7 +20,7 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 	return (
 		<header className={styles.header}>
 			<Link to="/" className={styles.logo}>
-				<h1>HeLog Editor</h1>
+				<h1>HeLog</h1>
 			</Link>
 			<nav>
 				<ul className={styles.list}>
