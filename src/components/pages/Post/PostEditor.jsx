@@ -243,15 +243,15 @@ export const PostEditor = () => {
 
 			const handleValid = async () => {
 				timer.current = setTimeout(async () => {
-					postId
-						? await handleUpdate(newFields)
-						: await handleCreate(newFields);
 					onAlert({
 						message: 'Autosaving...',
 						error: false,
 						delay: 2000,
 						autosave: true,
 					});
+					postId
+						? await handleUpdate(newFields)
+						: await handleCreate(newFields);
 				}, 2000);
 			};
 
@@ -368,14 +368,15 @@ export const PostEditor = () => {
 
 		timer.current && clearTimeout(timer.current);
 
-		postId
-			? await handleUpdate(editorFields)
-			: await handleCreate(editorFields);
 		onAlert({
 			message: 'Saving...',
 			error: false,
 			delay: 2000,
 		});
+		postId
+			? await handleUpdate(editorFields)
+			: await handleCreate(editorFields);
+
 		setSaving(false);
 	};
 
