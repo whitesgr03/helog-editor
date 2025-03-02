@@ -16,7 +16,7 @@ export const Router = () => (
 				element: <App />,
 				children: [
 					{
-						index: true,
+						path: '/posts',
 						element: <Dashboard />,
 					},
 					{
