@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+	createBrowserRouter,
+	RouterProvider,
+	Navigate,
+} from 'react-router-dom';
 
 import './styles/index.css';
 
@@ -15,6 +19,10 @@ export const Router = () => (
 				path: '/',
 				element: <App />,
 				children: [
+					{
+						index: true,
+						element: <Navigate to="/posts" />,
+					},
 					{
 						path: '/posts',
 						element: <Dashboard />,
