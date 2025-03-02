@@ -10,7 +10,8 @@ import { Error } from './components/utils/Error/Error';
 import { NotFound } from './components/utils/Error/NotFound';
 import { Dashboard } from './components/pages/Dashboard/Dashboard';
 import { App } from './components/pages/App/App';
-import { PostEditor } from './components/pages/Post/PostEditor';
+import { PostEditorCreate } from './components/pages/Post/PostEditorCreate';
+import { PostEditorUpdate } from './components/pages/Post/PostEditorUpdate';
 
 export const Router = () => (
 	<RouterProvider
@@ -28,8 +29,12 @@ export const Router = () => (
 						element: <Dashboard />,
 					},
 					{
-						path: ':postId?/editor',
-						element: <PostEditor />,
+						path: '/posts/editor',
+						element: <PostEditorCreate />,
+					},
+					{
+						path: '/posts/:postId?/editor',
+						element: <PostEditorUpdate />,
 					},
 					{
 						path: '*',
