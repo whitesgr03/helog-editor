@@ -17,7 +17,7 @@ export const Dashboard = () => {
 			<div className={styles['table-top']}>
 				<span>{posts.length > 0 ? `Total posts: ${posts.length}` : ''}</span>
 				<Link
-					to="/editor"
+					to="/posts/editor"
 					className={`${buttonStyles.content} ${buttonStyles.success} ${styles.link}`}
 				>
 					New Post
