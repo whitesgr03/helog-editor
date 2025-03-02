@@ -36,7 +36,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 		};
 
 		const handleSet = () => {
-			onSetMainImage(url);
+			onSetMainImage(url, 'mainImage');
 			onActiveModal({ component: null });
 			setLoading(false);
 		};
