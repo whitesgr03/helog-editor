@@ -29,7 +29,7 @@ export const Error = ({ onReGetUser }) => {
 			)}
 
 			<Link
-				to="/"
+				to="/posts"
 				className={styles.link}
 				onClick={() => onReGetUser && onReGetUser(true)}
 			>
