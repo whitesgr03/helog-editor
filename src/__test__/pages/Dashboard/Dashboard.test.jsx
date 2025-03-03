@@ -105,7 +105,7 @@ describe('Dashboard component', () => {
 
 		expect(element).toBeInTheDocument();
 	});
-	it('should navigate to "/editor" path if the new post link is clicked', async () => {
+	it('should navigate to "/posts/editor" path if the new post link is clicked', async () => {
 		const user = userEvent.setup();
 		const mockContext = {
 			posts: [{ _id: '0' }, { _id: '1' }],
@@ -129,7 +129,7 @@ describe('Dashboard component', () => {
 							element: <Dashboard />,
 						},
 						{
-							path: '/editor',
+							path: '/posts/editor',
 							element: <div>PostDetail component</div>,
 						},
 					],

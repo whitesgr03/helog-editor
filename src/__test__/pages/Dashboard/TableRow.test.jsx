@@ -176,7 +176,7 @@ describe('PostList component', () => {
 
 		expect(publish).toHaveClass(/unpublish/);
 	});
-	it('should navigate to "/:postId/editor" path if the edit link is clicked', async () => {
+	it('should navigate to "/posts/:postId/editor" path if the edit link is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			post: {
@@ -210,7 +210,7 @@ describe('PostList component', () => {
 							),
 						},
 						{
-							path: '/:postId/editor',
+							path: '/posts/:postId/editor',
 							element: <div>PostEditor component</div>,
 						},
 					],
@@ -240,7 +240,6 @@ describe('PostList component', () => {
 
 		expect(postEditorComponent).toBeInTheDocument();
 	});
-
 	it('should render the DeletePostModel component if the delete button is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
