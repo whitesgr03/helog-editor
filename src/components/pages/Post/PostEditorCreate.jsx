@@ -113,6 +113,38 @@ export const PostEditorCreate = () => {
 		setPreviewImage(!previewImage);
 	};
 
+	const handleContentImages = (evt, editor) => {
+		const target = evt.element;
+		const value = editor.getContent();
+
+		const handleCheckMimeTypes = () => {
+			const isSetStyle = target.hasAttribute('style');
+			const width = target.getAttribute('width');
+
+			!isSetStyle && target.setAttribute('style', `width:${width}px;`);
+
+			const image = new Image();
+			const handleError = () => {
+				document.activeElement.blur();
+				onAlert({
+					message: 'URL is not a valid image source.',
+					error: true,
+					delay: 3000,
+				});
+				target.remove();
+			};
+			image.onerror = handleError;
+
+			image.onload = () =>
+				(image.width <= 0 || image.height <= 0) && handleError();
+
+			image.src = target.src;
+		};
+		target.nodeName === 'IMG' &&
+			value !== editorFields.content &&
+			handleCheckMimeTypes();
+	};
+
 	const handleChange = async (value, name) => {
 		const newFields = { ...editorFields, [name]: value };
 		const { [name]: _field, ...errors } = fieldsErrors;
@@ -364,6 +396,7 @@ export const PostEditorCreate = () => {
 							);
 							handleChange(value, 'content');
 						}}
+						onNodeChange={handleContentImages}
 						init={EDITOR_CONTENT_INIT}
 					/>
 					<div className={styles['error-message-wrap']}>
