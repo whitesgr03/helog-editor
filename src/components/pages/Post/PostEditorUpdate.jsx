@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import { string, boolean } from 'yup';
-import isEmpty from 'lodash.isempty';
 import isEqual from 'lodash.isequal';
 
 // Styles
