@@ -166,15 +166,34 @@ export const PostEditorCreate = () => {
 	const handleSaving = async () => {
 		setSaving(true);
 
-		timer.current && clearTimeout(timer.current);
+		clearTimeout(timer.current);
 
-		onAlert({
-			message: 'Saving...',
-			error: false,
-			delay: 2000,
-		});
+		const result = await createPost({ data: editorFields });
 
-		await handleCreate(editorFields);
+		const handleError = () => {
+			onAlert({
+				message: 'There are some errors occur, please try again later.',
+				error: true,
+				delay: 3000,
+			});
+			setEditorFields(defaultFields);
+		};
+
+		const handleSuccess = async () => {
+			onAlert({
+				message: 'Save completed.',
+				error: false,
+				delay: 2000,
+			});
+			await onCreatePost(result.data);
+			navigate(`/posts/${result.data._id}/editor`);
+		};
+
+		result.success
+			? await handleSuccess()
+			: result.fields
+				? setFieldsErrors({ ...result.fields })
+				: handleError();
 
 		setSaving(false);
 	};
