@@ -113,25 +113,6 @@ export const PostEditorCreate = () => {
 		setPreviewImage(!previewImage);
 	};
 
-	const handleCreate = async fields => {
-		const result = await createPost({ data: fields });
-
-		const handleSuccess = () => {
-			onCreatePost(result.data);
-			navigate(`/posts/${result.data._id}/editor`);
-		};
-
-		result.success
-			? handleSuccess()
-			: result.fields
-				? setFieldsErrors({ ...result.fields })
-				: onAlert({
-						message: 'There are some errors occur, please try again later.',
-						error: true,
-						delay: 3000,
-					});
-	};
-
 	const handleChange = async (value, name) => {
 		const newFields = { ...editorFields, [name]: value };
 		const { [name]: _field, ...errors } = fieldsErrors;
