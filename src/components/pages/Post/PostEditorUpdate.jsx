@@ -212,8 +212,6 @@ export const PostEditorUpdate = () => {
 			data: newFields,
 		});
 
-		console.log('Valid', validationResult.success);
-
 		validationResult.success
 			? await handleValid()
 			: setFieldsErrors({ ...fieldsErrors, ...validationResult.fields });
