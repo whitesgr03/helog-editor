@@ -67,6 +67,7 @@ export const PostEditorCreate = () => {
 	const [fieldsErrors, setFieldsErrors] = useState({});
 	const [previewImage, setPreviewImage] = useState(false);
 	const [saving, setSaving] = useState(false);
+	const [autoSaving, setAutoSaving] = useState(false);
 
 	const [titleEditorLoad, setTitleEditorLoad] = useState(false);
 	const [contentEditorLoad, setContentEditorLoad] = useState(false);
@@ -138,15 +139,41 @@ export const PostEditorCreate = () => {
 		const handleValid = () => {
 			setFieldsErrors({});
 
-			timer.current = setTimeout(() => {
-				onAlert({
-					message: 'Autosaving...',
-					error: false,
-					delay: 2000,
-					autosave: true,
-				});
-				handleCreate(newFields);
-			}, 2000);
+			!isEqual(newFields, defaultFields) &&
+				(timer.current = setTimeout(async () => {
+					setAutoSaving(true);
+					const result = await createPost({ data: newFields });
+
+					const handleError = () => {
+						onAlert({
+							message: 'There are some errors occur, please try again later.',
+							error: true,
+							delay: 3000,
+							autosave: true,
+						});
+						setEditorFields(defaultFields);
+					};
+
+					const handleSuccess = async () => {
+						onAlert({
+							message: 'Autosaving...',
+							error: false,
+							delay: 1000,
+							autosave: true,
+						});
+
+						await onCreatePost(result.data);
+						navigate(`/posts/${result.data._id}/editor`);
+					};
+
+					result.success
+						? await handleSuccess()
+						: result.fields
+							? setFieldsErrors({ ...result.fields })
+							: handleError();
+
+					setAutoSaving(false);
+				}, 2000));
 		};
 
 		setEditorFields(newFields);
