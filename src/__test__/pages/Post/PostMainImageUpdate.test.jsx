@@ -298,7 +298,9 @@ describe('PostMainImageUpdate component', () => {
 		fireEvent.load(mockImage);
 
 		expect(mockImage.src).toBe(mockUrl);
-		expect(mockProps.onSetMainImage).toBeCalledWith(mockUrl).toBeCalledTimes(1);
+		expect(mockProps.onSetMainImage)
+			.toBeCalledWith(mockUrl, 'mainImage')
+			.toBeCalledTimes(1);
 		expect(mockProps.onActiveModal).toBeCalledTimes(1);
 		expect(loadingComponent).not.toBeInTheDocument();
 	});
