@@ -37,3 +37,9 @@ coverage
 delete_*
 
 /public/tinymce/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
