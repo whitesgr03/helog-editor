@@ -255,9 +255,9 @@ export const PostEditorCreate = () => {
 								onClick={() => !saving && handleSaving()}
 							>
 								<span className={buttonStyles.text}>
-									{saving ? (
+									{saving || autoSaving ? (
 										<>
-											Saving
+											{autoSaving ? 'Autosaving' : 'Saving'}
 											<span
 												className={`${imageStyles.icon} ${buttonStyles['load']}`}
 											/>
