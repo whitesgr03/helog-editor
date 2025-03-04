@@ -132,6 +132,7 @@ export const CreateUsername = ({ onActiveModal, onUser, onAlert, onError }) => {
 							name="username"
 							value={formFields.name}
 							onChange={handleChange}
+							autoFocus
 						/>
 					</label>
 					<div>
