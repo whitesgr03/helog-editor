@@ -19,7 +19,7 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 
 	return (
 		<header className={styles.header}>
-			<Link to="/" className={styles.logo}>
+			<Link to="/posts" className={styles.logo}>
 				<h1>HeLog</h1>
 			</Link>
 			<nav>

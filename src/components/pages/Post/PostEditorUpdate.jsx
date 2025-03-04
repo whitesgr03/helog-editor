@@ -333,7 +333,7 @@ export const PostEditorUpdate = () => {
 				className={`${styles.container} ${!titleEditorLoad || !contentEditorLoad ? styles.hide : ''}`}
 			>
 				<div className={styles['button-container']}>
-					<Link to="/" className={styles.link}>
+					<Link to="/posts" className={styles.link}>
 						<span className={`${styles['left-arrow']} ${imageStyles.icon}`} />
 						Back to dashboard
 					</Link>
