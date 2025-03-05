@@ -163,7 +163,7 @@ describe('Header component', () => {
 		expect(dropdownComponent).not.toBeInTheDocument();
 		expect(element).not.toBeInTheDocument();
 	});
-	it('should navigate to "/" path if the "HeLog Editor" link is clicked', async () => {
+	it('should navigate to "/posts" path if the "HeLog Editor" link is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			darkTheme: false,
@@ -173,7 +173,7 @@ describe('Header component', () => {
 		const router = createMemoryRouter(
 			[
 				{
-					path: '/',
+					path: '/posts',
 					element: <div>Dashboard component</div>,
 				},
 				{
