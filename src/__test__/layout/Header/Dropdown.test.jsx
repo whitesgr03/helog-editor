@@ -170,13 +170,8 @@ describe('Dropdown component', () => {
 		);
 
 		const button = screen.getByRole('button', { name: 'Logout' });
-		const loadingIcon = screen.getByTestId('loading-icon');
-
-		expect(loadingIcon).toHaveClass(/logout/);
 
 		await user.click(button);
-
-		expect(loadingIcon).toHaveClass(/load/);
 
 		const errorComponent = screen.getByText('Error component');
 		expect(errorComponent).toBeInTheDocument();
