@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 // Styles
 import styles from './Dropdown.module.css';
@@ -25,6 +26,9 @@ export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 
 		const options = {
 			method: 'POST',
+			headers: {
+				'X-CSRF-TOKEN': Cookies.get('token'),
+			},
 			credentials: 'include',
 		};
 
