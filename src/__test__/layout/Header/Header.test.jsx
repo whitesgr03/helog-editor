@@ -85,7 +85,7 @@ describe('Header component', () => {
 	});
 	it('should render Dropdown component and transparent bgc, if the account button is clicked', async () => {
 		const user = userEvent.setup();
-		const mockProps = {};
+		const mockProps = { user: true };
 
 		Dropdown.mockImplementationOnce(() => <div>Dropdown component</div>);
 
@@ -124,7 +124,7 @@ describe('Header component', () => {
 	});
 	it('should close Dropdown component and transparent bgc, if the transparent bgc is clicked', async () => {
 		const user = userEvent.setup();
-		const mockProps = {};
+		const mockProps = { user: true };
 
 		Dropdown.mockImplementationOnce(() => <div>Dropdown component</div>);
 
