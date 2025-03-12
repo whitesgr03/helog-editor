@@ -46,12 +46,14 @@ export const Header = ({ user, darkTheme, onColorTheme }) => {
 							<span>{darkTheme ? 'Dark' : 'Light'} mode</span>
 						</button>
 					</li>
-					<li>
-						<button onClick={handleActiveDropdown}>
-							<span className={`${imageStyles.icon} ${styles.account}`} />
-							Account
-						</button>
-					</li>
+					{user && (
+						<li>
+							<button onClick={handleActiveDropdown}>
+								<span className={`${imageStyles.icon} ${styles.account}`} />
+								Account
+							</button>
+						</li>
+					)}
 				</ul>
 			</nav>
 			{activeDropdown && (
