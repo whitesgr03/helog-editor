@@ -53,7 +53,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 		const schema = {
 			url: string()
 				.trim()
-				.url('Image URL is not a valid URL.')
+				.url('Image URL is not a valid HTTP URL.')
 				.required('Image URL is required.'),
 		};
 
@@ -79,7 +79,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 		const schema = {
 			url: string()
 				.trim()
-				.url('Image URL is not a valid URL.')
+				.url('Image URL is not a valid HTTP URL.')
 				.required('Image URL is required.'),
 		};
 		debounce &&
