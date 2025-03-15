@@ -31,7 +31,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 		const image = new Image();
 
 		const handleError = () => {
-			setError('URL is not a valid image source.');
+			setError('Image URL is not a valid image source.');
 			setLoading(false);
 		};
 
