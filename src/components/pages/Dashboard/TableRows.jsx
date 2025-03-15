@@ -15,7 +15,7 @@ export const TableRows = ({ post, onDeletePost }) => {
 
 	return (
 		<tr className={styles['tbody-rows']}>
-			<td>{post.title}</td>
+			<td title={post.title}>{post.title}</td>
 			<td>
 				<span
 					data-testid="publish-icon"
