@@ -98,7 +98,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 
 	return (
 		<>
-			{loading && <Loading text={'Saving...'} light={true} shadow={true} />}
+			{loading && <Loading text={'Checking...'} light={true} shadow={true} />}
 			<div className={formStyles.form}>
 				<form
 					className={formStyles.content}
