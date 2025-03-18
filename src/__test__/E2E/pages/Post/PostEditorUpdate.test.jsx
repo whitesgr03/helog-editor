@@ -38,7 +38,7 @@ const contentCount = 2;
 const userPosts = [
 	{
 		_id: '0',
-		title: faker.lorem.words({ min: 1, max: 1 }),
+		title: faker.book.title(),
 		mainImage: faker.image.urlPicsumPhotos({
 			width: IMAGE_SIZES[0].width,
 			height: IMAGE_SIZES[0].height,
