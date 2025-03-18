@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 
 // Styles
+import 'normalize.css';
 import styles from './App.module.css';
 
 // Components
