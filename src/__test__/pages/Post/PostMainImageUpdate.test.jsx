@@ -181,7 +181,7 @@ describe('PostMainImageUpdate component', () => {
 		await waitFor(() => {
 			expect(urlField).toHaveClass(/error/);
 			expect(urlErrorMessage).toHaveTextContent(
-				'Image URL is not a valid URL.',
+				'Image URL is not a valid HTTP URL.',
 			);
 		});
 	});
