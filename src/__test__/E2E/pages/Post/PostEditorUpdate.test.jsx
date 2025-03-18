@@ -369,36 +369,6 @@ test.describe('PostEditorUpdate component', () => {
 
 		await expect(unpublishedButton).toHaveClass(/.*error.*/);
 	});
-	test(`should resize the image if the user drags the image border to resize`, async ({
-		page,
-	}) => {
-		await page.route(`**/blog/posts/*`, async route => {
-			const json = {
-				success: true,
-				message: 'Update post successfully.',
-				data: userPosts[0],
-			};
-			await route.fulfill({ json });
-		});
-
-		await page.goto(`./${userPosts[0]._id}/editor`);
-
-		const image = page.getByAltText('Content image').first();
-
-		const box = await image.boundingBox();
-
-		await page.mouse.click(box.x, box.y);
-
-		await page.mouse.click(box.x, box.y);
-
-		await page.mouse.down();
-
-		await page.mouse.move(box.x - 50, box.y);
-
-		await page.mouse.up();
-
-		await expect(image).toHaveAttribute('style', `width: ${box.width + 50}px;`);
-	});
 	test(`should prevent the user from adding invalid content images.`, async ({
 		page,
 	}) => {
@@ -445,5 +415,35 @@ test.describe('PostEditorUpdate component', () => {
 
 		await expect(alert).toBeVisible();
 		await expect(image).not.toBeVisible();
+	});
+	test(`should resize the image if the user drags the image border to resize`, async ({
+		page,
+	}) => {
+		await page.route(`**/blog/posts/*`, async route => {
+			const json = {
+				success: true,
+				message: 'Update post successfully.',
+				data: userPosts[0],
+			};
+			await route.fulfill({ json });
+		});
+
+		await page.goto(`./${userPosts[0]._id}/editor`);
+
+		const image = page.getByAltText('Content image').first();
+
+		const box = await image.boundingBox();
+
+		await page.mouse.click(box.x, box.y);
+
+		await page.mouse.click(box.x, box.y);
+
+		await page.mouse.down();
+
+		await page.mouse.move(box.x - 50, box.y);
+
+		await page.mouse.up();
+
+		await expect(image).toHaveAttribute('style', `width: ${box.width + 50}px;`);
 	});
 });
