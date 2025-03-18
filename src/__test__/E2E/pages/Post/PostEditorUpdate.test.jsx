@@ -85,13 +85,7 @@ test.describe('PostEditorUpdate component', () => {
 	test(`should navigate to dashboard page if the "Back to dashboard" Link is clicked`, async ({
 		page,
 	}) => {
-		await page.goto(`./`);
-
-		const createPostLink = page.getByRole('link', { name: 'New Post' });
-
-		await createPostLink.click();
-
-		await expect(page).toHaveURL(/.*\/editor/);
+		await page.goto(`./${userPosts[0]._id}/editor`);
 
 		const backToPerviousLink = page.getByRole('link', {
 			name: /Back to dashboard/,
