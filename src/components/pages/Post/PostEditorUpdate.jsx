@@ -1,11 +1,6 @@
 // Packages
 import { useState, useRef, useEffect } from 'react';
-import {
-	useOutletContext,
-	useNavigate,
-	Link,
-	useParams,
-} from 'react-router-dom';
+import { useOutletContext, Link, useParams } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import { string, boolean } from 'yup';
 import isEqual from 'lodash.isequal';
