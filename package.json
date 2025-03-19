@@ -34,7 +34,6 @@
 	"devDependencies": {
 		"@commitlint/cli": "^19.6.1",
 		"@commitlint/config-conventional": "^19.6.0",
-		"@eslint/js": "^9.9.0",
 		"@faker-js/faker": "^9.5.0",
 		"@playwright/test": "^1.50.1",
 		"@types/node": "^22.13.10",
@@ -43,7 +42,6 @@
 		"@vitejs/plugin-react": "^4.3.4",
 		"@vitest/coverage-v8": "^3.0.9",
 		"eslint": "^9.20.1",
-		"eslint-plugin-react": "^7.37.4",
 		"eslint-plugin-react-hooks": "^5.1.0-rc.0",
 		"eslint-plugin-react-refresh": "^0.4.19",
 		"globals": "^15.14.0",
