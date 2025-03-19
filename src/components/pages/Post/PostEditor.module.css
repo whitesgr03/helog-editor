@@ -203,6 +203,11 @@
 	color: var(--dark-scheme-color);
 }
 
+:global(.dark) :global(#editor-title)::before,
+:global(.dark) :global(#editor-content)::before {
+	color: inherit;
+}
+
 :global(.dark) :global(#editor-content) pre {
 	background-color: var(--dark-scheme-input-bgc);
 	color: var(--dark-scheme-color);
