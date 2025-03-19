@@ -28,7 +28,7 @@
 		"prop-types": "^15.8.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.23.1",
+		"react-router-dom": "^6.30.0",
 		"yup": "^1.6.1"
 	},
 	"devDependencies": {
@@ -38,7 +38,7 @@
 		"@faker-js/faker": "^9.5.0",
 		"@playwright/test": "^1.50.1",
 		"@types/node": "^22.13.10",
-		"@types/react": "^18.3.18",
+		"@types/react": "^18.3.19",
 		"@types/react-dom": "^18.3.5",
 		"@vitejs/plugin-react": "^4.3.4",
 		"@vitest/coverage-v8": "^3.0.9",
