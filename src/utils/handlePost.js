@@ -8,7 +8,9 @@ export const createPost = async ({ data }) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRF-TOKEN': Cookies.get('token'),
+			'X-CSRF-TOKEN': Cookies.get(
+				import.meta.env.PROD ? '__Secure-token' : 'token',
+			),
 		},
 		credentials: 'include',
 		body: JSON.stringify(data),
@@ -22,7 +24,9 @@ export const updatePost = async ({ data, postId }) => {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRF-TOKEN': Cookies.get('token'),
+			'X-CSRF-TOKEN': Cookies.get(
+				import.meta.env.PROD ? '__Secure-token' : 'token',
+			),
 		},
 		credentials: 'include',
 		body: JSON.stringify(data),
@@ -34,7 +38,9 @@ export const deletePost = async ({ postId }) => {
 	const options = {
 		method: 'DELETE',
 		headers: {
-			'X-CSRF-TOKEN': Cookies.get('token'),
+			'X-CSRF-TOKEN': Cookies.get(
+				import.meta.env.PROD ? '__Secure-token' : 'token',
+			),
 		},
 		credentials: 'include',
 	};
