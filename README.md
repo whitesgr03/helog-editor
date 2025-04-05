@@ -53,3 +53,59 @@ You can edit your posts on the [Live Demo](https://helog-editor.whitesgr03.me) t
 - This project consists of a backend for API and two different front-ends for accessing and editing blog posts.
 
 - The backend's authentication is cookie-based to prevent the need to log in again when switching between two different front-ends.
+
+## Source folder structure
+
+```
+src/
+├─── __test__/                          # component and E2E tests
+│
+├─── assets/                            # Static assets (icons, images)
+│
+├─── components/                        # React components and each related css modules are placed in folders
+│     ├── layout/
+│     │    ├── Footer/
+│     │    │    └── Footer.jsx
+│     │    └── Header/
+│     │         ├── Dropdown.jsx
+│     │         └── Header.jsx
+│     ├── pages/
+│     │    ├── Account/
+│     │    │    └── Login.jsx
+│     │    ├── App/
+│     │    │    ├── Alert.jsx
+│     │    │    ├── App.jsx
+│     │    │    ├── CreateUsername.jsx
+│     │    │    └── Modal.jsx
+│     │    ├── Dashboard/
+│     │    │    ├── Dashboard.jsx
+│     │    │    ├── DeletePostModel.jsx
+│     │    │    └── TableRows.jsx
+│     │    ├── Home/
+│     │    │    └── Home.jsx
+│     │    └──── Post/
+│     │         ├── PossMainImageUpdate.jsx
+│     │         ├── PostEditorCreate.jsx
+│     │         └── PostEditorUpdate.jsx
+│     │
+│     └── utils/
+│          ├── Error/
+│          │    ├── Error.jsx
+│          │    └── NotFound.jsx
+│          └── Loading.jsx
+│
+├─── styles/                            # Generic CSS Modules
+│     ├── button.module.css
+│     ├── form.module.css
+│     ├── image.module.css
+│     └── index.css                     # Index css module include main custom properties and type selectors styles
+│
+├─── utils/                             # Generic function
+│     ├── handleFetch.jsx
+│     ├── handlePost.jsx                # Handle post API
+│     ├── handleUser.js                 # Handle user info API
+│     └── verifySchema.js               # Handle yup package validation values.
+│
+├─── main.jsx
+└──  Router.jsx                         # React router config
+```
