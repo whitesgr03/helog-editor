@@ -1,6 +1,6 @@
 # HeLog-Editor
 
-HeLog-Editor allows authenticate users to write, edit, and publish posts. It is the HeLog blog's editor, built with React and hosted on Vercel.
+HeLog-Editor is the HeLog blog's editor built with React. Allows authenticate users to write, edit, and publish posts. Hosted on Vercel.
 
 ![website screenshots](https://i.imgur.com/PzBScv3.png)
 
