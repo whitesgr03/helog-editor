@@ -60,14 +60,13 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	color: inherit;
 }
 
 .close {
 	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath fill='%23000' d='M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504L738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512L828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496L285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512L195.2 285.696a64 64 0 0 1 0-90.496'/%3E%3C/svg%3E");
 	width: var(--icon-size-mobile);
 	height: var(--icon-size-mobile);
-	color: inherit;
+	color: var(--light-scheme-color);
 }
 
 .theme {
@@ -82,11 +81,10 @@
 	height: var(--icon-size-mobile);
 }
 
-.theme > div {
+.theme span + div {
 	display: flex;
 	position: relative;
 	align-items: center;
-	transition: background-color 0.3s ease;
 	margin: 0 10px;
 	border: var(--toggle-border) solid var(--light-scheme-color);
 	border-radius: var(--toggle-width);
@@ -99,7 +97,7 @@
 	);
 }
 
-.theme > div > div {
+.theme span + div > div {
 	transform: translateX(0%);
 	transition: transform 0.3s ease;
 	border: 2px solid var(--light-scheme-color);
@@ -139,12 +137,16 @@
 	color: var(--light-scheme-color);
 }
 
-:global(.dark) .theme > div {
+:global(.dark) .close-btn .close {
+	color: var(--dark-scheme-color);
+}
+
+:global(.dark) .theme span + div {
 	border-color: var(--dark-scheme-color);
 	background-color: var(--dark-scheme-switch-bgc);
 }
 
-:global(.dark) .theme > div > div {
+:global(.dark) .theme span + div > div {
 	transform: translateX(
 		calc(
 			100% - calc(var(--toggle-padding) * 2) + var(--toggle-slide) -
