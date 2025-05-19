@@ -14,7 +14,6 @@ import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
 import { Error } from '../../utils/Error/Error';
 import { Modal } from './Modal';
-import { CreateUsername } from './CreateUsername';
 import { Login } from '../Account/Login';
 
 // Utils
@@ -151,19 +150,6 @@ export const App = () => {
 								<main>
 									{!user ? (
 										<Login />
-									) : !user.username ? (
-										!modal &&
-										handleActiveModal({
-											component: (
-												<CreateUsername
-													onActiveModal={handleActiveModal}
-													onUser={setUser}
-													onAlert={handleAlert}
-													onError={setError}
-												/>
-											),
-											clickToClose: false,
-										})
 									) : (
 										<Outlet
 											context={{
