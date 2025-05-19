@@ -12,6 +12,10 @@ export const NotFound = () => {
 				<p>The page you are looking for could not be found.</p>
 				<p>You may surf over to our other pages.</p>
 			</div>
+
+			<Link to="/" className={styles.link}>
+				Back to Dashboard Page
+			</Link>
 		</div>
 	);
 };
