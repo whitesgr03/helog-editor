@@ -15,6 +15,13 @@
 	background-color: rgba(var(--light-scheme-color-rgb), 0.4);
 }
 
+.blur {
+	position: absolute;
+	z-index: 1;
+	inset: 0;
+	background-color: rgba(var(--light-scheme-main-bgc-rgb), 0.5);
+}
+
 .light {
 	color: var(--dark-scheme-color);
 }
