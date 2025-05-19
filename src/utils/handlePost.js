@@ -34,7 +34,7 @@ export const updatePost = async ({ data, postId }) => {
 	return await handleFetch(`${url}/${postId}`, options);
 };
 
-export const deletePost = async ({ postId }) => {
+export const deletePost = async postId => {
 	const options = {
 		method: 'DELETE',
 		headers: {
@@ -44,5 +44,6 @@ export const deletePost = async ({ postId }) => {
 		},
 		credentials: 'include',
 	};
+
 	return await handleFetch(`${url}/${postId}`, options);
 };

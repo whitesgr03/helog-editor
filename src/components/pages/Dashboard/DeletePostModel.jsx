@@ -1,6 +1,6 @@
 // Packages
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useMutation } from '@tanstack/react-query';
 
 // Styles
 import styles from './DeletePostModel.module.css';
@@ -8,47 +8,51 @@ import buttonStyles from '../../../styles/button.module.css';
 
 // Utils
 import { deletePost } from '../../../utils/handlePost';
+import { queryClient } from '../../../utils/queryOptions';
 
 // Components
 import { Loading } from '../../utils/Loading';
 
-export const DeletePostModel = ({
-	id,
-	title,
-	onActiveModal,
-	onAlert,
-	onDeletePost,
-}) => {
-	const [loading, setLoading] = useState(false);
+export const DeletePostModel = ({ postId, title, onActiveModal, onAlert }) => {
+	const { isPending, mutate } = useMutation({
+		mutationFn: deletePost,
+		onError: () =>
+			onAlert({
+				message:
+					'Delete the post has some errors occur, please try again later.',
+				error: true,
+				delay: 4000,
+			}),
+		onSuccess: () => {
+			queryClient.setQueryData(['userPosts'], data => {
+				const newPages = data.pages.map(page => ({
+					...page,
+					data: {
+						...page.data,
+						userPosts: page.data.userPosts.filter(post => post._id !== postId),
+					},
+				}));
+				return {
+					pages: newPages,
+					pageParams: data.pageParams,
+				};
+			});
+			onAlert({
+				message: 'Post has been deleted.',
+				error: false,
+				delay: 4000,
+			});
+		},
+		onSettled: () => onActiveModal({ component: null }),
+	});
 
-	const handleDeletePost = async () => {
-		setLoading(true);
-
-		const result = await deletePost({
-			postId: id,
-		});
-
-		const handleSuccess = () => {
-			onDeletePost(id);
-			onAlert({ message: `Post has been Deleted`, error: false, delay: 2000 });
-		};
-
-		result.success
-			? handleSuccess()
-			: onAlert({
-					message: 'There are some errors occur, please try again later.',
-					error: true,
-					delay: 3000,
-				});
-
-		onActiveModal({ component: null });
-
-		setLoading(false);
-	};
+	const handleDeletePost = () => mutate(postId);
 
 	return (
 		<>
-			{loading && <Loading text={'Deleting...'} light={true} shadow={true} />}
+			{isPending && (
+				<Loading text={'Deleting ...'} light={true} shadow={true} />
+			)}
 			<div className={styles['delete-model']}>
 				<span className={styles.title}>Delete Post</span>
 				<div className={styles.content}>
@@ -67,7 +71,7 @@ export const DeletePostModel = ({
 					</button>
 					<button
 						className={`${buttonStyles.content} ${buttonStyles.error}`}
-						onClick={() => !loading && handleDeletePost()}
+						onClick={handleDeletePost}
 					>
 						Delete
 					</button>
@@ -78,7 +82,7 @@ export const DeletePostModel = ({
 };
 
 DeletePostModel.propTypes = {
-	id: PropTypes.string,
+	postId: PropTypes.string,
 	title: PropTypes.string,
 	onActiveModal: PropTypes.func,
 	onAlert: PropTypes.func,

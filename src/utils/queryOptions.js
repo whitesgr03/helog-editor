@@ -1,5 +1,10 @@
-import { QueryClient, queryOptions, QueryCache } from '@tanstack/react-query';
-import { getUserInfo } from './handleUser';
+import {
+	QueryClient,
+	queryOptions,
+	infiniteQueryOptions,
+	QueryCache,
+} from '@tanstack/react-query';
+import { getUserInfo, getUserPosts } from './handleUser';
 
 export const queryClient = new QueryClient({
 	queryCache: new QueryCache({
@@ -22,4 +27,16 @@ export const queryUserInfoOption = queryOptions({
 	gcTime: Infinity,
 	refetchOnReconnect: false,
 	select: response => response.data,
+});
+
+export const infiniteQueryUserPostsOption = infiniteQueryOptions({
+	queryKey: ['userPosts'],
+	queryFn: getUserPosts,
+	initialPageParam: 0,
+	getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+		lastPage.data.userPostsCount > lastPageParam + 100
+			? lastPageParam + 100
+			: null,
+	staleTime: 1000 * 60 * 30,
+	gcTime: Infinity,
 });

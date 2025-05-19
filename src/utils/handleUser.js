@@ -18,6 +18,16 @@ export const getUserInfo = async ({ signal }) => {
 	return await handleFetch(url, options);
 };
 
+export const getUserPosts = async ({ pageParam: skip, signal }) => {
+	const options = {
+		method: 'GET',
+		signal,
+		credentials: 'include',
+	};
+
+	return await handleFetch(`${url}/posts?skip=${skip}`, options);
+};
+
 export const updateUser = async fields => {
 	const options = {
 		method: 'PATCH',
@@ -31,14 +41,4 @@ export const updateUser = async fields => {
 		body: JSON.stringify(fields),
 	};
 	return await handleFetch(url, options);
-};
-
-export const getUserPostList = async ({ signal }) => {
-	const options = {
-		method: 'GET',
-		signal,
-		credentials: 'include',
-	};
-
-	return await handleFetch(`${url}/posts`, options);
 };

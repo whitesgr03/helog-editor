@@ -1,6 +1,6 @@
 // Packages
 import { useState, useEffect } from 'react';
-import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 // Styles
@@ -23,11 +23,7 @@ export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(null);
 	const [modal, setModal] = useState(null);
 	const [alert, setAlert] = useState([]);
-	const [fetching, setFetching] = useState(true);
-	const [reGetUser, setReGetUser] = useState(false);
-	const [posts, setPosts] = useState([]);
 
-	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 
 	const {
@@ -61,18 +57,6 @@ export const App = () => {
 		component ? setModal({ component, clickToClose }) : setModal(null);
 	};
 
-	const handleCreatePost = newPost => {
-		setPosts([newPost, ...posts]);
-	};
-
-	const handleUpdatePost = newPost => {
-		setPosts(posts.map(post => (post._id === newPost._id ? newPost : post)));
-	};
-
-	const handleDeletePost = id => {
-		setPosts(posts.filter(post => post._id !== id));
-	};
-
 	useEffect(() => {
 		const getColorTheme = () => {
 			const themeParams = searchParams.get('theme');
@@ -91,27 +75,7 @@ export const App = () => {
 			setDarkTheme(theme === 'true');
 		};
 		darkTheme === null && getColorTheme();
-	}, [navigate, darkTheme, searchParams]);
-
-	useEffect(() => {
-		const controller = new AbortController();
-		const { signal } = controller;
-
-		const handleGetPosts = async () => {
-			const result = await getUserPostList({ signal });
-
-			const handleResult = () => {
-				result.success
-					? setPosts(result.data)
-					: result.status !== 404 && setError(result.message);
-				setFetching(false);
-			};
-
-			result && handleResult();
-		};
-		handleGetPosts();
-		return () => controller.abort();
-	}, []);
+	}, [darkTheme, searchParams]);
 
 	return (
 		<>
@@ -153,14 +117,8 @@ export const App = () => {
 									) : (
 										<Outlet
 											context={{
-												user,
-												posts,
-												onUser: setUser,
 												onActiveModal: handleActiveModal,
 												onAlert: handleAlert,
-												onCreatePost: handleCreatePost,
-												onUpdatePost: handleUpdatePost,
-												onDeletePost: handleDeletePost,
 											}}
 										/>
 									)}

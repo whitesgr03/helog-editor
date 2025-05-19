@@ -1,5 +1,5 @@
 // Packages
-import { useOutletContext, Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
@@ -10,12 +10,12 @@ import imageStyles from '../../../styles/image.module.css';
 // Components
 import { DeletePostModel } from './DeletePostModel';
 
-export const TableRows = ({ post, onDeletePost }) => {
+export const TableRows = ({ index, post }) => {
 	const { onActiveModal, onAlert } = useOutletContext();
 
 	return (
 		<tr className={styles['tbody-rows']}>
-			<td title={post.title}>{post.title}</td>
+			<td title={post.title}>{`${index + 1}. ${post.title}`}</td>
 			<td>
 				<span
 					data-testid="publish-icon"
@@ -38,11 +38,10 @@ export const TableRows = ({ post, onDeletePost }) => {
 						onActiveModal({
 							component: (
 								<DeletePostModel
-									id={post._id}
+									postId={post._id}
 									title={post.title}
 									onActiveModal={onActiveModal}
 									onAlert={onAlert}
-									onDeletePost={onDeletePost}
 								/>
 							),
 						})
@@ -60,5 +59,4 @@ TableRows.propTypes = {
 	changing: PropTypes.bool,
 	onChanging: PropTypes.func,
 	onUpdatePost: PropTypes.func,
-	onDeletePost: PropTypes.func,
 };
