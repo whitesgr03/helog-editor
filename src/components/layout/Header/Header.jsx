@@ -11,8 +11,13 @@ import imageStyles from '../../../styles/image.module.css';
 // Components
 import { Dropdown } from './Dropdown';
 
-export const Header = ({ user, darkTheme, onColorTheme }) => {
+// Utils
+import { queryClient } from '../../../utils/queryOptions';
+
+export const Header = ({ darkTheme, onColorTheme }) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);
+
+	const { data: user } = queryClient.getQueryData(['userInfo']) ?? {};
 
 	const handleActiveDropdown = () => setActiveDropdown(!activeDropdown);
 	const handleCloseDropdown = () => setActiveDropdown(false);

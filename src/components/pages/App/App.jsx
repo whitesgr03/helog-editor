@@ -103,11 +103,7 @@ export const App = () => {
 								</Modal>
 							)}
 							<div className={styles['header-bar']}>
-								<Header
-									user={user}
-									darkTheme={darkTheme}
-									onColorTheme={handleColorTheme}
-								/>
+								<Header darkTheme={darkTheme} onColorTheme={handleColorTheme} />
 								<Alert alert={alert} onAlert={setAlert} />
 							</div>
 							<div className={styles.container}>
