@@ -15,37 +15,47 @@ import { PostEditorUpdate } from './components/pages/Post/PostEditorUpdate';
 
 export const Router = () => (
 	<RouterProvider
-		router={createBrowserRouter([
+		future={{
+			v7_startTransition: true,
+		}}
+		router={createBrowserRouter(
+			[
+				{
+					path: '/',
+					element: <App />,
+					children: [
+						{
+							index: true,
+							element: <Navigate to="/posts" />,
+						},
+						{
+							path: '/posts',
+							element: <Dashboard />,
+						},
+						{
+							path: '/posts/editor',
+							element: <PostEditorCreate />,
+						},
+						{
+							path: '/posts/:postId?/editor',
+							element: <PostEditorUpdate />,
+						},
+						{
+							path: '*',
+							element: <NotFound />,
+						},
+						{
+							path: 'error',
+							element: <Error />,
+						},
+					],
+				},
+			],
 			{
-				path: '/',
-				element: <App />,
-				children: [
-					{
-						index: true,
-						element: <Navigate to="/posts" />,
-					},
-					{
-						path: '/posts',
-						element: <Dashboard />,
-					},
-					{
-						path: '/posts/editor',
-						element: <PostEditorCreate />,
-					},
-					{
-						path: '/posts/:postId?/editor',
-						element: <PostEditorUpdate />,
-					},
-					{
-						path: '*',
-						element: <NotFound />,
-					},
-					{
-						path: 'error',
-						element: <Error />,
-					},
-				],
+				future: {
+					v7_relativeSplatPath: true,
+				},
 			},
-		])}
+		)}
 	/>
 );
