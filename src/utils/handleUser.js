@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const url = `${import.meta.env.VITE_RESOURCE_URL}/user`;
 
-export const getUser = async ({ signal }) => {
+export const getUserInfo = async ({ signal }) => {
 	const options = {
 		method: 'GET',
 		signal,

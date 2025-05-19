@@ -1,6 +1,7 @@
 // Packages
 import { useState, useEffect } from 'react';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 // Styles
 import 'normalize.css';
@@ -17,21 +18,26 @@ import { CreateUsername } from './CreateUsername';
 import { Login } from '../Account/Login';
 
 // Utils
-import { getUser, getUserPostList } from '../../../utils/handleUser';
+import { queryUserInfoOption } from '../../../utils/queryOptions';
 
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(null);
-	const [user, setUser] = useState(null);
 	const [modal, setModal] = useState(null);
 	const [alert, setAlert] = useState([]);
-	const [loading, setLoading] = useState(true);
 	const [fetching, setFetching] = useState(true);
-	const [error, setError] = useState(false);
 	const [reGetUser, setReGetUser] = useState(false);
 	const [posts, setPosts] = useState([]);
 
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
+
+	const {
+		isPending,
+		isError,
+		data: user,
+		error,
+		refetch,
+	} = useQuery(queryUserInfoOption);
 
 	const handleColorTheme = () => {
 		setDarkTheme(!darkTheme);
@@ -92,34 +98,6 @@ export const App = () => {
 		const controller = new AbortController();
 		const { signal } = controller;
 
-		const handleGetUser = async () => {
-			const result = await getUser({ signal });
-
-			const handleResult = () => {
-				reGetUser && setReGetUser(false);
-
-				const handleSuccess = () => {
-					error && setError(false);
-					setUser(result.data);
-				};
-
-				result.success
-					? handleSuccess()
-					: result.status !== 404 && setError(result.message);
-
-				setLoading(false);
-			};
-
-			result && handleResult();
-		};
-		(reGetUser || !user) && handleGetUser();
-		return () => controller.abort();
-	}, [reGetUser, user, error]);
-
-	useEffect(() => {
-		const controller = new AbortController();
-		const { signal } = controller;
-
 		const handleGetPosts = async () => {
 			const result = await getUserPostList({ signal });
 
@@ -139,14 +117,18 @@ export const App = () => {
 	return (
 		<>
 			{error ? (
-				<Error onReGetUser={setReGetUser} />
+				<Error onReGetUser={refetch} />
 			) : (
 				<div
 					className={`${darkTheme ? 'dark' : ''} ${styles.app}`}
 					data-testid="app"
 				>
-					{loading || fetching ? (
-						<Loading text={'Loading...'} />
+					{isError && error.cause.status !== 404 ? (
+						<Error onReGetUser={refetch} />
+					) : isPending ? (
+						<div className={styles.loading}>
+							<Loading text={'Loading ...'} />
+						</div>
 					) : (
 						<>
 							{modal && (

@@ -1,15 +1,10 @@
-export const handleFetch = async (url, option) => {
-	try {
-		const response = await fetch(url, { ...option });
-		const result = await response.json();
-		response.status !== 200 && (result.status = response.status);
-		return result;
-	} catch (err) {
-		return (
-			!option.signal.aborted && {
-				success: false,
-				message: err,
-			}
-		);
-	}
+export const handleFetch = async (url, options, validStatus) => {
+	const response = await fetch(url, options).catch(error => {
+		throw new Error('fetch error', { cause: error });
+	});
+
+	if (!response.ok && !validStatus?.find(status => response.status === status))
+		throw new Error('response status error', { cause: response });
+
+	return response.json();
 };
