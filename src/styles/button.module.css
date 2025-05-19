@@ -34,8 +34,14 @@
 	}
 }
 
-.highlight {
+.more {
+	display: flex;
+	column-gap: 10px;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
 	background-color: var(--light-scheme-highlight);
+	padding: 10px;
 }
 
 .success {
@@ -123,7 +129,7 @@
 	color: var(--dark-scheme-color);
 }
 
-:global(.dark) .highlight {
+:global(.dark) .more {
 	background-color: var(--dark-scheme-highlight);
 	color: var(--light-scheme-color);
 }
