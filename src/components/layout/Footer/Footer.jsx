@@ -6,7 +6,7 @@ export const Footer = () => {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.container}>
-				<a href="#git" alt="github" className={styles.link}>
+				<a href="#git" className={styles.link}>
 					<span className={`${imageStyles.icon} ${styles.github}`} />
 				</a>
 				<address>
