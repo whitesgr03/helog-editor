@@ -67,6 +67,7 @@ export const Header = ({ darkTheme, onColorTheme }) => {
 						user={user}
 						darkTheme={darkTheme}
 						onColorTheme={onColorTheme}
+						onCloseDropdown={handleCloseDropdown}
 					/>
 					<div
 						className={styles['transparent-background']}

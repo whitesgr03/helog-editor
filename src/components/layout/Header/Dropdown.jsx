@@ -1,8 +1,8 @@
 // Packages
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useMutation } from '@tanstack/react-query';
 
 // Styles
 import styles from './Dropdown.module.css';
@@ -13,37 +13,40 @@ import loadingStyles from '../../utils/Loading.module.css';
 // Utils
 import { handleFetch } from '../../../utils/handleFetch.js';
 
-export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
-	const [loading, setLoading] = useState(null);
+// Variables
+const URL = `${import.meta.env.VITE_RESOURCE_URL}/account/logout`;
 
+export const Dropdown = ({
+	user,
+	darkTheme,
+	onColorTheme,
+	onCloseDropdown,
+}) => {
 	const navigate = useNavigate();
 	const { pathname: previousPath } = useLocation();
 
-	const handleLogout = async () => {
-		setLoading(true);
+	const { isPending, mutate } = useMutation({
+		mutationFn: async () => {
+			const options = {
+				method: 'POST',
+				headers: {
+					'X-CSRF-TOKEN':
+						Cookies.get(import.meta.env.PROD ? '__Secure-token' : 'token') ??
+						'',
+				},
+				credentials: 'include',
+			};
+			return await handleFetch(URL, options);
+		},
+		onError: () => {
+			navigate('/error', { state: { previousPath } });
+			onCloseDropdown();
+		},
+		onSuccess: () =>
+			location.assign(`${import.meta.env.VITE_HELOG_URL}?theme=${darkTheme}`),
+	});
 
-		const url = `${import.meta.env.VITE_RESOURCE_URL}/account/logout`;
-
-		const options = {
-			method: 'POST',
-			headers: {
-				'X-CSRF-TOKEN': Cookies.get(
-					import.meta.env.PROD ? '__Secure-token' : 'token',
-				),
-			},
-			credentials: 'include',
-		};
-
-		const result = await handleFetch(url, options);
-
-		result.success
-			? location.assign(`${import.meta.env.VITE_HELOG_URL}?theme=${darkTheme}`)
-			: navigate('/error', {
-					state: { error: result.message, previousPath },
-				});
-
-		setLoading(false);
-	};
+	const handleLogout = () => mutate();
 
 	return (
 		<div className={styles.dropdown}>
@@ -73,14 +76,10 @@ export const Dropdown = ({ user, darkTheme, onColorTheme }) => {
 				</li>
 				<li>
 					<button onClick={handleLogout}>
-						{loading ? (
-							<span className={`${imageStyles.icon} ${loadingStyles.load}`} />
-						) : (
-							<span
-								className={`${imageStyles.icon} ${styles.logout}`}
-								data-testid="loading-icon"
-							/>
-						)}
+						<span
+							data-testid="loading-icon"
+							className={`${imageStyles.icon} ${isPending ? loadingStyles.load : styles.logout}`}
+						/>
 						Logout
 					</button>
 				</li>
@@ -93,4 +92,5 @@ Dropdown.propTypes = {
 	user: PropTypes.object,
 	darkTheme: PropTypes.bool,
 	onColorTheme: PropTypes.func,
+	onCloseDropdown: PropTypes.func,
 };
