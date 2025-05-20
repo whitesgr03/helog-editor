@@ -27,18 +27,3 @@ export const getUserPosts = async ({ pageParam: skip, signal }) => {
 
 	return await handleFetch(`${url}/posts?skip=${skip}`, options);
 };
-
-export const updateUser = async fields => {
-	const options = {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json',
-			'X-CSRF-TOKEN': Cookies.get(
-				import.meta.env.PROD ? '__Secure-token' : 'token',
-			),
-		},
-		credentials: 'include',
-		body: JSON.stringify(fields),
-	};
-	return await handleFetch(url, options);
-};
