@@ -1,42 +1,36 @@
-// Packages
-import PropTypes from 'prop-types';
-
 // Styles
 import styles from './Modal.module.css';
 import imageStyles from '../../../styles/image.module.css';
+import buttonStyles from '../../../styles/button.module.css';
+import { useModal, useAppDataAPI } from './AppContext';
 
-export const Modal = ({ onActiveModal, clickToClose, children }) => {
+export const Modal = () => {
+	const modal = useModal();
+	const { onModal } = useAppDataAPI();
+
+	const handleCloseModal = e =>
+		e.target === e.currentTarget && onModal({ component: null });
+
 	return (
-		<div
-			className={styles.modal}
-			onClick={e => {
-				clickToClose &&
-					e.target === e.currentTarget &&
-					onActiveModal({ component: null });
-			}}
-			data-testid="modal"
-		>
-			<div className={styles['modal-wrap']}>
-				{clickToClose && (
-					<button
-						className={styles['modal-button']}
-						title="Close Modal Button"
-						data-testid="close-btn"
-						onClick={e =>
-							e.target === e.currentTarget && onActiveModal({ component: null })
-						}
-					>
-						<span className={`${imageStyles.icon} ${styles.close}`} />
-					</button>
-				)}
-				<div className={styles.container}>{children}</div>
-			</div>
-		</div>
+		<>
+			{modal.component && (
+				<div
+					className={styles.modal}
+					onClick={e => modal.clickBgToClose && handleCloseModal(e)}
+					data-testid="modal"
+				>
+					<div className={styles['modal-wrap']}>
+						<button
+							className={buttonStyles['close-btn']}
+							onClick={handleCloseModal}
+							data-testid="close-btn"
+						>
+							<span className={`${imageStyles.icon} ${buttonStyles.close}`} />
+						</button>
+						<div className={styles.container}>{modal.component}</div>
+					</div>
+				</div>
+			)}
+		</>
 	);
-};
-
-Modal.propTypes = {
-	onActiveModal: PropTypes.func,
-	clickToClose: PropTypes.bool,
-	children: PropTypes.node,
 };

@@ -19,10 +19,11 @@ import { Login } from '../Account/Login';
 // Utils
 import { queryUserInfoOption } from '../../../utils/queryOptions';
 
+// Context
+import { AppDataProvider } from './AppDataProvider';
+
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState(null);
-	const [modal, setModal] = useState(null);
-	const [alert, setAlert] = useState([]);
 
 	const [searchParams] = useSearchParams();
 
@@ -37,24 +38,6 @@ export const App = () => {
 	const handleColorTheme = () => {
 		setDarkTheme(!darkTheme);
 		localStorage.setItem('darkTheme', JSON.stringify(!darkTheme));
-	};
-
-	const handleAlert = ({ message, error, delay, autosave }) => {
-		const newAlert = {
-			message,
-			error,
-			delay,
-		};
-
-		setAlert(
-			alert.length < 2 && !autosave ? alert.concat(newAlert) : [newAlert],
-		);
-	};
-
-	const handleActiveModal = ({ component, clickToClose = true }) => {
-		document.body.removeAttribute('style');
-		component && (document.body.style.overflow = 'hidden');
-		component ? setModal({ component, clickToClose }) : setModal(null);
 	};
 
 	useEffect(() => {
@@ -78,53 +61,31 @@ export const App = () => {
 	}, [darkTheme, searchParams]);
 
 	return (
-		<>
-			{error ? (
-				<Error onReGetUser={refetch} />
-			) : (
-				<div
-					className={`${darkTheme ? 'dark' : ''} ${styles.app}`}
-					data-testid="app"
-				>
-					{isError && error.cause.status !== 404 ? (
-						<Error onReGetUser={refetch} />
-					) : isPending ? (
-						<div className={styles.loading}>
-							<Loading text={'Loading ...'} />
+		<AppDataProvider>
+			<div
+				className={`${darkTheme ? 'dark' : ''} ${styles.app}`}
+				data-testid="app"
+			>
+				{isError && error.cause.status !== 404 ? (
+					<Error onReGetUser={refetch} />
+				) : isPending ? (
+					<div className={styles.loading}>
+						<Loading text={'Loading data ...'} />
+					</div>
+				) : (
+					<>
+						<Modal />
+						<div className={styles['header-bar']}>
+							<Header darkTheme={darkTheme} onColorTheme={handleColorTheme} />
+							<Alert />
 						</div>
-					) : (
-						<>
-							{modal && (
-								<Modal
-									onActiveModal={handleActiveModal}
-									clickToClose={modal.clickToClose}
-								>
-									{modal.component}
-								</Modal>
-							)}
-							<div className={styles['header-bar']}>
-								<Header darkTheme={darkTheme} onColorTheme={handleColorTheme} />
-								<Alert alert={alert} onAlert={setAlert} />
-							</div>
-							<div className={styles.container}>
-								<main>
-									{!user ? (
-										<Login />
-									) : (
-										<Outlet
-											context={{
-												onActiveModal: handleActiveModal,
-												onAlert: handleAlert,
-											}}
-										/>
-									)}
-								</main>
-								<Footer />
-							</div>
-						</>
-					)}
-				</div>
-			)}
-		</>
+						<div className={styles.container}>
+							<main>{!user ? <Login /> : <Outlet context={darkTheme} />}</main>
+							<Footer />
+						</div>
+					</>
+				)}
+			</div>
+		</AppDataProvider>
 	);
 };

@@ -13,7 +13,11 @@ import { queryClient } from '../../../utils/queryOptions';
 // Components
 import { Loading } from '../../utils/Loading';
 
-export const DeletePostModel = ({ postId, title, onActiveModal, onAlert }) => {
+// Context
+import { useAppDataAPI } from '../App/AppContext';
+
+export const DeletePostModel = ({ postId, title }) => {
+	const { onModal, onAlert } = useAppDataAPI();
 	const { isPending, mutate } = useMutation({
 		mutationFn: deletePost,
 		onError: () =>
@@ -43,10 +47,16 @@ export const DeletePostModel = ({ postId, title, onActiveModal, onAlert }) => {
 				delay: 4000,
 			});
 		},
-		onSettled: () => onActiveModal({ component: null }),
+		onSettled: () => onModal({ component: null }),
 	});
 
-	const handleDeletePost = () => mutate(postId);
+	const handleDeletePost = () => {
+		onModal({
+			component: <DeletePostModel postId={postId} title={title} />,
+			clickBgToClose: false,
+		});
+		mutate(postId);
+	};
 
 	return (
 		<>
@@ -65,7 +75,7 @@ export const DeletePostModel = ({ postId, title, onActiveModal, onAlert }) => {
 					<button
 						className={`${buttonStyles.content} ${buttonStyles.cancel}`}
 						data-close-model
-						onClick={() => onActiveModal({ component: null })}
+						onClick={() => onModal({ component: null })}
 					>
 						Cancel
 					</button>
@@ -84,7 +94,4 @@ export const DeletePostModel = ({ postId, title, onActiveModal, onAlert }) => {
 DeletePostModel.propTypes = {
 	postId: PropTypes.string,
 	title: PropTypes.string,
-	onActiveModal: PropTypes.func,
-	onAlert: PropTypes.func,
-	onDeletePost: PropTypes.func,
 };

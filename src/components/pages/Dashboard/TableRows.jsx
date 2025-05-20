@@ -1,5 +1,5 @@
 // Packages
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
@@ -10,8 +10,11 @@ import imageStyles from '../../../styles/image.module.css';
 // Components
 import { DeletePostModel } from './DeletePostModel';
 
+// Context
+import { useAppDataAPI } from '../App/AppContext';
+
 export const TableRows = ({ index, post }) => {
-	const { onActiveModal, onAlert } = useOutletContext();
+	const { onModal } = useAppDataAPI();
 
 	return (
 		<tr className={styles['tbody-rows']}>
@@ -35,14 +38,9 @@ export const TableRows = ({ index, post }) => {
 					data-testid="delete-button"
 					className={styles['delete-button']}
 					onClick={() =>
-						onActiveModal({
+						onModal({
 							component: (
-								<DeletePostModel
-									postId={post._id}
-									title={post.title}
-									onActiveModal={onActiveModal}
-									onAlert={onAlert}
-								/>
+								<DeletePostModel postId={post._id} title={post.title} />
 							),
 						})
 					}
@@ -55,8 +53,6 @@ export const TableRows = ({ index, post }) => {
 };
 
 TableRows.propTypes = {
+	index: PropTypes.number,
 	post: PropTypes.object,
-	changing: PropTypes.bool,
-	onChanging: PropTypes.func,
-	onUpdatePost: PropTypes.func,
 };

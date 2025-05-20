@@ -14,7 +14,11 @@ import { Loading } from '../../utils/Loading';
 // Modules
 import { verifySchema } from '../../../utils/verifySchema';
 
-export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
+// Context
+import { useAppDataAPI } from '../App/AppContext';
+
+export const PossMainImageUpdate = ({ onSetMainImage }) => {
+	const { onModal } = useAppDataAPI();
 	const [error, setError] = useState('');
 	const [url, setUrl] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -37,7 +41,7 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 
 		const handleSet = () => {
 			onSetMainImage(url, 'mainImage');
-			onActiveModal({ component: null });
+			onModal({ component: null });
 			setLoading(false);
 		};
 
@@ -140,6 +144,5 @@ export const PossMainImageUpdate = ({ onActiveModal, onSetMainImage }) => {
 };
 
 PossMainImageUpdate.propTypes = {
-	onActiveModal: PropTypes.func,
 	onSetMainImage: PropTypes.func,
 };

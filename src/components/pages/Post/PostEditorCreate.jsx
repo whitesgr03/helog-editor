@@ -51,6 +51,8 @@ const EDITOR_CONTENT_INIT = {
 	image_uploadtab: false,
 	typeahead_urls: false,
 };
+// Context
+import { useAppDataAPI } from '../App/AppContext';
 
 const titleLimit = 100;
 const contentLimit = 8000;
@@ -62,8 +64,8 @@ const defaultFields = {
 };
 
 export const PostEditorCreate = () => {
-	const { darkTheme, onAlert, onActiveModal } = useOutletContext();
-
+	const { darkTheme } = useOutletContext();
+	const { onAlert, onModal } = useAppDataAPI();
 	const [editorFields, setEditorFields] = useState(defaultFields);
 	const [fieldsErrors, setFieldsErrors] = useState({});
 	const [previewImage, setPreviewImage] = useState(false);
@@ -311,12 +313,9 @@ export const PostEditorCreate = () => {
 								ref={imageWrapRef}
 								tabIndex={previewImage ? 0 : -1}
 								onClick={() =>
-									onActiveModal({
+									onModal({
 										component: (
-											<PossMainImageUpdate
-												onActiveModal={onActiveModal}
-												onSetMainImage={handleChange}
-											/>
+											<PossMainImageUpdate onSetMainImage={handleChange} />
 										),
 									})
 								}

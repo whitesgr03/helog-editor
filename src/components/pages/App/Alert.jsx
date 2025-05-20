@@ -1,13 +1,17 @@
 // Packages
 import { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 
 // Styles
 import styles from './Alert.module.css';
 
-export const Alert = ({ alert, onAlert }) => {
+// Context
+import { useAlert, useAppDataAPI } from './AppContext';
+
+export const Alert = () => {
+	const alert = useAlert();
+	const { onAlert } = useAppDataAPI();
 	const [pause, setPause] = useState(false);
-	const timer = useRef('');
+	const timer = useRef();
 	const startTime = useRef(0);
 	const remainingTime = useRef(0);
 
@@ -29,7 +33,7 @@ export const Alert = ({ alert, onAlert }) => {
 	const startTimer = () => {
 		startTime.current = Date.now();
 		remainingTime.current === 0 && (remainingTime.current = alert[0].delay);
-		timer.current && clearTimeout(timer.current);
+		clearTimeout(timer.current);
 		timer.current = setTimeout(() => endAlert(), remainingTime.current);
 	};
 
@@ -56,16 +60,11 @@ export const Alert = ({ alert, onAlert }) => {
 			onMouseEnter={handlePauseTimer}
 			onMouseLeave={handleContinueTimer}
 			className={`${styles.alert} ${alert.length === 1 ? styles.active : ''} ${
-				alert[0]?.error || lastAlert.error ? styles.error : ''
+				lastAlert.error || alert[0]?.error ? styles.error : ''
 			}`}
 			data-testid="alert"
 		>
-			<p data-testid="message">{alert[0]?.message || lastAlert.message}</p>
+			<p data-testid="message">{lastAlert.message || alert[0]?.message}</p>
 		</div>
 	);
-};
-
-Alert.propTypes = {
-	alert: PropTypes.array,
-	onAlert: PropTypes.func,
 };

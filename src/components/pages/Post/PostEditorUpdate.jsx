@@ -62,11 +62,15 @@ const EDITOR_CONTENT_INIT = {
 	typeahead_urls: false,
 };
 
+// Context
+import { useAppDataAPI } from '../App/AppContext';
+
 const titleLimit = 100;
 const contentLimit = 8000;
 
 export const PostEditorUpdate = () => {
-	const { darkTheme, onAlert, onActiveModal } = useOutletContext();
+	const { darkTheme } = useOutletContext();
+	const { onAlert, onModal } = useAppDataAPI();
 
 	const { postId } = useParams();
 	const { pathname: previousPath } = useLocation();
@@ -432,12 +436,9 @@ export const PostEditorUpdate = () => {
 								ref={imageWrapRef}
 								tabIndex={previewImage ? 0 : -1}
 								onClick={() =>
-									onActiveModal({
+									onModal({
 										component: (
-											<PossMainImageUpdate
-												onActiveModal={onActiveModal}
-												onSetMainImage={handleChange}
-											/>
+											<PossMainImageUpdate onSetMainImage={handleChange} />
 										),
 									})
 								}

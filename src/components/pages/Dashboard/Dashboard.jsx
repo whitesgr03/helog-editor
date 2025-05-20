@@ -1,6 +1,6 @@
 // Package
 import { useState, useRef, useEffect } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 // Styles
@@ -14,8 +14,11 @@ import { Loading } from '../../utils/Loading';
 // Utils
 import { infiniteQueryUserPostsOption } from '../../../utils/queryOptions';
 
+// Context
+import { useAppDataAPI } from '../App/AppContext';
+
 export const Dashboard = () => {
-	const { onAlert } = useOutletContext();
+	const { onAlert } = useAppDataAPI();
 
 	const [isManuallyRefetch, setIsManuallyRefetch] = useState(false);
 	const [renderPostsCount, setRenderPostsCount] = useState(10);
@@ -36,12 +39,14 @@ export const Dashboard = () => {
 		meta: {
 			errorAlert: () => {
 				isManuallyRefetch &&
-					onAlert({
-						message:
-							'Loading the posts has some errors occur, please try again later.',
-						error: true,
-						delay: 4000,
-					});
+					onAlert([
+						{
+							message:
+								'Loading the posts has some errors occur, please try again later.',
+							error: true,
+							delay: 4000,
+						},
+					]);
 				setIsManuallyRefetch(false);
 			},
 		},
