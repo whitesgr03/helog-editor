@@ -4,6 +4,7 @@ import { useOutletContext, useNavigate, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import { string } from 'yup';
 import isEqual from 'lodash.isequal';
+import { useMutation } from '@tanstack/react-query';
 
 // Styles
 import buttonStyles from '../../../styles/button.module.css';
@@ -14,6 +15,7 @@ import formStyles from '../../../styles/form.module.css';
 // Utils
 import { createPost } from '../../../utils/handlePost';
 import { verifySchema } from '../../../utils/verifySchema';
+import { queryClient } from '../../../utils/queryOptions';
 
 // Components
 import { Loading } from '../../utils/Loading';
@@ -60,14 +62,11 @@ const defaultFields = {
 };
 
 export const PostEditorCreate = () => {
-	const { darkTheme, onAlert, onCreatePost, onActiveModal } =
-		useOutletContext();
+	const { darkTheme, onAlert, onActiveModal } = useOutletContext();
 
 	const [editorFields, setEditorFields] = useState(defaultFields);
 	const [fieldsErrors, setFieldsErrors] = useState({});
 	const [previewImage, setPreviewImage] = useState(false);
-	const [saving, setSaving] = useState(false);
-	const [autoSaving, setAutoSaving] = useState(false);
 
 	const [titleEditorLoad, setTitleEditorLoad] = useState(false);
 	const [contentEditorLoad, setContentEditorLoad] = useState(false);
@@ -81,6 +80,36 @@ export const PostEditorCreate = () => {
 	const contentRef = useRef(null);
 
 	const navigate = useNavigate();
+
+	const { isPending, mutate } = useMutation({
+		mutationFn: createPost,
+		onError: () => {
+			onAlert({
+				message:
+					'Saving the new post has some errors occur, please try again later.',
+				error: true,
+				delay: 4000,
+				autosave: true,
+			});
+			setEditorFields(defaultFields);
+		},
+		onSuccess: response => {
+			const handleRefetchUserPosts = () => {
+				queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+				queryClient.setQueryData(['userPost', response.data._id], response);
+				onAlert({
+					message: 'Saving the new post completed.',
+					error: false,
+					delay: 2000,
+					autosave: true,
+				});
+				navigate(`/posts/${response.data._id}/editor`);
+			};
+			response.success
+				? handleRefetchUserPosts()
+				: setFieldsErrors({ ...response.fields });
+		},
+	});
 
 	const schema = {
 		title: string()
@@ -154,38 +183,7 @@ export const PostEditorCreate = () => {
 
 			!isEqual(newFields, defaultFields) &&
 				(timer.current = setTimeout(async () => {
-					setAutoSaving(true);
-					const result = await createPost({ data: newFields });
-
-					const handleError = () => {
-						onAlert({
-							message: 'There are some errors occur, please try again later.',
-							error: true,
-							delay: 3000,
-							autosave: true,
-						});
-						setEditorFields(defaultFields);
-					};
-
-					const handleSuccess = async () => {
-						onAlert({
-							message: 'Autosaving...',
-							error: false,
-							delay: 1000,
-							autosave: true,
-						});
-
-						await onCreatePost(result.data);
-						navigate(`/posts/${result.data._id}/editor`);
-					};
-
-					result.success
-						? await handleSuccess()
-						: result.fields
-							? setFieldsErrors({ ...result.fields })
-							: handleError();
-
-					setAutoSaving(false);
+					mutate({ data: newFields });
 				}, 2000));
 		};
 
@@ -204,38 +202,8 @@ export const PostEditorCreate = () => {
 	};
 
 	const handleSaving = async () => {
-		setSaving(true);
-
 		clearTimeout(timer.current);
-
-		const result = await createPost({ data: editorFields });
-
-		const handleError = () => {
-			onAlert({
-				message: 'There are some errors occur, please try again later.',
-				error: true,
-				delay: 3000,
-			});
-			setEditorFields(defaultFields);
-		};
-
-		const handleSuccess = async () => {
-			onAlert({
-				message: 'Save completed.',
-				error: false,
-				delay: 2000,
-			});
-			await onCreatePost(result.data);
-			navigate(`/posts/${result.data._id}/editor`);
-		};
-
-		result.success
-			? await handleSuccess()
-			: result.fields
-				? setFieldsErrors({ ...result.fields })
-				: handleError();
-
-		setSaving(false);
+		mutate({ data: editorFields });
 	};
 
 	useEffect(() => {
@@ -249,7 +217,7 @@ export const PostEditorCreate = () => {
 	return (
 		<div className={styles.editor}>
 			{(!titleEditorLoad || !contentEditorLoad) && (
-				<Loading text={'Loading...'} />
+				<Loading text={'Loading editor...'} />
 			)}
 			<div
 				data-testid="container"
@@ -264,13 +232,13 @@ export const PostEditorCreate = () => {
 					<div className={styles['button-wrap']}>
 						{!isEqual(editorFields, defaultFields) && (
 							<button
-								className={`${styles['save-button']} ${buttonStyles.content} ${buttonStyles.highlight}`}
-								onClick={() => !saving && handleSaving()}
+								className={`${styles['save-button']} ${buttonStyles.content} ${buttonStyles.more}`}
+								onClick={() => !isPending && handleSaving()}
 							>
 								<span className={buttonStyles.text}>
-									{saving || autoSaving ? (
+									{isPending ? (
 										<>
-											{autoSaving ? 'Autosaving' : 'Saving'}
+											Saving ...
 											<span
 												className={`${imageStyles.icon} ${buttonStyles['load']}`}
 											/>
