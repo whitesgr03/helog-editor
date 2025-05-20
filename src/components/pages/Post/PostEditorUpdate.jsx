@@ -11,7 +11,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { string, boolean } from 'yup';
 import isEqual from 'lodash.isequal';
 import isEmpty from 'lodash.isempty';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 // Styles
 import buttonStyles from '../../../styles/button.module.css';
@@ -22,6 +22,10 @@ import formStyles from '../../../styles/form.module.css';
 // Utils
 import { updatePost } from '../../../utils/handlePost';
 import { verifySchema } from '../../../utils/verifySchema';
+import {
+	queryClient,
+	queryPostDetailOption,
+} from '../../../utils/queryOptions';
 
 // Components
 import { Loading } from '../../utils/Loading';
@@ -85,8 +89,6 @@ export const PostEditorUpdate = () => {
 	const [fieldsErrors, setFieldsErrors] = useState({});
 	const [previewImage, setPreviewImage] = useState(false);
 	const [publishing, setPublishing] = useState(false);
-	const [saving, setSaving] = useState(false);
-	const [autoSaving, setAutoSaving] = useState(false);
 
 	const [titleEditorLoad, setTitleEditorLoad] = useState(false);
 	const [contentEditorLoad, setContentEditorLoad] = useState(false);
@@ -98,6 +100,54 @@ export const PostEditorUpdate = () => {
 	const timer = useRef(null);
 	const titleRef = useRef(null);
 	const contentRef = useRef(null);
+
+	const { isPending, mutate } = useMutation({
+		mutationFn: updatePost,
+		onError: () => {
+			onAlert({
+				message:
+					'Editing the post has some errors occur, please try again later.',
+				error: true,
+				delay: 4000,
+				autosave: true,
+			});
+			publishing && setEditorFields(defaultFields);
+		},
+		onSuccess: response => {
+			const handleRefetchComments = () => {
+				queryClient.setQueryData(['userPosts'], oldData => {
+					const { author, mainImage, content, ...updatedPost } = response.data;
+					const newPages = oldData.pages.map(page => ({
+						...page,
+						data: {
+							...page.data,
+							userPosts: page.data.userPosts.map(post =>
+								post._id === postId ? updatedPost : post,
+							),
+						},
+					}));
+					return {
+						pages: newPages,
+						pageParams: oldData.pageParams,
+					};
+				});
+				queryClient.setQueryData(['userPost', postId], response);
+				onAlert({
+					message: publishing
+						? `Post is ${editorFields.publish ? 'published' : 'unpublished'}.`
+						: 'Saving the post completed.',
+					error: false,
+					delay: 2000,
+					autosave: true,
+				});
+			};
+
+			response.success
+				? handleRefetchComments()
+				: setFieldsErrors({ ...response.fields });
+		},
+		onSettled: () => publishing && setPublishing(false),
+	});
 
 	const schema = {
 		publish: boolean(),
@@ -179,38 +229,18 @@ export const PostEditorUpdate = () => {
 
 	const handlePublish = async () => {
 		setPublishing(true);
+		clearTimeout(timer.current);
 
 		const newFields = { ...editorFields, publish: !editorFields.publish };
 
-		const handleValid = async () => {
-			clearTimeout(timer.current);
+		const handleValid = () => {
+			setEditorFields(newFields);
+			mutate({ postId, data: newFields });
+		};
 
-			const result = await updatePost({ postId, data: newFields });
-
-			const handleError = () => {
-				onAlert({
-					message: 'There are some errors occur, please try again later.',
-					error: true,
-					delay: 3000,
-				});
-				setEditorFields(defaultFields);
-			};
-
-			const handleSuccess = async () => {
-				onAlert({
-					message: `Post is ${editorFields.publish ? 'unpublished' : 'published'}.`,
-					error: false,
-					delay: 2000,
-				});
-				await onUpdatePost(result.data);
-				setEditorFields(newFields);
-			};
-
-			result.success
-				? await handleSuccess()
-				: result.fields
-					? setFieldsErrors({ ...result.fields })
-					: handleError();
+		const handleInValid = () => {
+			setFieldsErrors({ ...fieldsErrors, ...validationResult.fields });
+			setPublishing(false);
 		};
 
 		const validationResult = await verifySchema({
@@ -218,103 +248,39 @@ export const PostEditorUpdate = () => {
 			data: newFields,
 		});
 
-		validationResult.success
-			? await handleValid()
-			: setFieldsErrors({ ...fieldsErrors, ...validationResult.fields });
-
-		setPublishing(false);
+		validationResult.success ? handleValid() : handleInValid();
 	};
 
 	const handleChange = async (value, name) => {
 		const newFields = { ...editorFields, [name]: value };
 		const { [name]: _field, ...errors } = fieldsErrors;
 
+		clearTimeout(timer.current);
+
+		setEditorFields(newFields);
+
 		const handleValid = () => {
 			setFieldsErrors({});
 
 			!isEqual(newFields, defaultFields) &&
-				(timer.current = setTimeout(async () => {
-					setAutoSaving(true);
-
-					const result = await updatePost({ postId, data: newFields });
-
-					const handleError = () => {
-						onAlert({
-							message: 'There are some errors occur, please try again later.',
-							error: true,
-							delay: 3000,
-							autosave: true,
-						});
-						setEditorFields(defaultFields);
-					};
-
-					const handleSuccess = async () => {
-						onAlert({
-							message: 'Autosaving...',
-							error: false,
-							delay: 1000,
-							autosave: true,
-						});
-
-						await onUpdatePost(result.data);
-					};
-
-					result.success
-						? await handleSuccess()
-						: result.fields
-							? setFieldsErrors({ ...result.fields })
-							: handleError();
-
-					setAutoSaving(false);
+				(timer.current = setTimeout(() => {
+					mutate({ postId, data: newFields });
 				}, 2000));
 		};
-
-		setEditorFields(newFields);
 
 		const validationResult = await verifySchema({
 			schema,
 			data: newFields,
 		});
 
-		clearTimeout(timer.current);
-
 		validationResult.success
 			? handleValid()
 			: setFieldsErrors({ ...errors, ...validationResult.fields });
 	};
 
-	const handleSaving = async () => {
-		setSaving(true);
-
+	const handleSaving = () => {
 		clearTimeout(timer.current);
-
-		const result = await updatePost({ postId, data: editorFields });
-
-		const handleError = () => {
-			onAlert({
-				message: 'There are some errors occur, please try again later.',
-				error: true,
-				delay: 3000,
-			});
-			setEditorFields(defaultFields);
-		};
-
-		const handleSuccess = async () => {
-			onAlert({
-				message: 'Save completed.',
-				error: false,
-				delay: 2000,
-			});
-			await onUpdatePost(result.data);
-		};
-
-		result.success
-			? await handleSuccess()
-			: result.fields
-				? setFieldsErrors({ ...result.fields })
-				: handleError();
-
-		setSaving(false);
+		mutate({ postId, data: editorFields });
 	};
 
 	useEffect(() => {
@@ -370,15 +336,15 @@ export const PostEditorUpdate = () => {
 					</Link>
 
 					<div className={styles['button-wrap']}>
-						{!isEqual(editorFields, defaultFields) && (
+						{!publishing && !isEqual(editorFields, defaultFields) && (
 							<button
-								className={`${styles['save-button']} ${buttonStyles.content} ${buttonStyles.highlight}`}
-								onClick={() => !saving && handleSaving()}
+								className={`${styles['save-button']} ${buttonStyles.content} ${buttonStyles.more}`}
+								onClick={() => !isPending && handleSaving()}
 							>
 								<span className={buttonStyles.text}>
-									{saving || autoSaving ? (
+									{isPending ? (
 										<>
-											{autoSaving ? 'Autosaving' : 'Saving'}
+											Saving ...
 											<span
 												className={`${imageStyles.icon} ${buttonStyles['load']}`}
 											/>
@@ -394,7 +360,7 @@ export const PostEditorUpdate = () => {
 							onClick={() => !publishing && handlePublish()}
 						>
 							<span className={buttonStyles.text}>
-								{editorFields.publish ? 'Unpublished' : 'Published'} Post
+								Switch to {editorFields.publish ? 'Unpublished' : 'Published'}
 								{publishing && (
 									<span
 										className={`${imageStyles.icon} ${buttonStyles['load']}`}
