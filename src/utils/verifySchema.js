@@ -1,22 +1,19 @@
 import { object } from 'yup';
 
-export const verifySchema = async ({ data, schema }) => {
-	let result = {
-		success: true,
-		fields: {},
-	};
-
+export const verifySchema = async ({ schema, data }) => {
 	try {
-		await object(schema).noUnknown().validate(data, {
+		await object(schema).validate(data, {
 			abortEarly: false,
 			stripUnknown: true,
 		});
+		return { success: true };
 	} catch (err) {
-		for (const error of err.inner) {
-			result.fields[error.path] = error.message;
-		}
-		result.success = false;
+		return {
+			success: false,
+			fields: err.inner.reduce(
+				(obj, error) => Object.assign(obj, { [error.path]: error.message }),
+				{},
+			),
+		};
 	}
-
-	return result;
 };
