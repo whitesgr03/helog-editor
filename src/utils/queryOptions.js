@@ -4,7 +4,7 @@ import {
 	infiniteQueryOptions,
 	QueryCache,
 } from '@tanstack/react-query';
-import { getUserInfo, getUserPosts } from './handleUser';
+import { getUserInfo, getUserPosts, getUserPost } from './handleUser';
 
 export const queryClient = new QueryClient({
 	queryCache: new QueryCache({
@@ -40,3 +40,13 @@ export const infiniteQueryUserPostsOption = infiniteQueryOptions({
 	staleTime: 1000 * 60 * 30,
 	gcTime: Infinity,
 });
+
+export const queryPostDetailOption = id =>
+	queryOptions({
+		queryKey: ['userPost', id],
+		queryFn: getUserPost,
+		staleTime: 1000 * 60 * 30,
+		retry: (failureCount, error) =>
+			error?.cause?.status !== 404 && failureCount < 3,
+		select: response => response.data,
+	});

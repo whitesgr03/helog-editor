@@ -27,3 +27,15 @@ export const getUserPosts = async ({ pageParam: skip, signal }) => {
 
 	return await handleFetch(`${url}/posts?skip=${skip}`, options);
 };
+
+export const getUserPost = async ({ queryKey, signal }) => {
+	const [, postId] = queryKey;
+
+	const options = {
+		method: 'GET',
+		signal,
+		credentials: 'include',
+	};
+
+	return await handleFetch(`${url}/posts/${postId}`, options);
+};

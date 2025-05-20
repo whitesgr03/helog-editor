@@ -1,9 +1,17 @@
 // Packages
 import { useState, useRef, useEffect } from 'react';
-import { useOutletContext, Link, useParams } from 'react-router-dom';
+import {
+	useOutletContext,
+	Link,
+	useParams,
+	Navigate,
+	useLocation,
+} from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import { string, boolean } from 'yup';
 import isEqual from 'lodash.isequal';
+import isEmpty from 'lodash.isempty';
+import { useQuery } from '@tanstack/react-query';
 
 // Styles
 import buttonStyles from '../../../styles/button.module.css';
@@ -54,22 +62,26 @@ const titleLimit = 100;
 const contentLimit = 8000;
 
 export const PostEditorUpdate = () => {
-	const { posts, darkTheme, onAlert, onUpdatePost, onActiveModal } =
-		useOutletContext();
+	const { darkTheme, onAlert, onActiveModal } = useOutletContext();
 
 	const { postId } = useParams();
+	const { pathname: previousPath } = useLocation();
 
-	const post = posts.find(post => post._id === postId);
+	const {
+		isFetching,
+		isError,
+		data: post,
+		error,
+	} = useQuery({ ...queryPostDetailOption(postId) });
 
 	const defaultFields = {
-		title: post.title,
-		mainImage: post.mainImage,
-		content: post.content,
-		publish: post.publish,
+		title: post?.title,
+		mainImage: post?.mainImage,
+		content: post?.content,
+		publish: post?.publish,
 	};
 
-	const [editorFields, setEditorFields] = useState(defaultFields);
-
+	const [editorFields, setEditorFields] = useState({});
 	const [fieldsErrors, setFieldsErrors] = useState({});
 	const [previewImage, setPreviewImage] = useState(false);
 	const [publishing, setPublishing] = useState(false);
@@ -318,14 +330,38 @@ export const PostEditorUpdate = () => {
 		return () => clearTimeout(timer.current);
 	}, []);
 
+	useEffect(() => {
+		post &&
+			isEmpty(editorFields) &&
+			setEditorFields({
+				title: post.title,
+				mainImage: post.mainImage,
+				content: post.content,
+				publish: post.publish,
+			});
+	}, [post, editorFields]);
+
 	return (
 		<div className={styles.editor}>
-			{(!titleEditorLoad || !contentEditorLoad) && (
-				<Loading text={'Loading...'} />
+			{isError ? (
+				error.cause?.status === 404 ? (
+					<Navigate to="/error/404" />
+				) : (
+					<Navigate
+						to="/error"
+						state={{
+							previousPath,
+						}}
+					/>
+				)
+			) : (
+				(isFetching || !titleEditorLoad || !contentEditorLoad) && (
+					<Loading text={'Loading post ...'} />
+				)
 			)}
 			<div
 				data-testid="container"
-				className={`${styles.container} ${!titleEditorLoad || !contentEditorLoad ? styles.hide : ''}`}
+				className={`${styles.container} ${isFetching || !titleEditorLoad || !contentEditorLoad ? styles.hide : ''}`}
 			>
 				<div className={styles['button-container']}>
 					<Link to="/posts" className={styles.link}>
