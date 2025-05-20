@@ -22,8 +22,10 @@ import { queryUserInfoOption } from '../../../utils/queryOptions';
 // Context
 import { AppDataProvider } from './AppDataProvider';
 
+export type DarkTheme = boolean | null;
+
 export const App = () => {
-	const [darkTheme, setDarkTheme] = useState(null);
+	const [darkTheme, setDarkTheme] = useState<DarkTheme>(null);
 
 	const [searchParams] = useSearchParams();
 

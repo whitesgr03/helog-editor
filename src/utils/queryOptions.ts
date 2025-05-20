@@ -21,7 +21,7 @@ export const queryClient = new QueryClient({
 export const queryUserInfoOption = queryOptions({
 	queryKey: ['userInfo'],
 	queryFn: getUserInfo,
-	retry: (failureCount, error) =>
+	retry: (failureCount, error: { cause: { status?: number } }) =>
 		error?.cause?.status !== 404 && failureCount < 3,
 	staleTime: Infinity,
 	gcTime: Infinity,
@@ -41,12 +41,12 @@ export const infiniteQueryUserPostsOption = infiniteQueryOptions({
 	gcTime: Infinity,
 });
 
-export const queryPostDetailOption = id =>
+export const queryPostDetailOption = (id: string) =>
 	queryOptions({
 		queryKey: ['userPost', id],
 		queryFn: getUserPost,
 		staleTime: 1000 * 60 * 30,
-		retry: (failureCount, error) =>
+		retry: (failureCount, error: { cause: { status?: number } }) =>
 			error?.cause?.status !== 404 && failureCount < 3,
 		select: response => response.data,
 	});

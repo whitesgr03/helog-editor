@@ -1,7 +1,6 @@
 // Packages
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import PropTypes from 'prop-types';
 
 // Styles
 import styles from './TableRows.module.css';
@@ -13,7 +12,15 @@ import { DeletePostModel } from './DeletePostModel';
 // Context
 import { useAppDataAPI } from '../App/AppContext';
 
-export const TableRows = ({ index, post }) => {
+// Type
+import { Post } from './Dashboard';
+
+interface TableRowsProps {
+	index: number;
+	post: Post;
+}
+
+export const TableRows = ({ index, post }: TableRowsProps) => {
 	const { onModal } = useAppDataAPI();
 
 	return (
@@ -50,9 +57,4 @@ export const TableRows = ({ index, post }) => {
 			</td>
 		</tr>
 	);
-};
-
-TableRows.propTypes = {
-	index: PropTypes.number,
-	post: PropTypes.object,
 };

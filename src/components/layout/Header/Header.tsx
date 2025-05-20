@@ -1,6 +1,5 @@
 // Packages
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Styles
@@ -14,10 +13,25 @@ import { Dropdown } from './Dropdown';
 // Utils
 import { queryClient } from '../../../utils/queryOptions';
 
-export const Header = ({ darkTheme, onColorTheme }) => {
+// Type
+import { DarkTheme } from '../../pages/App/App';
+
+interface HeaderProps {
+	darkTheme: DarkTheme;
+	onColorTheme: () => void;
+}
+
+export interface User {
+	email: string;
+	username: string;
+	isAdmin: boolean;
+}
+
+export const Header = ({ darkTheme, onColorTheme }: HeaderProps) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);
 
-	const { data: user } = queryClient.getQueryData(['userInfo']) ?? {};
+	const { data: user }: { data?: User } =
+		queryClient.getQueryData(['userInfo']) ?? {};
 
 	const handleActiveDropdown = () => setActiveDropdown(!activeDropdown);
 	const handleCloseDropdown = () => setActiveDropdown(false);
@@ -64,7 +78,6 @@ export const Header = ({ darkTheme, onColorTheme }) => {
 			{activeDropdown && (
 				<>
 					<Dropdown
-						user={user}
 						darkTheme={darkTheme}
 						onColorTheme={onColorTheme}
 						onCloseDropdown={handleCloseDropdown}
@@ -78,9 +91,4 @@ export const Header = ({ darkTheme, onColorTheme }) => {
 			)}
 		</header>
 	);
-};
-Header.propTypes = {
-	user: PropTypes.object,
-	darkTheme: PropTypes.bool,
-	onColorTheme: PropTypes.func,
 };

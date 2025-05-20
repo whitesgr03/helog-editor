@@ -17,13 +17,32 @@ import { infiniteQueryUserPostsOption } from '../../../utils/queryOptions';
 // Context
 import { useAppDataAPI } from '../App/AppContext';
 
+export interface Post {
+	_id: string;
+	title: string;
+	publish: boolean;
+	updatedAt: Date;
+	createdAt: Date;
+}
+
+export interface PostData {
+	pages: {
+		success: boolean;
+		message: string;
+		data: {
+			userPosts: Post[];
+		};
+	}[];
+	pageParams: number[];
+}
+
 export const Dashboard = () => {
 	const { onAlert } = useAppDataAPI();
 
 	const [isManuallyRefetch, setIsManuallyRefetch] = useState(false);
 	const [renderPostsCount, setRenderPostsCount] = useState(10);
 
-	const postListRef = useRef(null);
+	const postListRef = useRef<HTMLDivElement>(null);
 
 	const {
 		isPending,
@@ -52,7 +71,7 @@ export const Dashboard = () => {
 		},
 	});
 
-	const posts = data?.pages.reduce(
+	const posts: Post[] = data?.pages.reduce(
 		(accumulator, current) => accumulator.concat(current.data.userPosts),
 		[],
 	);
@@ -129,7 +148,7 @@ export const Dashboard = () => {
 											<th>Delete</th>
 										</tr>
 									</thead>
-									<tbody ref={postListRef}>
+									<tbody>
 										{posts.slice(0, renderPostsCount).map((post, index) => (
 											<TableRows key={post._id} index={index} post={post} />
 										))}

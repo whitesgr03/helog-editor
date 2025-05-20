@@ -1,5 +1,4 @@
 // Packages
-import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useMutation } from '@tanstack/react-query';
@@ -11,23 +10,36 @@ import imageStyles from '../../../styles/image.module.css';
 import loadingStyles from '../../utils/Loading.module.css';
 
 // Utils
-import { handleFetch } from '../../../utils/handleFetch.js';
+import { handleFetch } from '../../../utils/handleFetch.ts';
+import { queryClient } from '../../../utils/queryOptions.ts';
 
 // Variables
 const URL = `${import.meta.env.VITE_RESOURCE_URL}/account/logout`;
 
+// Type
+import { DarkTheme } from '../../pages/App/App.js';
+import { User } from './Header.js';
+
+interface DropdownProps {
+	darkTheme: DarkTheme;
+	onColorTheme: () => void;
+	onCloseDropdown: () => void;
+}
+
 export const Dropdown = ({
-	user,
 	darkTheme,
 	onColorTheme,
 	onCloseDropdown,
-}) => {
+}: DropdownProps) => {
 	const navigate = useNavigate();
 	const { pathname: previousPath } = useLocation();
 
+	const { data: user }: { data?: User } =
+		queryClient.getQueryData(['userInfo']) ?? {};
+
 	const { isPending, mutate } = useMutation({
 		mutationFn: async () => {
-			const options = {
+			const options: RequestInit = {
 				method: 'POST',
 				headers: {
 					'X-CSRF-TOKEN':
@@ -86,11 +98,4 @@ export const Dropdown = ({
 			</ul>
 		</div>
 	);
-};
-
-Dropdown.propTypes = {
-	user: PropTypes.object,
-	darkTheme: PropTypes.bool,
-	onColorTheme: PropTypes.func,
-	onCloseDropdown: PropTypes.func,
 };

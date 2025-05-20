@@ -1,11 +1,16 @@
-// Packages
-import PropTypes from 'prop-types';
-
 // Styles
 import styles from './Loading.module.css';
 import imageStyles from '../../styles/image.module.css';
 
-export const Loading = ({ text, dark, light, shadow, blur }) => {
+interface Props {
+	text: string;
+	dark?: boolean;
+	light?: boolean;
+	shadow?: boolean;
+	blur?: boolean;
+}
+
+export const Loading = ({ text, dark, light, shadow, blur }: Props) => {
 	return (
 		<div
 			className={`${styles.loading} ${dark ? styles.dark : ''} ${
@@ -16,11 +21,4 @@ export const Loading = ({ text, dark, light, shadow, blur }) => {
 			<span className={`${imageStyles.icon} ${styles.load}`} />
 		</div>
 	);
-};
-
-Loading.propTypes = {
-	text: PropTypes.string,
-	dark: PropTypes.bool,
-	light: PropTypes.bool,
-	shadow: PropTypes.bool,
 };

@@ -8,8 +8,9 @@ export const Modal = () => {
 	const modal = useModal();
 	const { onModal } = useAppDataAPI();
 
-	const handleCloseModal = e =>
-		e.target === e.currentTarget && onModal({ component: null });
+	const handleCloseModal = (
+		e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+	) => e.target === e.currentTarget && onModal({ component: null });
 
 	return (
 		<>

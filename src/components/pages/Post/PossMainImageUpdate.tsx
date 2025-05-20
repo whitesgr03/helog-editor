@@ -1,6 +1,5 @@
 // Packages
 import { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { string } from 'yup';
 
 // Styles
@@ -17,15 +16,27 @@ import { verifySchema } from '../../../utils/verifySchema';
 // Context
 import { useAppDataAPI } from '../App/AppContext';
 
-export const PossMainImageUpdate = ({ onSetMainImage }) => {
+// Type
+import { handleChange } from './PostEditorCreate';
+
+interface PossMainImageUpdateProps {
+	onSetMainImage: (
+		value: handleChange['value'],
+		name: handleChange['name'],
+	) => {};
+}
+
+export const PossMainImageUpdate = ({
+	onSetMainImage,
+}: PossMainImageUpdateProps) => {
 	const { onModal } = useAppDataAPI();
 	const [error, setError] = useState('');
 	const [url, setUrl] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [debounce, setDebounce] = useState(false);
-	const timer = useRef(null);
+	const timer = useRef<NodeJS.Timeout>();
 
-	const handleChange = e => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUrl(e.target.value);
 		error !== '' && setDebounce(true);
 	};
@@ -141,8 +152,4 @@ export const PossMainImageUpdate = ({ onSetMainImage }) => {
 			</div>
 		</>
 	);
-};
-
-PossMainImageUpdate.propTypes = {
-	onSetMainImage: PropTypes.func,
 };

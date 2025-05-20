@@ -12,6 +12,7 @@ import { string, boolean } from 'yup';
 import isEqual from 'lodash.isequal';
 import isEmpty from 'lodash.isempty';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { Editor as TinyMCEEditor } from 'tinymce';
 
 // Styles
 import buttonStyles from '../../../styles/button.module.css';
@@ -33,7 +34,6 @@ import { PossMainImageUpdate } from './PossMainImageUpdate';
 
 // Variables
 const EDITOR_TITLE_INIT = {
-	entity_encoding: 'raw',
 	placeholder: 'The post title...',
 	menubar: false,
 	toolbar: false,
@@ -65,14 +65,33 @@ const EDITOR_CONTENT_INIT = {
 // Context
 import { useAppDataAPI } from '../App/AppContext';
 
+// Type
+import { handleChange } from './PostEditorCreate';
+import { DarkTheme } from '../App/App';
+import { PostData } from '../Dashboard/Dashboard';
+
+interface InputErrors {
+	title?: string;
+	mainImage?: string;
+	content?: string;
+	publish?: boolean;
+}
+
+interface DefaultFields {
+	title: string;
+	mainImage: string;
+	content: string;
+	publish: boolean;
+}
+
 const titleLimit = 100;
 const contentLimit = 8000;
 
 export const PostEditorUpdate = () => {
-	const { darkTheme } = useOutletContext();
+	const { darkTheme }: { darkTheme: DarkTheme } = useOutletContext();
 	const { onAlert, onModal } = useAppDataAPI();
 
-	const { postId } = useParams();
+	const { postId = '' } = useParams() ?? {};
 	const { pathname: previousPath } = useLocation();
 
 	const {
@@ -89,8 +108,8 @@ export const PostEditorUpdate = () => {
 		publish: post?.publish,
 	};
 
-	const [editorFields, setEditorFields] = useState({});
-	const [fieldsErrors, setFieldsErrors] = useState({});
+	const [editorFields, setEditorFields] = useState({} as DefaultFields);
+	const [fieldsErrors, setFieldsErrors] = useState<InputErrors>({});
 	const [previewImage, setPreviewImage] = useState(false);
 	const [publishing, setPublishing] = useState(false);
 
@@ -99,27 +118,28 @@ export const PostEditorUpdate = () => {
 	const [titleLength, setTitleLength] = useState(-1);
 	const [contentLength, setContentLength] = useState(-1);
 
-	const imageWrapRef = useRef(null);
-	const previewImageWrapRef = useRef(null);
-	const timer = useRef(null);
-	const titleRef = useRef(null);
-	const contentRef = useRef(null);
+	const imageWrapRef = useRef<HTMLButtonElement>(null);
+	const previewImageWrapRef = useRef<HTMLDivElement>(null);
+	const timer = useRef<NodeJS.Timeout>();
+	const titleRef = useRef<TinyMCEEditor | null>(null);
+	const contentRef = useRef<TinyMCEEditor | null>(null);
 
 	const { isPending, mutate } = useMutation({
 		mutationFn: updatePost,
 		onError: () => {
-			onAlert({
-				message:
-					'Editing the post has some errors occur, please try again later.',
-				error: true,
-				delay: 4000,
-				autosave: true,
-			});
+			onAlert([
+				{
+					message:
+						'Editing the post has some errors occur, please try again later.',
+					error: true,
+					delay: 4000,
+				},
+			]);
 			publishing && setEditorFields(defaultFields);
 		},
 		onSuccess: response => {
 			const handleRefetchComments = () => {
-				queryClient.setQueryData(['userPosts'], oldData => {
+				queryClient.setQueryData(['userPosts'], (oldData: PostData) => {
 					const { author, mainImage, content, ...updatedPost } = response.data;
 					const newPages = oldData.pages.map(page => ({
 						...page,
@@ -136,14 +156,15 @@ export const PostEditorUpdate = () => {
 					};
 				});
 				queryClient.setQueryData(['userPost', postId], response);
-				onAlert({
-					message: publishing
-						? `Post is ${editorFields.publish ? 'published' : 'unpublished'}.`
-						: 'Saving the post completed.',
-					error: false,
-					delay: 2000,
-					autosave: true,
-				});
+				onAlert([
+					{
+						message: publishing
+							? `Post is ${editorFields.publish ? 'published' : 'unpublished'}.`
+							: 'Saving the post completed.',
+						error: false,
+						delay: 2000,
+					},
+				]);
 			};
 
 			response.success
@@ -161,7 +182,7 @@ export const PostEditorUpdate = () => {
 				'is-title-over-count',
 				`Title must be less than ${titleLimit} long.`,
 				() =>
-					titleRef.current.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
+					titleRef.current?.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
 					titleLimit,
 			)
 			.when('publish', ([publish], schema) =>
@@ -178,7 +199,7 @@ export const PostEditorUpdate = () => {
 				'is-count-over-count',
 				`Content must be less than ${contentLimit} long.`,
 				() =>
-					contentRef.current.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
+					contentRef.current?.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
 					contentLimit,
 			)
 			.when('publish', ([publish], schema) =>
@@ -187,48 +208,15 @@ export const PostEditorUpdate = () => {
 	};
 
 	const handlePreview = () => {
-		const imageWrapHeight = imageWrapRef.current.clientHeight;
+		const imageWrapHeight = imageWrapRef.current?.clientHeight;
+		const previewImageWrap = previewImageWrapRef.current;
 
-		!previewImage
-			? (previewImageWrapRef.current.style.maxHeight = `${imageWrapHeight}px`)
-			: (previewImageWrapRef.current.style.maxHeight = '');
+		previewImageWrap &&
+			(!previewImage
+				? (previewImageWrap.style.maxHeight = `${imageWrapHeight}px`)
+				: (previewImageWrap.style.maxHeight = ''));
 
 		setPreviewImage(!previewImage);
-	};
-
-	const handleResizeImageSize = evt => {
-		evt.target.setAttribute('style', `width:${evt.width}px;`);
-	};
-
-	const handleContentImages = (evt, editor) => {
-		const target = evt.element;
-		const value = editor.getContent();
-		const handleCheckMimeTypes = () => {
-			const isSetStyle = target.hasAttribute('style');
-			const width = target.getAttribute('width');
-
-			!isSetStyle && target.setAttribute('style', `width:${width}px;`);
-
-			const image = new Image();
-			const handleError = () => {
-				document.activeElement.blur();
-				onAlert({
-					message: 'URL is not a valid image source.',
-					error: true,
-					delay: 3000,
-				});
-				target.remove();
-			};
-			image.onerror = handleError;
-
-			image.onload = () =>
-				(image.width <= 0 || image.height <= 0) && handleError();
-
-			image.src = target.src;
-		};
-		target.nodeName === 'IMG' &&
-			value !== editorFields.content &&
-			handleCheckMimeTypes();
 	};
 
 	const handlePublish = async () => {
@@ -255,7 +243,10 @@ export const PostEditorUpdate = () => {
 		validationResult.success ? handleValid() : handleInValid();
 	};
 
-	const handleChange = async (value, name) => {
+	const handleChange = async (
+		value: handleChange['value'],
+		name: handleChange['name'],
+	) => {
 		const newFields = { ...editorFields, [name]: value };
 		const { [name]: _field, ...errors } = fieldsErrors;
 
@@ -289,9 +280,9 @@ export const PostEditorUpdate = () => {
 
 	useEffect(() => {
 		const handleFocusTitle = () => {
-			titleRef.current.selection.select(titleRef.current.getBody(), true);
-			titleRef.current.selection.collapse(false);
-			titleRef.current.focus();
+			titleRef.current?.selection.select(titleRef.current.getBody(), true);
+			titleRef.current?.selection.collapse(false);
+			titleRef.current?.focus();
 		};
 		titleEditorLoad && handleFocusTitle();
 	}, [titleEditorLoad]);
@@ -377,7 +368,6 @@ export const PostEditorUpdate = () => {
 				<div className={styles.wrap}>
 					<Editor
 						id="editor-title"
-						key={darkTheme}
 						tinymceScriptSrc="/tinymce/tinymce.min.js"
 						licenseKey="gpl"
 						tagName="h2"
@@ -488,8 +478,43 @@ export const PostEditorUpdate = () => {
 							);
 							handleChange(value, 'content');
 						}}
-						onObjectResized={handleResizeImageSize}
-						onNodeChange={handleContentImages}
+						onObjectResized={e => {
+							e.target.setAttribute('style', `width:${e.width}px;`);
+						}}
+						onNodeChange={(e, editor) => {
+							const target = e.element as HTMLImageElement;
+							const value = editor.getContent();
+							const handleCheckMimeTypes = () => {
+								const isSetStyle = target.hasAttribute('style');
+								const width = target.getAttribute('width');
+
+								!isSetStyle &&
+									target.setAttribute('style', `width:${width}px;`);
+
+								const image = new Image();
+								const handleError = () => {
+									document.activeElement instanceof HTMLElement &&
+										document.activeElement.blur();
+									onAlert([
+										{
+											message: 'URL is not a valid image source.',
+											error: true,
+											delay: 3000,
+										},
+									]);
+									target.remove();
+								};
+								image.onerror = handleError;
+
+								image.onload = () =>
+									(image.width <= 0 || image.height <= 0) && handleError();
+
+								image.src = target.src;
+							};
+							target.nodeName === 'IMG' &&
+								value !== editorFields.content &&
+								handleCheckMimeTypes();
+						}}
 						init={EDITOR_CONTENT_INIT}
 					/>
 					<div className={styles['error-message-wrap']}>

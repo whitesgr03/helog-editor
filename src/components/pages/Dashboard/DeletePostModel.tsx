@@ -1,5 +1,4 @@
 // Packages
-import PropTypes from 'prop-types';
 import { useMutation } from '@tanstack/react-query';
 
 // Styles
@@ -16,19 +15,29 @@ import { Loading } from '../../utils/Loading';
 // Context
 import { useAppDataAPI } from '../App/AppContext';
 
-export const DeletePostModel = ({ postId, title }) => {
+// Type
+import { PostData } from './Dashboard';
+
+interface DeletePostModel {
+	postId: string;
+	title: string;
+}
+
+export const DeletePostModel = ({ postId, title }: DeletePostModel) => {
 	const { onModal, onAlert } = useAppDataAPI();
 	const { isPending, mutate } = useMutation({
 		mutationFn: deletePost,
 		onError: () =>
-			onAlert({
-				message:
-					'Delete the post has some errors occur, please try again later.',
-				error: true,
-				delay: 4000,
-			}),
+			onAlert([
+				{
+					message:
+						'Delete the post has some errors occur, please try again later.',
+					error: true,
+					delay: 4000,
+				},
+			]),
 		onSuccess: () => {
-			queryClient.setQueryData(['userPosts'], data => {
+			queryClient.setQueryData(['userPosts'], (data: PostData) => {
 				const newPages = data.pages.map(page => ({
 					...page,
 					data: {
@@ -41,11 +50,13 @@ export const DeletePostModel = ({ postId, title }) => {
 					pageParams: data.pageParams,
 				};
 			});
-			onAlert({
-				message: 'Post has been deleted.',
-				error: false,
-				delay: 4000,
-			});
+			onAlert([
+				{
+					message: 'Post has been deleted.',
+					error: false,
+					delay: 4000,
+				},
+			]);
 		},
 		onSettled: () => onModal({ component: null }),
 	});
@@ -89,9 +100,4 @@ export const DeletePostModel = ({ postId, title }) => {
 			</div>
 		</>
 	);
-};
-
-DeletePostModel.propTypes = {
-	postId: PropTypes.string,
-	title: PropTypes.string,
 };

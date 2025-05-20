@@ -1,4 +1,8 @@
-export const handleFetch = async (url, options, validStatus) => {
+export const handleFetch = async (
+	url: string,
+	options: RequestInit,
+	validStatus?: number[],
+) => {
 	const response = await fetch(url, options).catch(error => {
 		throw new Error('fetch error', { cause: error });
 	});

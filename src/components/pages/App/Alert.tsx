@@ -11,13 +11,15 @@ export const Alert = () => {
 	const alert = useAlert();
 	const { onAlert } = useAppDataAPI();
 	const [pause, setPause] = useState(false);
-	const timer = useRef();
+	const timer = useRef<NodeJS.Timeout>();
 	const startTime = useRef(0);
 	const remainingTime = useRef(0);
 
 	// The lastAlert state will store the last alert data before the alert array is set to empty,
 	// to prevent the message and error class from disappearing before the alert block is hidden.
-	const [lastAlert, setLastAlert] = useState({});
+	const [lastAlert, setLastAlert] = useState(
+		{} as { error?: boolean; message?: string },
+	);
 
 	const endAlert = () => {
 		remainingTime.current = 0;

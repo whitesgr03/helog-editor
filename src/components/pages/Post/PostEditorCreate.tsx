@@ -5,6 +5,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { string } from 'yup';
 import isEqual from 'lodash.isequal';
 import { useMutation } from '@tanstack/react-query';
+import { Editor as TinyMCEEditor } from 'tinymce';
 
 // Styles
 import buttonStyles from '../../../styles/button.module.css';
@@ -23,7 +24,6 @@ import { PossMainImageUpdate } from './PossMainImageUpdate';
 
 // Variables
 const EDITOR_TITLE_INIT = {
-	entity_encoding: 'raw',
 	placeholder: 'The post title...',
 	menubar: false,
 	toolbar: false,
@@ -54,6 +54,20 @@ const EDITOR_CONTENT_INIT = {
 // Context
 import { useAppDataAPI } from '../App/AppContext';
 
+// Type
+import { DarkTheme } from '../App/App';
+
+interface inputErrors {
+	title?: string;
+	mainImage?: string;
+	content?: string;
+}
+
+export type handleChange = {
+	value: string;
+	name: 'title' | 'mainImage' | 'content';
+};
+
 const titleLimit = 100;
 const contentLimit = 8000;
 
@@ -64,10 +78,10 @@ const defaultFields = {
 };
 
 export const PostEditorCreate = () => {
-	const { darkTheme } = useOutletContext();
+	const { darkTheme }: { darkTheme: DarkTheme } = useOutletContext();
 	const { onAlert, onModal } = useAppDataAPI();
 	const [editorFields, setEditorFields] = useState(defaultFields);
-	const [fieldsErrors, setFieldsErrors] = useState({});
+	const [fieldsErrors, setFieldsErrors] = useState<inputErrors>({});
 	const [previewImage, setPreviewImage] = useState(false);
 
 	const [titleEditorLoad, setTitleEditorLoad] = useState(false);
@@ -75,36 +89,38 @@ export const PostEditorCreate = () => {
 	const [titleLength, setTitleLength] = useState(-1);
 	const [contentLength, setContentLength] = useState(-1);
 
-	const imageWrapRef = useRef(null);
-	const previewImageWrapRef = useRef(null);
-	const timer = useRef(null);
-	const titleRef = useRef(null);
-	const contentRef = useRef(null);
+	const imageWrapRef = useRef<HTMLButtonElement>(null);
+	const previewImageWrapRef = useRef<HTMLDivElement>(null);
+	const timer = useRef<NodeJS.Timeout>();
+	const titleRef = useRef<TinyMCEEditor | null>(null);
+	const contentRef = useRef<TinyMCEEditor | null>(null);
 
 	const navigate = useNavigate();
 
 	const { isPending, mutate } = useMutation({
 		mutationFn: createPost,
 		onError: () => {
-			onAlert({
-				message:
-					'Saving the new post has some errors occur, please try again later.',
-				error: true,
-				delay: 4000,
-				autosave: true,
-			});
+			onAlert([
+				{
+					message:
+						'Saving the new post has some errors occur, please try again later.',
+					error: true,
+					delay: 4000,
+				},
+			]);
 			setEditorFields(defaultFields);
 		},
 		onSuccess: response => {
 			const handleRefetchUserPosts = () => {
 				queryClient.invalidateQueries({ queryKey: ['userPosts'] });
 				queryClient.setQueryData(['userPost', response.data._id], response);
-				onAlert({
-					message: 'Saving the new post completed.',
-					error: false,
-					delay: 2000,
-					autosave: true,
-				});
+				onAlert([
+					{
+						message: 'Saving the new post completed.',
+						error: false,
+						delay: 2000,
+					},
+				]);
 				navigate(`/posts/${response.data._id}/editor`);
 			};
 			response.success
@@ -120,7 +136,7 @@ export const PostEditorCreate = () => {
 				'is-title-over-count',
 				`Title must be less than ${titleLimit} long.`,
 				() =>
-					titleRef.current.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
+					titleRef.current?.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
 					titleLimit,
 			),
 		content: string()
@@ -129,55 +145,29 @@ export const PostEditorCreate = () => {
 				'is-count-over-count',
 				`Content must be less than ${contentLimit} long.`,
 				() =>
-					contentRef.current.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
+					contentRef.current?.plugins.wordcount.body.getCharacterCountWithoutSpaces() <=
 					contentLimit,
 			),
 	};
 
 	const handlePreview = () => {
-		const imageWrapHeight = imageWrapRef.current.clientHeight;
+		const imageWrapHeight = imageWrapRef.current?.clientHeight;
+		const previewImageWrap = previewImageWrapRef.current;
 
-		!previewImage
-			? (previewImageWrapRef.current.style.maxHeight = `${imageWrapHeight}px`)
-			: (previewImageWrapRef.current.style.maxHeight = '');
+		previewImageWrap &&
+			(!previewImage
+				? (previewImageWrap.style.maxHeight = `${imageWrapHeight}px`)
+				: (previewImageWrap.style.maxHeight = ''));
 
 		setPreviewImage(!previewImage);
 	};
 
-	const handleContentImages = (evt, editor) => {
-		const target = evt.element;
-		const value = editor.getContent();
-
-		const handleCheckMimeTypes = () => {
-			const isSetStyle = target.hasAttribute('style');
-			const width = target.getAttribute('width');
-
-			!isSetStyle && target.setAttribute('style', `width:${width}px;`);
-
-			const image = new Image();
-			const handleError = () => {
-				document.activeElement.blur();
-				onAlert({
-					message: 'URL is not a valid image source.',
-					error: true,
-					delay: 3000,
-				});
-				target.remove();
-			};
-			image.onerror = handleError;
-
-			image.onload = () =>
-				(image.width <= 0 || image.height <= 0) && handleError();
-
-			image.src = target.src;
-		};
-		target.nodeName === 'IMG' &&
-			value !== editorFields.content &&
-			handleCheckMimeTypes();
-	};
-
-	const handleChange = async (value, name) => {
+	const handleChange = async (
+		value: handleChange['value'],
+		name: handleChange['name'],
+	) => {
 		const newFields = { ...editorFields, [name]: value };
+
 		const { [name]: _field, ...errors } = fieldsErrors;
 
 		const handleValid = () => {
@@ -209,7 +199,7 @@ export const PostEditorCreate = () => {
 	};
 
 	useEffect(() => {
-		titleEditorLoad && titleRef.current.focus();
+		titleEditorLoad && titleRef.current?.focus();
 	}, [titleEditorLoad]);
 
 	useEffect(() => {
@@ -256,7 +246,6 @@ export const PostEditorCreate = () => {
 				<div className={styles.wrap}>
 					<Editor
 						id="editor-title"
-						key={darkTheme}
 						tinymceScriptSrc="/tinymce/tinymce.min.js"
 						licenseKey="gpl"
 						tagName="h2"
@@ -363,7 +352,41 @@ export const PostEditorCreate = () => {
 							);
 							handleChange(value, 'content');
 						}}
-						onNodeChange={handleContentImages}
+						onNodeChange={(e, editor) => {
+							const target = e.element as HTMLImageElement;
+							const value = editor.getContent();
+
+							const handleCheckMimeTypes = () => {
+								const isSetStyle = target.hasAttribute('style');
+								const width = target.getAttribute('width');
+
+								!isSetStyle &&
+									target.setAttribute('style', `width:${width}px;`);
+
+								const image = new Image();
+								const handleError = () => {
+									document.activeElement instanceof HTMLElement &&
+										document.activeElement.blur();
+									onAlert([
+										{
+											message: 'URL is not a valid image source.',
+											error: true,
+											delay: 3000,
+										},
+									]);
+									target.remove();
+								};
+								image.onerror = handleError;
+
+								image.onload = () =>
+									(image.width <= 0 || image.height <= 0) && handleError();
+
+								image.src = target.src;
+							};
+							target.nodeName === 'IMG' &&
+								value !== editorFields.content &&
+								handleCheckMimeTypes();
+						}}
 						init={EDITOR_CONTENT_INIT}
 					/>
 					<div className={styles['error-message-wrap']}>
