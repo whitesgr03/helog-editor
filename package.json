@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "npm run postinstall && vite build",
+		"build": "npm run postinstall && tsc -b && vite build",
 		"test:component": "vitest",
 		"coverage": "vitest --coverage",
 		"postinstall": "node ./postinstall.js",
