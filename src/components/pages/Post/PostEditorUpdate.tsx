@@ -167,9 +167,12 @@ export const PostEditorUpdate = () => {
 				]);
 			};
 
-			response.success
-				? handleRefetchComments()
-				: setFieldsErrors({ ...response.fields });
+			const handleFieldsError = () => {
+				setFieldsErrors({ ...response.fields });
+				publishing && setEditorFields(defaultFields);
+			};
+
+			response.success ? handleRefetchComments() : handleFieldsError();
 		},
 		onSettled: () => publishing && setPublishing(false),
 	});
