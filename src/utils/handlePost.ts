@@ -23,7 +23,9 @@ export const createPost = async ({
 		body: JSON.stringify(data),
 	};
 
-	return await handleFetch(url, options);
+	const validStatus = [400];
+
+	return await handleFetch(url, options, validStatus);
 };
 
 export const updatePost = async ({
@@ -48,7 +50,9 @@ export const updatePost = async ({
 		credentials: 'include',
 		body: JSON.stringify(data),
 	};
-	return await handleFetch(`${url}/${postId}`, options);
+
+	const validStatus = [400];
+	return await handleFetch(`${url}/${postId}`, options, validStatus);
 };
 
 export const deletePost = async (postId: string) => {
