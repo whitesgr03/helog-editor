@@ -351,11 +351,20 @@ export const PostEditorUpdate = () => {
 							</button>
 						)}
 						<button
-							className={`${styles['publish-button']} ${buttonStyles.content} ${editorFields.publish ? buttonStyles.error : buttonStyles.success}`}
+							className={`${styles['publish-button']} ${buttonStyles.content} 
+                ${
+									publishing
+										? buttonStyles.more
+										: editorFields.publish
+											? buttonStyles.error
+											: buttonStyles.success
+								}`}
 							onClick={() => !publishing && handlePublish()}
 						>
 							<span className={buttonStyles.text}>
-								Switch to {editorFields.publish ? 'Unpublished' : 'Published'}
+								{publishing
+									? 'Switching ...'
+									: `Switch to ${editorFields.publish ? 'Unpublished' : 'Published'}`}
 								{publishing && (
 									<span
 										className={`${imageStyles.icon} ${buttonStyles['load']}`}
