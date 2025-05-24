@@ -387,6 +387,7 @@ export const PostEditorUpdate = () => {
 						}}
 						init={{
 							...EDITOR_TITLE_INIT,
+							entity_encoding: 'raw',
 							skin: darkTheme ? 'oxide-dark' : 'oxide',
 						}}
 					/>
