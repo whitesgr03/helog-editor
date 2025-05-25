@@ -25,7 +25,9 @@ export const TableRows = ({ index, post }: TableRowsProps) => {
 
 	return (
 		<tr className={styles['tbody-rows']}>
-			<td title={post.title}>{`${index + 1}. ${post.title}`}</td>
+			<td
+				title={post.title}
+			>{`${index + 1}. ${post.title === '' ? '( Empty )' : post.title}`}</td>
 			<td>
 				<span
 					data-testid="publish-icon"
