@@ -51,4 +51,16 @@ describe('Loading component', () => {
 
 		expect(element).toHaveClass(/shadow/);
 	});
+	it('should render the blur class if the blur prop is provided', () => {
+		const mockProp = {
+			blur: true,
+			text: 'loading',
+		};
+
+		render(<Loading {...mockProp} />);
+
+		const element = screen.getByText(mockProp.text);
+
+		expect(element).toHaveClass(/blur/);
+	});
 });
