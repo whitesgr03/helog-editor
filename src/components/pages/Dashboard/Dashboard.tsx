@@ -112,7 +112,7 @@ export const Dashboard = () => {
 
 	return (
 		<div className={styles.dashboard}>
-			{isError && !data?.pages.length ? (
+			{isError && !posts ? (
 				<button
 					className={`${buttonStyles.content} ${buttonStyles.more}`}
 					onClick={handleManuallyRefetch}
