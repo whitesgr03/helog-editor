@@ -24,6 +24,12 @@ exports[`NotFound component > should match snapshot 1`] = `
         You may surf over to our other pages.
       </p>
     </div>
+    <a
+      class="_link_48ab16"
+      href="/"
+    >
+      Back to Dashboard Page
+    </a>
   </div>
 </DocumentFragment>
 `;
