@@ -25,12 +25,9 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: 'jsdom',
-		setupFiles: './src/__test__/setup.js',
-		include: ['src/__test__/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
-		exclude: [
-			'src/__test__/**/delete_*.{test,spec}.?(c|m)[jt]s?(x)',
-			'src/__test__/E2E',
-		],
+		setupFiles: './src/setup.ts',
+		include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+		exclude: ['src/**/delete_*.{test,spec}.?(c|m)[jt]s?(x)', 'src/E2E'],
 		coverage: {
 			include: ['src/**'],
 			exclude: ['src/**/delete_**'],
