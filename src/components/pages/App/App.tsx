@@ -29,13 +29,9 @@ export const App = () => {
 
 	const [searchParams] = useSearchParams();
 
-	const {
-		isPending,
-		isError,
-		data: user,
-		error,
-		refetch,
-	} = useQuery(queryUserInfoOption);
+	const { isPending, isError, error, refetch } = useQuery(
+		queryUserInfoOption(),
+	);
 
 	const handleColorTheme = () => {
 		setDarkTheme(!darkTheme);
@@ -68,8 +64,12 @@ export const App = () => {
 				className={`${darkTheme ? 'dark' : ''} ${styles.app}`}
 				data-testid="app"
 			>
-				{isError && error.cause.status !== 404 ? (
-					<Error onReGetUser={refetch} />
+				{isError ? (
+					error.cause.status === 404 ? (
+						<Login />
+					) : (
+						<Error onReGetUser={refetch} />
+					)
 				) : isPending ? (
 					<div className={styles.loading}>
 						<Loading text={'Loading data ...'} />
@@ -82,7 +82,9 @@ export const App = () => {
 							<Alert />
 						</div>
 						<div className={styles.container}>
-							<main>{!user ? <Login /> : <Outlet context={darkTheme} />}</main>
+							<main>
+								<Outlet context={darkTheme} />
+							</main>
 							<Footer />
 						</div>
 					</>
