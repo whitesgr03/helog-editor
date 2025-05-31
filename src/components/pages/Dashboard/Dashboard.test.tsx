@@ -21,7 +21,6 @@ import { TableRows } from './TableRows';
 import { useAppDataAPI } from '../App/AppContext';
 import { infiniteQueryUserPostsOption } from '../../../utils/queryOptions';
 import { getUserPosts } from '../../../utils/handleUser';
-import { isExportDeclaration } from 'typescript';
 
 vi.mock('./TableRows');
 vi.mock('../../utils/Loading');
