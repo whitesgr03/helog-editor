@@ -1,8 +1,8 @@
 // Packages
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useMutation } from '@tanstack/react-query';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
 // Styles
 import styles from './Dropdown.module.css';
 import buttonStyles from '../../../styles/button.module.css';
