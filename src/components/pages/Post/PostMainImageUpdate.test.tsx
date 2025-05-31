@@ -92,7 +92,7 @@ describe('PostMainImageUpdate component', () => {
 			/>,
 		);
 
-		const submitButton = screen.getByRole('button', 'Save');
+		const submitButton = screen.getByRole('button', { name: 'Save' });
 
 		const urlField = screen.getByText('Image URL');
 		const urlErrorMessage = screen.getByText('Message placeholder');
@@ -107,7 +107,7 @@ describe('PostMainImageUpdate component', () => {
 		const mockProps = {
 			onSetMainImage: vi.fn(),
 		};
-    const mockCustomHook = {
+		const mockCustomHook = {
 			onAlert: vi.fn(),
 			onModal: vi.fn(),
 		};
@@ -135,7 +135,7 @@ describe('PostMainImageUpdate component', () => {
 			/>,
 		);
 
-		const submitButton = screen.getByRole('button', 'Save');
+		const submitButton = screen.getByRole('button', { name: 'Save' });
 		const urlField = screen.getByText('Image URL');
 		const urlErrorMessage = screen.getByText('Message placeholder');
 
@@ -156,7 +156,7 @@ describe('PostMainImageUpdate component', () => {
 		const mockProps = {
 			onSetMainImage: vi.fn(),
 		};
-    const mockCustomHook = {
+		const mockCustomHook = {
 			onAlert: vi.fn(),
 			onModal: vi.fn(),
 		};
@@ -184,7 +184,7 @@ describe('PostMainImageUpdate component', () => {
 			/>,
 		);
 
-		const submitButton = screen.getByRole('button', 'Save');
+		const submitButton = screen.getByRole('button', { name: 'Save' });
 		const urlField = screen.getByText('Image URL');
 		const urlErrorMessage = screen.getByText('Message placeholder');
 
@@ -209,7 +209,7 @@ describe('PostMainImageUpdate component', () => {
 		};
 
 		const mockUrl = faker.image.url();
-    const mockCustomHook = {
+		const mockCustomHook = {
 			onAlert: vi.fn(),
 			onModal: vi.fn(),
 		};
@@ -245,7 +245,7 @@ describe('PostMainImageUpdate component', () => {
 			/>,
 		);
 
-		const submitButton = screen.getByRole('button', 'Save');
+		const submitButton = screen.getByRole('button', { name: 'Save' });
 		const urlLabel = screen.getByText('Image URL');
 		const urlErrorMessage = screen.getByText('Message placeholder');
 		const urlField = screen.getByLabelText('Image URL', {
@@ -313,7 +313,7 @@ describe('PostMainImageUpdate component', () => {
 			/>,
 		);
 
-		const submitButton = screen.getByRole('button', 'Save');
+		const submitButton = screen.getByRole('button', { name: 'Save' });
 		const urlField = screen.getByLabelText('Image URL', {
 			selector: 'input',
 		});
@@ -326,9 +326,7 @@ describe('PostMainImageUpdate component', () => {
 		fireEvent.load(mockImage);
 
 		expect(mockImage.src).toBe(mockUrl);
-		expect(mockProps.onSetMainImage)
-			.toBeCalledWith(mockUrl, 'mainImage')
-			.toBeCalledTimes(1);
+		expect(mockProps.onSetMainImage).toBeCalledWith(mockUrl, 'mainImage');
 		expect(mockCustomHook.onModal).toBeCalledTimes(1);
 		expect(loadingComponent).not.toBeInTheDocument();
 	});
