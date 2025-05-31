@@ -2,6 +2,7 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
 import { Dropdown } from './Dropdown';
@@ -11,12 +12,22 @@ import { handleFetch } from '../../../utils/handleFetch';
 vi.mock('../../../utils/handleFetch');
 
 describe('Dropdown component', () => {
-	it('should render the user profile and logout button if the username of user prop is provided', () => {
+	it('should render the user profile and logout button if the username of user data is provided', () => {
 		const mockProps = {
-			user: {
+			darkTheme: false,
+			onColorTheme: vi.fn(),
+			onCloseDropdown: vi.fn(),
+		};
+
+		const queryClient = new QueryClient();
+
+		const mockUserInfo = {
+			data: {
 				username: 'example',
 			},
 		};
+
+		queryClient.setQueryData(['userInfo'], mockUserInfo);
 
 		const router = createMemoryRouter(
 			[
@@ -33,18 +44,20 @@ describe('Dropdown component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const avatar = screen.getByText(
-			mockProps.user.username.charAt(0).toUpperCase(),
+			mockUserInfo.data.username.charAt(0).toUpperCase(),
 		);
-		const username = screen.getByText(mockProps.user.username);
+		const username = screen.getByText(mockUserInfo.data.username);
 		const logoutBtn = screen.getByRole('button', { name: 'Logout' });
 
 		expect(avatar).toBeInTheDocument();
@@ -54,8 +67,11 @@ describe('Dropdown component', () => {
 	it("should render the dark mode icon and text, if the 'darkTheme' prop is provided", () => {
 		const mockProps = {
 			darkTheme: true,
+			onColorTheme: vi.fn(),
+			onCloseDropdown: vi.fn(),
 		};
 
+		const queryClient = new QueryClient();
 		const router = createMemoryRouter(
 			[
 				{
@@ -71,12 +87,14 @@ describe('Dropdown component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const button = screen.getByRole('button', { name: 'Dark mode' });
@@ -88,12 +106,12 @@ describe('Dropdown component', () => {
 	it('should switch color theme, if the color theme button is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			user: {
-				username: ' example',
-			},
+			darkTheme: false,
 			onColorTheme: vi.fn(),
+			onCloseDropdown: vi.fn(),
 		};
 
+		const queryClient = new QueryClient();
 		const router = createMemoryRouter(
 			[
 				{
@@ -109,12 +127,14 @@ describe('Dropdown component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const button = screen.getByRole('button', { name: 'Light mode' });
@@ -129,18 +149,19 @@ describe('Dropdown component', () => {
 	it('should navigate to the "/error" path if logout fails', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			user: {
-				username: 'example',
-			},
+			darkTheme: false,
+			onColorTheme: vi.fn(),
 			onCloseDropdown: vi.fn(),
 		};
 
-		const mockFetchResult = {
-			success: false,
-			message: 'error',
-		};
+		const queryClient = new QueryClient();
+		queryClient.setQueryData(['userInfo'], {
+			data: {
+				username: 'example',
+			},
+		});
 
-		handleFetch.mockResolvedValueOnce(mockFetchResult);
+		vi.mocked(handleFetch).mockRejectedValueOnce(Error());
 
 		const router = createMemoryRouter(
 			[
@@ -161,15 +182,20 @@ describe('Dropdown component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const button = screen.getByRole('button', { name: 'Logout' });
+		const loadingIcon = screen.getByTestId('loading-icon');
+
+		expect(loadingIcon).toHaveClass(/logout/);
 
 		await user.click(button);
 
@@ -179,20 +205,26 @@ describe('Dropdown component', () => {
 	it('should logout, if the logout button is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			user: {
+			darkTheme: false,
+			onColorTheme: vi.fn(),
+			onCloseDropdown: vi.fn(),
+		};
+		const queryClient = new QueryClient();
+		queryClient.setQueryData(['userInfo'], {
+			data: {
 				username: 'example',
 			},
-		};
-
+		});
 		const mockFetchResult = {
 			success: true,
 		};
 
-		location = {
-			assign: vi.fn(),
-		};
-
-		handleFetch.mockResolvedValueOnce(mockFetchResult);
+		vi.mocked(handleFetch).mockImplementation(
+			async () =>
+				await new Promise(resolve =>
+					setTimeout(() => resolve(mockFetchResult), 100),
+				),
+		);
 
 		const router = createMemoryRouter(
 			[
@@ -209,25 +241,38 @@ describe('Dropdown component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
-		const button = screen.getByRole('button', { name: 'Logout' });
+		const mockLocation = vi.fn();
+
+		Object.defineProperty(window, 'location', {
+			value: {
+				assign: mockLocation,
+			},
+			writable: true,
+		});
+
+		const logoutButton = screen.getByRole('button', { name: 'Logout' });
 		const loadingIcon = screen.getByTestId('loading-icon');
 
 		expect(loadingIcon).toHaveClass(/logout/);
 
-		user.click(button);
+		await user.click(logoutButton);
 
 		await waitFor(() => {
 			expect(loadingIcon).toHaveClass(/load/);
 		});
 
-		expect(location.assign).toBeCalledTimes(1);
+		await waitFor(() => {
+			expect(mockLocation).toBeCalledTimes(1);
+		});
 	});
 });
