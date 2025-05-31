@@ -5,43 +5,85 @@ import userEvent from '@testing-library/user-event';
 
 import { Modal } from './Modal';
 
+import { useModal, useAppDataAPI } from './AppContext';
+
+vi.mock('./AppContext');
+
 describe('Modal component', () => {
-	it(`should render children prop if children prop is provided`, () => {
-		const mockProps = {
-			children: 'children',
+	it(`should render modal if component of modal is provided`, () => {
+		const mockModalData = {
+			component: <div data-testid="active-modal">Active modal component</div>,
+			clickBgToClose: true,
 		};
-		render(<Modal {...mockProps} />);
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
 
-		const children = screen.getByText(mockProps.children);
+		vi.mocked(useModal).mockReturnValue(mockModalData);
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
 
-		expect(children).toBeInTheDocument();
+		render(<Modal />);
+
+		const activeModal = screen.getByTestId('active-modal');
+		expect(activeModal).toBeInTheDocument();
 	});
-	it(`should close modal if "clickToClose" prop is true and the close button is clicked`, async () => {
+	it(`should close modal component if the close button is clicked`, async () => {
 		const user = userEvent.setup();
-		const mockProps = {
-			clickToClose: true,
-			onActiveModal: vi.fn(),
+		let mockModalData = {
+			component: <div>Active modal component</div>,
+			clickBgToClose: true,
 		};
-		render(<Modal {...mockProps} />);
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+
+		vi.mocked(useModal).mockReturnValue(mockModalData);
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+
+		const { rerender } = render(<Modal />);
 
 		const closeButton = screen.getByTestId('close-btn');
 
 		await user.click(closeButton);
 
-		expect(mockProps.onActiveModal).toBeCalledTimes(1);
+		expect(mockCustomHook.onModal).toBeCalledTimes(1);
+
+		mockModalData.component = mockCustomHook.onModal.mock.calls[0][0].component;
+
+		rerender(<Modal />);
+
+		const modalComponent = screen.queryByTestId('modal');
+		expect(modalComponent).toBeNull();
 	});
-	it(`should close modal if "clickToClose" prop is true and the div element with model class is clicked`, async () => {
+	it(`should close modal component if "clickBgToClose" of modal data is true and the div element with model class is clicked`, async () => {
 		const user = userEvent.setup();
-		const mockProps = {
-			clickToClose: true,
-			onActiveModal: vi.fn(),
+		let mockModalData = {
+			component: <div>Active modal component</div>,
+			clickBgToClose: true,
 		};
-		render(<Modal {...mockProps} />);
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+
+		vi.mocked(useModal).mockReturnValue(mockModalData);
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+
+		const { rerender } = render(<Modal />);
 
 		const model = screen.getByTestId('modal');
 
 		await user.click(model);
 
-		expect(mockProps.onActiveModal).toBeCalledTimes(1);
+		expect(mockCustomHook.onModal).toBeCalledTimes(1);
+
+		mockModalData.component = mockCustomHook.onModal.mock.calls[0][0].component;
+
+		rerender(<Modal />);
+
+		const modalComponent = screen.queryByTestId('modal');
+		expect(modalComponent).toBeNull();
 	});
 });
