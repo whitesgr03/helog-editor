@@ -1,6 +1,7 @@
 // Packages
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 // Styles
 import styles from './Header.module.css';
@@ -11,7 +12,7 @@ import imageStyles from '../../../styles/image.module.css';
 import { Dropdown } from './Dropdown';
 
 // Utils
-import { queryClient } from '../../../utils/queryOptions';
+import { queryUserInfoOption } from '../../../utils/queryOptions';
 
 // Type
 import { DarkTheme } from '../../pages/App/App';
@@ -30,8 +31,7 @@ export interface User {
 export const Header = ({ darkTheme, onColorTheme }: HeaderProps) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);
 
-	const { data: user }: { data?: User } =
-		queryClient.getQueryData(['userInfo']) ?? {};
+	const { data: user } = useQuery({ ...queryUserInfoOption(), enabled: false });
 
 	const handleActiveDropdown = () => setActiveDropdown(!activeDropdown);
 	const handleCloseDropdown = () => setActiveDropdown(false);
