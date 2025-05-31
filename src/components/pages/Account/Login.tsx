@@ -1,6 +1,7 @@
 // Packages
 import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 // styles
 import styles from './Login.module.css';
@@ -13,14 +14,10 @@ import googleIcon from '../../../assets/google.png';
 import facebookIcon from '../../../assets/facebook.png';
 
 // Utils
-import { queryClient } from '../../../utils/queryOptions';
-
-// Type
-import { User } from '../../layout/Header/Header';
+import { queryUserInfoOption } from '../../../utils/queryOptions';
 
 export const Login = () => {
-	const { data: user }: { data?: User } =
-		queryClient.getQueryData(['userInfo']) ?? {};
+	const { data: user } = useQuery({ ...queryUserInfoOption(), enabled: false });
 
 	const [loading, setLoading] = useState(false);
 
