@@ -9,9 +9,8 @@ exports[`Footer component > should match snapshot 1`] = `
       class="_container_bef41e"
     >
       <a
-        alt="github"
         class="_link_bef41e"
-        href="#git"
+        href="https://github.com/whitesgr03/helog"
       >
         <span
           class="_icon_620964 _github_bef41e"
