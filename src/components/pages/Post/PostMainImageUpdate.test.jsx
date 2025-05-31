@@ -7,18 +7,24 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
 import { PossMainImageUpdate } from './PossMainImageUpdate';
 import { Loading } from '../../utils/Loading';
+import { useAppDataAPI } from '../App/AppContext';
 
-vi.mock('../../../components/utils/Loading');
+vi.mock('../App/AppContext');
+vi.mock('../../utils/Loading');
 
 describe('PostMainImageUpdate component', () => {
 	it('should change the url field values if the field is entered', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			onActiveModal: vi.fn(),
 			onSetMainImage: vi.fn(),
 		};
 
 		const mockUrl = faker.image.url();
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
 
 		const router = createMemoryRouter(
 			[
@@ -54,9 +60,14 @@ describe('PostMainImageUpdate component', () => {
 	it('should render an error field message if the url field validation fails after submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			onActiveModal: vi.fn(),
 			onSetMainImage: vi.fn(),
 		};
+
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
 
 		const router = createMemoryRouter(
 			[
@@ -94,10 +105,13 @@ describe('PostMainImageUpdate component', () => {
 	it('should be verified successfully, if the input is correct after a failed submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			onActiveModal: vi.fn(),
 			onSetMainImage: vi.fn(),
 		};
-
+    const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
 		const router = createMemoryRouter(
 			[
 				{
@@ -140,10 +154,13 @@ describe('PostMainImageUpdate component', () => {
 	it('should render the corresponding error field message, if the input is still incorrect after a failed submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			onActiveModal: vi.fn(),
 			onSetMainImage: vi.fn(),
 		};
-
+    const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
 		const router = createMemoryRouter(
 			[
 				{
@@ -188,13 +205,18 @@ describe('PostMainImageUpdate component', () => {
 	it('should render an error field message if the value of url field is not an invalid resource', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			onActiveModal: vi.fn(),
 			onSetMainImage: vi.fn(),
 		};
 
 		const mockUrl = faker.image.url();
-
-		Loading.mockImplementationOnce(() => <div>Loading component</div>);
+    const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(Loading).mockImplementationOnce(() => (
+			<div>Loading component</div>
+		));
 
 		const mockImage = new Image();
 
@@ -247,14 +269,20 @@ describe('PostMainImageUpdate component', () => {
 	it('should update the main image if the url field successfully validates after user submission', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
-			onActiveModal: vi.fn(),
 			onSetMainImage: vi.fn(),
 		};
 
 		const mockUrl = faker.image.url();
 
-		Loading.mockImplementationOnce(() => <div>Loading component</div>);
+		vi.mocked(Loading).mockImplementationOnce(() => (
+			<div>Loading component</div>
+		));
 
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
 		const mockImage = new Image();
 
 		mockImage.width = 10;
@@ -301,7 +329,7 @@ describe('PostMainImageUpdate component', () => {
 		expect(mockProps.onSetMainImage)
 			.toBeCalledWith(mockUrl, 'mainImage')
 			.toBeCalledTimes(1);
-		expect(mockProps.onActiveModal).toBeCalledTimes(1);
+		expect(mockCustomHook.onModal).toBeCalledTimes(1);
 		expect(loadingComponent).not.toBeInTheDocument();
 	});
 });
