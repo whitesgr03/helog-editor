@@ -154,23 +154,22 @@ export const Dashboard = () => {
 										))}
 									</tbody>
 								</table>
+								{isFetchingNextPage && (
+									<Loading text={'Loading more posts ...'} />
+								)}
+								{isFetchNextPageError && (
+									<button
+										className={`${buttonStyles.content} ${buttonStyles.more}`}
+										onClick={() => fetchNextPage()}
+									>
+										Click here to show more posts
+									</button>
+								)}
 							</>
 						) : (
 							<p>There are not posts.</p>
 						)}
 					</div>
-					{isFetchingNextPage ? (
-						<Loading text={'Loading more posts ...'} />
-					) : (
-						isFetchNextPageError && (
-							<button
-								className={`${buttonStyles.content} ${buttonStyles.more}`}
-								onClick={() => fetchNextPage()}
-							>
-								Click here to show more posts
-							</button>
-						)
-					)}
 				</>
 			)}
 		</div>
