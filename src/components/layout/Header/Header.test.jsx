@@ -2,19 +2,23 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
 import { Header } from './Header';
 import { Dropdown } from './Dropdown';
 
-vi.mock('../../../components/layout/Header/Dropdown');
+vi.mock('./Dropdown');
 
 describe('Header component', () => {
 	it("should render the dark mode icon and text, if the 'darkTheme' prop is provided", () => {
 		const mockProps = {
 			darkTheme: true,
+			onColorTheme: () => {},
 		};
 
+		const queryClient = new QueryClient();
 		const router = createMemoryRouter(
 			[
 				{
@@ -30,12 +34,14 @@ describe('Header component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const button = screen.getByRole('button', { name: 'Dark mode' });
@@ -51,6 +57,7 @@ describe('Header component', () => {
 			onColorTheme: vi.fn(),
 		};
 
+		const queryClient = new QueryClient();
 		const router = createMemoryRouter(
 			[
 				{
@@ -66,12 +73,14 @@ describe('Header component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const button = screen.getByRole('button', { name: 'Light mode' });
@@ -85,9 +94,21 @@ describe('Header component', () => {
 	});
 	it('should render Dropdown component and transparent bgc, if the account button is clicked', async () => {
 		const user = userEvent.setup();
-		const mockProps = { user: true };
+		const mockProps = {
+			darkTheme: false,
+			onColorTheme: () => {},
+		};
 
-		Dropdown.mockImplementationOnce(() => <div>Dropdown component</div>);
+		const queryClient = new QueryClient();
+
+		queryClient.setQueryData(['userInfo'], {
+			data: {
+				username: 'example',
+			},
+		});
+		vi.mocked(Dropdown).mockImplementationOnce(() => (
+			<div>Dropdown component</div>
+		));
 
 		const router = createMemoryRouter(
 			[
@@ -104,12 +125,14 @@ describe('Header component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const accountButton = screen.getByRole('button', { name: 'Account' });
@@ -124,9 +147,20 @@ describe('Header component', () => {
 	});
 	it('should close Dropdown component and transparent bgc, if the transparent bgc is clicked', async () => {
 		const user = userEvent.setup();
-		const mockProps = { user: true };
+		const mockProps = {
+			darkTheme: false,
+			onColorTheme: () => {},
+		};
+		const queryClient = new QueryClient();
+		queryClient.setQueryData(['userInfo'], {
+			data: {
+				username: 'example',
+			},
+		});
 
-		Dropdown.mockImplementationOnce(() => <div>Dropdown component</div>);
+		vi.mocked(Dropdown).mockImplementationOnce(() => (
+			<div>Dropdown component</div>
+		));
 
 		const router = createMemoryRouter(
 			[
@@ -143,12 +177,14 @@ describe('Header component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const accountButton = screen.getByRole('button', { name: 'Account' });
@@ -163,22 +199,25 @@ describe('Header component', () => {
 		expect(dropdownComponent).not.toBeInTheDocument();
 		expect(element).not.toBeInTheDocument();
 	});
-	it('should navigate to "/posts" path if the "HeLog Editor" link is clicked', async () => {
+	it('should navigate to the "./posts" path, if the HeLog link is clicked', async () => {
 		const user = userEvent.setup();
-		const mockProps = {
-			darkTheme: false,
-			onColorTheme: vi.fn(),
-		};
+		const mockProps = { darkTheme: false, onColorTheme: () => {} };
+		const queryClient = new QueryClient();
+		queryClient.setQueryData(['userInfo'], {
+			data: {
+				username: 'example',
+			},
+		});
 
 		const router = createMemoryRouter(
 			[
 				{
-					path: '/posts',
-					element: <div>Dashboard component</div>,
-				},
-				{
 					path: '/header',
 					element: <Header {...mockProps} />,
+				},
+				{
+					path: '/posts',
+					element: <div>Dashboard component</div>,
 				},
 			],
 			{
@@ -190,17 +229,19 @@ describe('Header component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
-		const element = screen.getByRole('heading', { level: 1 });
+		const link = screen.getByRole('link', { name: 'HeLog' });
 
-		await user.click(element);
+		await user.click(link);
 
 		const dashboardComponent = screen.getByText('Dashboard component');
 
