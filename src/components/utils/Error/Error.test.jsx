@@ -1,62 +1,21 @@
-import { expect, describe, it } from 'vitest';
+import { expect, describe, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter, Navigate } from 'react-router-dom';
 import { Error } from './Error';
+import userEvent from '@testing-library/user-event';
 
 describe('Error component', () => {
-	it('should render the default error message and default link if the "customMessage" state is not provided', () => {
-		const router = createMemoryRouter(
-			[
-				{
-					path: '/',
-					element: <Navigate to={'/error'} />,
-				},
-				{
-					path: '/error',
-					element: <Error />,
-				},
-			],
-			{
-				initialEntries: ['/'],
-				future: {
-					v7_relativeSplatPath: true,
-				},
-			},
-		);
-
-		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
-		);
-
-		const element = screen.getByText(
-			'Please come back later, or if you have any questions, contact us.',
-		);
-
-		const link = screen.getByRole('link', { name: 'Back to Home Page' });
-
-		expect(element).toBeInTheDocument();
-		expect(link).toBeInTheDocument();
-	});
-	it('should render the custom error message if the "customMessage" state is provided', () => {
-		const mockState = {
-			error: 'custom message.',
-			customMessage: true,
+	it('should handling refetching user info if the "onReGetUser" prop is provided and "Back to Home Page" is clicked', async () => {
+		const user = userEvent.setup();
+		const mockProps = {
+			onReGetUser: vi.fn(),
 		};
 
 		const router = createMemoryRouter(
 			[
 				{
 					path: '/',
-					element: <Navigate to={'/error'} state={{ ...mockState }} />,
-				},
-				{
-					path: '/error',
-					element: <Error />,
+					element: <Error {...mockProps} />,
 				},
 			],
 			{
@@ -76,11 +35,13 @@ describe('Error component', () => {
 			/>,
 		);
 
-		const element = screen.getByText('custom message.');
+		const link = screen.getByRole('link', { name: 'Back to Home Page' });
 
-		expect(element).toBeInTheDocument();
+		await user.click(link);
+
+		expect(mockProps.onReGetUser).toBeCalledTimes(1);
 	});
-	it('should render the "Go Back" link if the "previousPath" state is provided', () => {
+	it('should render the "Go Back Previous Page" link if the "previousPath" state is provided', () => {
 		const mockState = {
 			previousPath: '/',
 		};
@@ -113,7 +74,7 @@ describe('Error component', () => {
 			/>,
 		);
 
-		const element = screen.getByRole('link', { name: 'Go Back' });
+		const element = screen.getByRole('link', { name: 'Go Back Previous Page' });
 
 		expect(element).toBeInTheDocument();
 	});
