@@ -2,24 +2,70 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
 import { Login } from './Login';
 import { Loading } from '../../utils/Loading';
 
-vi.mock('../../../components/utils/Loading');
+vi.mock('../../utils/Loading');
 
 describe('Login component', () => {
+	it('should navigate to the "/" path if the user data is provided', async () => {
+		const queryClient = new QueryClient();
+		queryClient.setQueryData(['userInfo'], {
+			data: {
+				username: 'example',
+			},
+		});
+		const router = createMemoryRouter(
+			[
+				{
+					path: '/posts',
+					element: <div>Dashboard component</div>,
+				},
+				{
+					path: 'login',
+					element: <Login />,
+				},
+			],
+			{
+				initialEntries: ['/login'],
+				future: {
+					v7_relativeSplatPath: true,
+				},
+			},
+		);
+
+		render(
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
+		);
+
+		const component = screen.getByText('Dashboard component');
+
+		expect(component).toBeInTheDocument();
+	});
 	it('should login with google account if the "Sign in with Google" button is clicked', async () => {
 		const user = userEvent.setup();
 
 		const mockFn = vi.fn();
 
-		location = {
-			assign: mockFn,
-		};
-
-		Loading.mockImplementationOnce(() => <div>Loading component</div>);
+		Object.defineProperty(window, 'location', {
+			value: {
+				assign: mockFn,
+			},
+		});
+		const queryClient = new QueryClient();
+		vi.mocked(Loading).mockImplementationOnce(() => (
+			<div>Loading component</div>
+		));
 
 		const router = createMemoryRouter(
 			[
@@ -36,12 +82,14 @@ describe('Login component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const googleButton = screen.getByText('Sign in with Google');
@@ -58,12 +106,16 @@ describe('Login component', () => {
 
 		const mockFn = vi.fn();
 
-		location = {
-			assign: mockFn,
-		};
+		Object.defineProperty(window, 'location', {
+			value: {
+				assign: mockFn,
+			},
+		});
 
-		Loading.mockImplementationOnce(() => <div>Loading component</div>);
-
+		vi.mocked(Loading).mockImplementationOnce(() => (
+			<div>Loading component</div>
+		));
+		const queryClient = new QueryClient();
 		const router = createMemoryRouter(
 			[
 				{
@@ -79,12 +131,14 @@ describe('Login component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const googleButton = screen.getByText('Sign in with Facebook');
