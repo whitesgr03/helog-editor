@@ -5,7 +5,7 @@ import { Error } from './Error';
 import userEvent from '@testing-library/user-event';
 
 describe('Error component', () => {
-	it('should handling refetching user info if the "onReGetUser" prop is provided and "Back to Home Page" is clicked', async () => {
+	it('should handling refetching user info if the "onReGetUser" prop is provided and "Back to Dashboard Page" is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			onReGetUser: vi.fn(),
@@ -14,12 +14,16 @@ describe('Error component', () => {
 		const router = createMemoryRouter(
 			[
 				{
-					path: '/',
+					path: '/posts',
+					element: <div>Dashboard page</div>,
+				},
+				{
+					path: '/error',
 					element: <Error {...mockProps} />,
 				},
 			],
 			{
-				initialEntries: ['/'],
+				initialEntries: ['/error'],
 				future: {
 					v7_relativeSplatPath: true,
 				},
@@ -35,10 +39,11 @@ describe('Error component', () => {
 			/>,
 		);
 
-		const link = screen.getByRole('link', { name: 'Back to Home Page' });
+		const link = screen.getByRole('link', { name: 'Back to Dashboard Page' });
 
 		await user.click(link);
 
+		expect(screen.getByText('Dashboard page')).toBeInTheDocument();
 		expect(mockProps.onReGetUser).toBeCalledTimes(1);
 	});
 	it('should render the "Go Back Previous Page" link if the "previousPath" state is provided', () => {
