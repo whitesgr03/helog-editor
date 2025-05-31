@@ -2,7 +2,7 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { RouterProvider, createMemoryRouter, Outlet } from 'react-router-dom';
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import { TableRows } from './TableRows';
@@ -22,9 +22,10 @@ describe('PostList component', () => {
 				_id: '1',
 				title: 'title',
 				updatedAt: new Date(),
+				createdAt: new Date(),
 				publish: false,
 			},
-			index: '0',
+			index: 0,
 		};
 		const mockCustomHook = {
 			onAlert: vi.fn(),
@@ -71,7 +72,7 @@ describe('PostList component', () => {
 		);
 		const publishIcon = screen.getByTestId('publish-icon');
 
-		expect(format.mock.calls[0][0]).toBe(mockProps.post.updatedAt);
+		expect(format).toBeCalledWith(mockProps.post.updatedAt, 'MMMM d, y');
 		expect(title).toBeInTheDocument();
 		expect(publishIcon).toHaveClass(/unpublish/);
 	});
@@ -81,9 +82,10 @@ describe('PostList component', () => {
 				_id: '1',
 				title: '',
 				updatedAt: new Date(),
+				createdAt: new Date(),
 				publish: false,
 			},
-			index: '0',
+			index: 0,
 		};
 		const mockCustomHook = {
 			onAlert: vi.fn(),
@@ -134,9 +136,10 @@ describe('PostList component', () => {
 				_id: '1',
 				title: 'title',
 				updatedAt: new Date(),
+				createdAt: new Date(),
 				publish: true,
 			},
-			index: '0',
+			index: 0,
 		};
 		const mockCustomHook = {
 			onAlert: vi.fn(),
@@ -189,9 +192,10 @@ describe('PostList component', () => {
 				_id: '1',
 				title: 'title',
 				updatedAt: new Date(),
+				createdAt: new Date(),
 				publish: false,
 			},
-			index: '0',
+			index: 0,
 		};
 		const mockCustomHook = {
 			onAlert: vi.fn(),
@@ -253,8 +257,9 @@ describe('PostList component', () => {
 				title: 'title',
 				updatedAt: new Date(),
 				publish: false,
+				createdAt: new Date(),
 			},
-			index: '0',
+			index: 0,
 		};
 		const mockCustomHook = {
 			onAlert: vi.fn(),
