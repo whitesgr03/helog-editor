@@ -5,12 +5,13 @@ import userEvent from '@testing-library/user-event';
 
 import { Alert } from './Alert';
 import { useAlert, useAppDataAPI } from './AppContext';
+import { State } from './AppContext';
 
 vi.mock('./AppContext');
 
 describe('Alert component', () => {
 	it(`should render no alert message if the alert data is empty`, () => {
-		const mockAlertData = [];
+		const mockAlertData = [] as State['alert'];
 		const mockCustomHook = {
 			onAlert: vi.fn(),
 			onModal: vi.fn(),
