@@ -1,4 +1,10 @@
-import { createContext, useContext, ReactNode } from 'react';
+import {
+	createContext,
+	useContext,
+	ReactNode,
+	useReducer,
+	useMemo,
+} from 'react';
 
 export interface State {
 	alert: {
@@ -47,3 +53,35 @@ export const initialData: State = {
 export const useAlert = () => useContext(AlertContext);
 export const useModal = () => useContext(ModalContext);
 export const useAppDataAPI = () => useContext(AppDataAPIContext);
+
+export const AppProvider = ({ children }: { children: React.ReactElement }) => {
+	const [state, dispatch] = useReducer(reducer, initialData);
+
+	const api = useMemo(
+		() => ({
+			onAlert: (alert: State['alert']) => {
+				dispatch({
+					type: 'updatedAlert',
+					alert,
+				});
+			},
+			onModal: (modal: State['modal']) => {
+				dispatch({
+					type: 'updatedModal',
+					modal,
+				});
+			},
+		}),
+		[],
+	);
+
+	return (
+		<AppDataAPIContext.Provider value={api}>
+			<ModalContext.Provider value={state.modal}>
+				<AlertContext.Provider value={state.alert}>
+					{children}
+				</AlertContext.Provider>
+			</ModalContext.Provider>
+		</AppDataAPIContext.Provider>
+	);
+};
