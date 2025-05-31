@@ -6,7 +6,7 @@ export const Footer = () => {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.container}>
-				<a href="#git" className={styles.link}>
+				<a href="https://github.com/whitesgr03/helog" className={styles.link}>
 					<span className={`${imageStyles.icon} ${styles.github}`} />
 				</a>
 				<address>
@@ -16,7 +16,7 @@ export const Footer = () => {
 					</a>
 				</address>
 			</div>
-			<p>&copy; 2024 Designed & coded by Weiss Bai</p>
+			<p>© 2024 Designed & coded by Weiss Bai</p>
 		</footer>
 	);
 };
