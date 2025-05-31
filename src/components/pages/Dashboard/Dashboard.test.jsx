@@ -4,9 +4,9 @@ import userEvent from '@testing-library/user-event';
 
 import { RouterProvider, createMemoryRouter, Outlet } from 'react-router-dom';
 
-import { Dashboard } from '../../../components/pages/Dashboard/Dashboard';
+import { Dashboard } from './Dashboard';
 
-import { TableRows } from '../../../components/pages/Dashboard/TableRows';
+import { TableRows } from './TableRows';
 
 vi.mock('../../../components/pages/Dashboard/TableRows');
 

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { Footer } from '../../../components/layout/Footer/Footer';
+import { Footer } from './Footer';
 
 describe('Footer component', () => {
 	it('should match snapshot', () => {

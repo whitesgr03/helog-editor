@@ -1,7 +1,7 @@
 import { expect, describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-import { Loading } from '../../components/utils/Loading';
+import { Loading } from './Loading';
 
 describe('Loading component', () => {
 	it('should render the text if the text prop is provided', () => {

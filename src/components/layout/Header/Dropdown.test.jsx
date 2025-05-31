@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
-import { Dropdown } from '../../../components/layout/Header/Dropdown';
+import { Dropdown } from './Dropdown';
 
 import { handleFetch } from '../../../utils/handleFetch';
 

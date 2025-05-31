@@ -4,8 +4,8 @@ import userEvent from '@testing-library/user-event';
 
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
-import { Login } from '../../../components/pages/Account/Login';
-import { Loading } from '../../../components/utils/Loading';
+import { Login } from './Login';
+import { Loading } from '../../utils/Loading';
 
 vi.mock('../../../components/utils/Loading');
 

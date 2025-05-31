@@ -4,8 +4,8 @@ import userEvent from '@testing-library/user-event';
 
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
-import { Header } from '../../../components/layout/Header/Header';
-import { Dropdown } from '../../../components/layout/Header/Dropdown';
+import { Header } from './Header';
+import { Dropdown } from './Dropdown';
 
 vi.mock('../../../components/layout/Header/Dropdown');
 

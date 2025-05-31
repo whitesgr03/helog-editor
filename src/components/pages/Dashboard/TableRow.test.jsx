@@ -5,8 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { RouterProvider, createMemoryRouter, Outlet } from 'react-router-dom';
 import { format } from 'date-fns';
 
-import { TableRows } from '../../../components/pages/Dashboard/TableRows';
-import { DeletePostModel } from '../../../components/pages/Dashboard/DeletePostModel';
+import { TableRows } from './TableRows';
+import { DeletePostModel } from './DeletePostModel';
 
 vi.mock('../../../components/pages/Dashboard/DeletePostModel');
 vi.mock('date-fns');

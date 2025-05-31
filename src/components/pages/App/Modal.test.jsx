@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
-import { Modal } from '../../../components/pages/App/Modal';
+import { Modal } from './Modal';
 
 describe('Modal component', () => {
 	it(`should render children prop if children prop is provided`, () => {

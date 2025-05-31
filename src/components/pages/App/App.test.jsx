@@ -13,15 +13,15 @@ import {
 } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import { App } from '../../../components/pages/App/App';
+import { App } from './App';
 
-import { Header } from '../../../components/layout/Header/Header';
-import { Loading } from '../../../components/utils/Loading';
-import { Alert } from '../../../components/pages/App/Alert';
-import { Error } from '../../../components/utils/Error/Error';
-import { Modal } from '../../../components/pages/App/Modal';
+import { Header } from '../../layout/Header/Header';
+import { Loading } from '../../utils/Loading';
+import { Alert } from './Alert';
+import { Error } from '../../utils/Error/Error';
+import { Modal } from './Modal';
 import { CreateUsername } from '../../../components/pages/App/CreateUsername';
-import { Login } from '../../../components/pages/Account/Login';
+import { Login } from '../Account/Login';
 
 import { getUser, getUserPostList } from '../../../utils/handleUser';
 

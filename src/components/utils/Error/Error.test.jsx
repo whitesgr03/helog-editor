@@ -1,7 +1,7 @@
 import { expect, describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter, Navigate } from 'react-router-dom';
-import { Error } from '../../../components/utils/Error/Error';
+import { Error } from './Error';
 
 describe('Error component', () => {
 	it('should render the default error message and default link if the "customMessage" state is not provided', () => {

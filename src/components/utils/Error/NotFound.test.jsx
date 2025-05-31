@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
-import { NotFound } from '../../../components/utils/Error/NotFound';
+import { NotFound } from './NotFound';
 
 describe('NotFound component', () => {
 	it('should match snapshot', () => {

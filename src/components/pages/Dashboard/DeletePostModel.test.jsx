@@ -2,8 +2,8 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { DeletePostModel } from '../../../components/pages/Dashboard/DeletePostModel';
-import { Loading } from '../../../components/utils/Loading';
+import { DeletePostModel } from './DeletePostModel';
+import { Loading } from '../../utils/Loading';
 
 import { deletePost } from '../../../utils/handlePost';
 

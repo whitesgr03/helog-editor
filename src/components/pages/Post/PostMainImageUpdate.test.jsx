@@ -5,8 +5,8 @@ import { faker } from '@faker-js/faker';
 
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 
-import { PossMainImageUpdate } from '../../../components/pages/Post/PossMainImageUpdate';
-import { Loading } from '../../../components/utils/Loading';
+import { PossMainImageUpdate } from './PossMainImageUpdate';
+import { Loading } from '../../utils/Loading';
 
 vi.mock('../../../components/utils/Loading');
 

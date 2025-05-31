@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
-import { Alert } from '../../../components/pages/App/Alert';
+import { Alert } from './Alert';
 
 describe('Alert component', () => {
 	it(`should render no alert message if the alert prop is empty`, () => {
