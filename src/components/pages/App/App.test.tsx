@@ -62,7 +62,7 @@ describe('App component', () => {
 
 		const mockMatchMedia = vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
 			matches: true,
-		});
+		} as MediaQueryList);
 		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
@@ -114,7 +114,7 @@ describe('App component', () => {
 
 		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
 			matches: false,
-		});
+		} as MediaQueryList);
 
 		const localstorage = {
 			setItem: vi.spyOn(Storage.prototype, 'setItem'),
@@ -172,7 +172,7 @@ describe('App component', () => {
 
 		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
 			matches: false,
-		});
+		} as MediaQueryList);
 		vi.spyOn(Storage.prototype, 'setItem');
 		vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce('false');
 		const queryClient = new QueryClient();
@@ -228,7 +228,7 @@ describe('App component', () => {
 
 		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
 			matches: false,
-		});
+		} as MediaQueryList);
 		vi.spyOn(Storage.prototype, 'setItem');
 		vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce('false');
 
@@ -282,7 +282,7 @@ describe('App component', () => {
 
 		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
 			matches: false,
-		});
+		} as MediaQueryList);
 		vi.spyOn(Storage.prototype, 'setItem');
 		vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce('false');
 
@@ -344,7 +344,7 @@ describe('App component', () => {
 
 		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
 			matches: false,
-		});
+		} as MediaQueryList);
 		vi.spyOn(Storage.prototype, 'setItem');
 		vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce('false');
 
@@ -401,7 +401,7 @@ describe('App component', () => {
 
 		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
 			matches: false,
-		});
+		} as MediaQueryList);
 
 		const mockLocalStorageSetItem = vi.spyOn(Storage.prototype, 'setItem');
 		vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(mockDarkTheme);
