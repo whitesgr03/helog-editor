@@ -2,7 +2,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useMutation } from '@tanstack/react-query';
-
+import { useQuery } from '@tanstack/react-query';
 // Styles
 import styles from './Dropdown.module.css';
 import buttonStyles from '../../../styles/button.module.css';
@@ -11,14 +11,13 @@ import loadingStyles from '../../utils/Loading.module.css';
 
 // Utils
 import { handleFetch } from '../../../utils/handleFetch.ts';
-import { queryClient } from '../../../utils/queryOptions.ts';
+import { queryUserInfoOption } from '../../../utils/queryOptions';
 
 // Variables
 const URL = `${import.meta.env.VITE_RESOURCE_URL}/account/logout`;
 
 // Type
 import { DarkTheme } from '../../pages/App/App.js';
-import { User } from './Header.js';
 
 interface DropdownProps {
 	darkTheme: DarkTheme;
@@ -34,8 +33,7 @@ export const Dropdown = ({
 	const navigate = useNavigate();
 	const { pathname: previousPath } = useLocation();
 
-	const { data: user }: { data?: User } =
-		queryClient.getQueryData(['userInfo']) ?? {};
+	const { data: user } = useQuery({ ...queryUserInfoOption(), enabled: false });
 
 	const { isPending, mutate } = useMutation({
 		mutationFn: async () => {
