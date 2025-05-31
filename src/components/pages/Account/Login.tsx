@@ -32,7 +32,7 @@ export const Login = () => {
 	return (
 		<>
 			{user ? (
-				<Navigate to="/" replace={true} />
+				<Navigate to="/posts" replace={true} />
 			) : (
 				<div className={styles.account}>
 					<div className={styles.wrap}>
