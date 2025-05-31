@@ -6,11 +6,11 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "npm run postinstall && tsc -b && vite build",
-		"test:component": "vitest",
-		"coverage": "vitest --coverage",
 		"postinstall": "node ./postinstall.js",
-		"test:e2e": "npx playwright test",
-		"test:ui": "npx playwright test --ui"
+		"test": "vitest",
+		"coverage": "vitest --coverage",
+		"teste2e": "npx playwright test",
+		"testui": "npx playwright test --ui"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.76.1",
