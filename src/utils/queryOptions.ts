@@ -18,16 +18,17 @@ export const queryClient = new QueryClient({
 	},
 });
 
-export const queryUserInfoOption = queryOptions({
-	queryKey: ['userInfo'],
-	queryFn: getUserInfo,
-	retry: (failureCount, error: { cause: { status?: number } }) =>
-		error?.cause?.status !== 404 && failureCount < 3,
-	staleTime: Infinity,
-	gcTime: Infinity,
-	refetchOnReconnect: false,
-	select: response => response.data,
-});
+export const queryUserInfoOption = () =>
+	queryOptions({
+		queryKey: ['userInfo'],
+		queryFn: getUserInfo,
+		retry: (failureCount, error: { cause: { status: number } }) =>
+			error?.cause?.status !== 404 && failureCount < 3,
+		staleTime: Infinity,
+		gcTime: Infinity,
+		refetchOnReconnect: false,
+		select: response => response.data,
+	});
 
 export const infiniteQueryUserPostsOption = infiniteQueryOptions({
 	queryKey: ['userPosts'],
