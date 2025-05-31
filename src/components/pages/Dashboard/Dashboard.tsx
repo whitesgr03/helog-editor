@@ -54,7 +54,7 @@ export const Dashboard = () => {
 		hasNextPage,
 		fetchNextPage,
 	} = useInfiniteQuery({
-		...infiniteQueryUserPostsOption,
+		...infiniteQueryUserPostsOption(),
 		meta: {
 			errorAlert: () => {
 				isManuallyRefetch &&

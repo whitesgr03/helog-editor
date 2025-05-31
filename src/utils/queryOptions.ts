@@ -30,17 +30,18 @@ export const queryUserInfoOption = () =>
 		select: response => response.data,
 	});
 
-export const infiniteQueryUserPostsOption = infiniteQueryOptions({
-	queryKey: ['userPosts'],
-	queryFn: getUserPosts,
-	initialPageParam: 0,
-	getNextPageParam: (lastPage, _allPages, lastPageParam) =>
-		lastPage.data.userPostsCount > lastPageParam + 100
-			? lastPageParam + 100
-			: null,
-	staleTime: 1000 * 60 * 30,
-	gcTime: Infinity,
-});
+export const infiniteQueryUserPostsOption = () =>
+	infiniteQueryOptions({
+		queryKey: ['userPosts'],
+		queryFn: getUserPosts,
+		initialPageParam: 0,
+		getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+			lastPage.data.userPostsCount > lastPageParam + 100
+				? lastPageParam + 100
+				: null,
+		staleTime: 1000 * 60 * 30,
+		gcTime: Infinity,
+	});
 
 export const queryPostDetailOption = (id: string) =>
 	queryOptions({
