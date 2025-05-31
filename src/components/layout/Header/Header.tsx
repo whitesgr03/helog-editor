@@ -22,12 +22,6 @@ interface HeaderProps {
 	onColorTheme: () => void;
 }
 
-export interface User {
-	email: string;
-	username: string;
-	isAdmin: boolean;
-}
-
 export const Header = ({ darkTheme, onColorTheme }: HeaderProps) => {
 	const [activeDropdown, setActiveDropdown] = useState(false);
 
