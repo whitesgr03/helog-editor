@@ -7,42 +7,45 @@ import { format } from 'date-fns';
 
 import { TableRows } from './TableRows';
 import { DeletePostModel } from './DeletePostModel';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-vi.mock('../../../components/pages/Dashboard/DeletePostModel');
+import { useAppDataAPI } from '../App/AppContext';
+
+vi.mock('../App/AppContext');
+vi.mock('./DeletePostModel');
 vi.mock('date-fns');
+
 describe('PostList component', () => {
 	it('should render the post data', async () => {
 		const mockProps = {
 			post: {
+				_id: '1',
 				title: 'title',
 				updatedAt: new Date(),
+				publish: false,
 			},
-			onDeletePost: vi.fn(),
+			index: '0',
 		};
-		const mockContext = {
-			onActiveModal: vi.fn(),
+		const mockCustomHook = {
 			onAlert: vi.fn(),
+			onModal: vi.fn(),
 		};
 
-		format.mockReturnValue('');
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(format).mockReturnValue('');
+		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
 			[
 				{
 					path: '/',
-					element: <Outlet context={{ ...mockContext }} />,
-					children: [
-						{
-							index: true,
-							element: (
-								<table>
-									<tbody>
-										<TableRows {...mockProps} />
-									</tbody>
-								</table>
-							),
-						},
-					],
+					element: (
+						<table>
+							<tbody>
+								<TableRows {...mockProps} />
+							</tbody>
+						</table>
+					),
 				},
 			],
 			{
@@ -53,52 +56,108 @@ describe('PostList component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
-		const title = screen.getByText(mockProps.post.title);
+		const title = screen.getByText(
+			`${mockProps.index + 1}. ${mockProps.post.title}`,
+		);
+		const publishIcon = screen.getByTestId('publish-icon');
 
 		expect(format.mock.calls[0][0]).toBe(mockProps.post.updatedAt);
+		expect(title).toBeInTheDocument();
+		expect(publishIcon).toHaveClass(/unpublish/);
+	});
+	it(`should render the empty string on title element if the post was'nt set title`, async () => {
+		const mockProps = {
+			post: {
+				_id: '1',
+				title: '',
+				updatedAt: new Date(),
+				publish: false,
+			},
+			index: '0',
+		};
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(format).mockReturnValue('');
+		const queryClient = new QueryClient();
+
+		const router = createMemoryRouter(
+			[
+				{
+					path: '/',
+					element: (
+						<table>
+							<tbody>
+								<TableRows {...mockProps} />
+							</tbody>
+						</table>
+					),
+				},
+			],
+			{
+				future: {
+					v7_relativeSplatPath: true,
+				},
+			},
+		);
+
+		render(
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
+		);
+
+		const title = screen.getByText(`${mockProps.index + 1}. ( Empty )`);
 		expect(title).toBeInTheDocument();
 	});
 	it('should render the publish icon if post is published', async () => {
 		const mockProps = {
 			post: {
+				_id: '1',
 				title: 'title',
 				updatedAt: new Date(),
 				publish: true,
 			},
-			onDeletePost: vi.fn(),
+			index: '0',
 		};
-		const mockContext = {
-			onActiveModal: vi.fn(),
+		const mockCustomHook = {
 			onAlert: vi.fn(),
+			onModal: vi.fn(),
 		};
 
-		format.mockReturnValue('');
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(format).mockReturnValue('');
+		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
 			[
 				{
 					path: '/',
-					element: <Outlet context={{ ...mockContext }} />,
-					children: [
-						{
-							index: true,
-							element: (
-								<table>
-									<tbody>
-										<TableRows {...mockProps} />
-									</tbody>
-								</table>
-							),
-						},
-					],
+					element: (
+						<table>
+							<tbody>
+								<TableRows {...mockProps} />
+							</tbody>
+						</table>
+					),
 				},
 			],
 			{
@@ -109,111 +168,55 @@ describe('PostList component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const publish = screen.getByTestId('publish-icon');
 
 		expect(publish).toHaveClass(/publish/);
 	});
-	it('should render the unpublish icon if post is unpublished', async () => {
-		const mockProps = {
-			post: {
-				title: 'title',
-				updatedAt: new Date(),
-				publish: false,
-			},
-			onDeletePost: vi.fn(),
-		};
-		const mockContext = {
-			onActiveModal: vi.fn(),
-			onAlert: vi.fn(),
-		};
-
-		format.mockReturnValue('');
-
-		const router = createMemoryRouter(
-			[
-				{
-					path: '/',
-					element: <Outlet context={{ ...mockContext }} />,
-					children: [
-						{
-							index: true,
-							element: (
-								<table>
-									<tbody>
-										<TableRows {...mockProps} />
-									</tbody>
-								</table>
-							),
-						},
-					],
-				},
-			],
-			{
-				future: {
-					v7_relativeSplatPath: true,
-				},
-			},
-		);
-
-		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
-		);
-
-		const publish = screen.getByTestId('publish-icon');
-
-		expect(publish).toHaveClass(/unpublish/);
-	});
 	it('should navigate to "/posts/:postId/editor" path if the edit link is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			post: {
-				_id: '0',
+				_id: '1',
 				title: 'title',
 				updatedAt: new Date(),
+				publish: false,
 			},
-			onDeletePost: vi.fn(),
+			index: '0',
 		};
-		const mockContext = {
-			onActiveModal: vi.fn(),
+		const mockCustomHook = {
 			onAlert: vi.fn(),
+			onModal: vi.fn(),
 		};
 
-		format.mockReturnValue('');
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(format).mockReturnValue('');
+		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
 			[
 				{
 					path: '/',
-					element: <Outlet context={{ ...mockContext }} />,
-					children: [
-						{
-							index: true,
-							element: (
-								<table>
-									<tbody>
-										<TableRows {...mockProps} />
-									</tbody>
-								</table>
-							),
-						},
-						{
-							path: '/posts/:postId/editor',
-							element: <div>PostEditor component</div>,
-						},
-					],
+					element: (
+						<table>
+							<tbody>
+								<TableRows {...mockProps} />
+							</tbody>
+						</table>
+					),
+				},
+				{
+					path: '/posts/:postId/editor',
+					element: <div>PostEditor component</div>,
 				},
 			],
 			{
@@ -224,55 +227,56 @@ describe('PostList component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const link = screen.getByRole('link');
 
 		await user.click(link);
 
-		const postEditorComponent = screen.getByText('PostEditor component');
+		const component = screen.getByText('PostEditor component');
 
-		expect(postEditorComponent).toBeInTheDocument();
+		expect(component).toBeInTheDocument();
 	});
 	it('should render the DeletePostModel component if the delete button is clicked', async () => {
 		const user = userEvent.setup();
 		const mockProps = {
 			post: {
+				_id: '1',
 				title: 'title',
 				updatedAt: new Date(),
+				publish: false,
 			},
-			onDeletePost: vi.fn(),
+			index: '0',
 		};
-		const mockContext = {
-			onActiveModal: vi.fn(),
+		const mockCustomHook = {
 			onAlert: vi.fn(),
+			onModal: vi.fn(),
 		};
 
-		format.mockReturnValue('');
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(format).mockReturnValue('');
+
+		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
 			[
 				{
 					path: '/',
-					element: <Outlet context={{ ...mockContext }} />,
-					children: [
-						{
-							index: true,
-							element: (
-								<table>
-									<tbody>
-										<TableRows {...mockProps} />
-									</tbody>
-								</table>
-							),
-						},
-					],
+					element: (
+						<table>
+							<tbody>
+								<TableRows {...mockProps} />
+							</tbody>
+						</table>
+					),
 				},
 			],
 			{
@@ -283,20 +287,22 @@ describe('PostList component', () => {
 		);
 
 		render(
-			<RouterProvider
-				router={router}
-				future={{
-					v7_startTransition: true,
-				}}
-			/>,
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
 		);
 
 		const deleteButton = screen.getByTestId('delete-button');
 
 		await user.click(deleteButton);
 
-		expect(mockContext.onActiveModal).toBeCalledTimes(1);
-		expect(mockContext.onActiveModal.mock.calls[0][0].component).toHaveProperty(
+		expect(mockCustomHook.onModal).toBeCalledTimes(1);
+		expect(mockCustomHook.onModal.mock.calls[0][0].component).toHaveProperty(
 			'type',
 			DeletePostModel,
 		);
