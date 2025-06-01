@@ -1,5 +1,5 @@
 // Packages
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import {
 	useOutletContext,
 	Link,
@@ -124,6 +124,16 @@ export const PostEditorUpdate = () => {
 	const titleRef = useRef<TinyMCEEditor | null>(null);
 	const contentRef = useRef<TinyMCEEditor | null>(null);
 
+	const isEditedPostCacheInUserPostsQuery = useMemo(() => {
+		const userPosts: PostData | undefined = queryClient.getQueryData([
+			'userPosts',
+		]);
+
+		return !!userPosts?.pages.find(page =>
+			page.data.userPosts.find(post => post._id === postId),
+		);
+	}, []);
+
 	const { isPending, mutate } = useMutation({
 		mutationFn: updatePost,
 		onError: () => {
@@ -139,22 +149,23 @@ export const PostEditorUpdate = () => {
 		},
 		onSuccess: response => {
 			const handleRefetchComments = () => {
-				queryClient.setQueryData(['userPosts'], (oldData: PostData) => {
-					const { author, mainImage, content, ...updatedPost } = response.data;
-					const newPages = oldData.pages.map(page => ({
-						...page,
-						data: {
-							...page.data,
-							userPosts: page.data.userPosts.map(post =>
-								post._id === postId ? updatedPost : post,
-							),
-						},
-					}));
-					return {
-						pages: newPages,
-						pageParams: oldData.pageParams,
-					};
-				});
+				isEditedPostCacheInUserPostsQuery &&
+					queryClient.setQueryData(['userPosts'], (oldData: PostData) => {
+						const { mainImage, content, ...updatedPost } = response.data;
+						const newPages = oldData.pages.map(page => ({
+							...page,
+							data: {
+								...page.data,
+								userPosts: page.data.userPosts.map(post =>
+									post._id === postId ? updatedPost : post,
+								),
+							},
+						}));
+						return {
+							pages: newPages,
+							pageParams: oldData.pageParams,
+						};
+					});
 				queryClient.setQueryData(['userPost', postId], response);
 				onAlert([
 					{
