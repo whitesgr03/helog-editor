@@ -15,25 +15,22 @@ test.describe('PostEditorCreate component', () => {
 				json,
 			});
 		});
-		await page.route(`**/user/posts`, async route => {
+		await page.route(`**/user/posts*`, async route => {
 			const json = {
 				success: true,
 				message: `Get user's post list successfully.`,
-				data: [],
+				data: {
+					userPosts: [],
+					userPostsCount: 0,
+				},
 			};
 			await route.fulfill({ json });
 		});
 	});
-	test(`should navigate to dashboard page if the "Back to dashboard" Link is clicked`, async ({
+	test(`should navigate to dashboard page if the "Back to dashboard" link is clicked`, async ({
 		page,
 	}) => {
-		await page.goto('./');
-
-		const createPostLink = page.getByRole('link', { name: 'New Post' });
-
-		await createPostLink.click();
-
-		await expect(page).toHaveURL(/.*\/editor/);
+		await page.goto('./editor');
 
 		const backToPerviousLink = page.getByRole('link', {
 			name: /Back to dashboard/,
@@ -143,7 +140,7 @@ test.describe('PostEditorCreate component', () => {
 				success: false,
 				message: 'server error',
 			};
-			await route.fulfill({ json });
+			await route.fulfill({ status: 403, json });
 		});
 
 		await page.goto('./editor');
@@ -152,11 +149,11 @@ test.describe('PostEditorCreate component', () => {
 
 		await titleEditor.fill('title');
 
-		const errorAlert = page.getByText(/There are some errors occur/);
+		const errorAlert = page.getByText(/has some errors occur/);
 
 		await expect(errorAlert).toBeVisible();
 	});
-	test(`should create a post and navigate to '/:postId/editor' path if the fields validation succeeds after automatic submission`, async ({
+	test(`should create a post and navigate to '/posts/:postId/editor' path if the fields validation succeeds after automatic submission`, async ({
 		page,
 	}) => {
 		const mockData = {
@@ -182,13 +179,13 @@ test.describe('PostEditorCreate component', () => {
 		await titleEditor.fill(mockData.title);
 		await contentEditor.fill(mockData.content);
 
-		const alert = page.getByText(/Autosaving/);
+		const alert = page.getByText(/Saving the new post completed./);
 
 		await expect(alert).toBeVisible();
 
 		await expect(page).toHaveURL(new RegExp(`/${mockData._id}/editor`));
 	});
-	test(`should create a post and navigate to '/:postId/editor' path if the fields validation succeeds after the user clicks the save button`, async ({
+	test(`should create a post and navigate to '/posts/:postId/editor' path if the fields validation succeeds after the user clicks the save button`, async ({
 		page,
 	}) => {
 		const mockData = {
@@ -215,7 +212,7 @@ test.describe('PostEditorCreate component', () => {
 
 		await saveButton.click();
 
-		const alert = page.getByText(/Save completed/);
+		const alert = page.getByText(/Saving the new post completed./);
 
 		await expect(saveButton).not.toBeVisible();
 
