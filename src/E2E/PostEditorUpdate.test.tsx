@@ -4,23 +4,27 @@ import { faker } from '@faker-js/faker';
 const randomInteger = (min, max) =>
 	Math.floor(Math.random() * (max - min + 1) + min);
 
-const IMAGE_SIZES = [
+const IMAGE_SIZES: { width: number; height: number }[] = [
 	{ width: 300, height: 250 },
 	{ width: 600, height: 400 },
 ];
 
-const createParagraph = ({ line, IMAGE_SIZES, error }) => {
+const createParagraph = ({
+	line,
+	IMAGE_SIZES,
+}: {
+	line: number;
+	IMAGE_SIZES: { width: number; height: number }[];
+}) => {
 	let content = '';
 
 	for (let i = 0; i < line; i++) {
 		const size = IMAGE_SIZES[randomInteger(0, IMAGE_SIZES.length - 1)];
 
-		const src = error
-			? 'error-url'
-			: faker.image.urlPicsumPhotos({
-					width: size.width,
-					height: size.height,
-				});
+		const src = faker.image.urlPicsumPhotos({
+			width: size.width,
+			height: size.height,
+		});
 
 		content += `<p>${faker.lorem.paragraphs({
 			min: 1,
@@ -401,11 +405,11 @@ test.describe('PostEditorUpdate component', () => {
 
 		await saveButton.click();
 
-		// const image = page.getByAltText('test-image');
-		// const alert = page.getByText(/URL is not a valid image source./);
+		const image = page.getByAltText('test-image');
+		const alert = page.getByText(/URL is not a valid image source./);
 
-		// await expect(alert).toBeVisible();
-		// await expect(image).not.toBeVisible();
+		await expect(alert).toBeVisible();
+		await expect(image).not.toBeVisible();
 	});
 	test(`should resize the image if the user drags the image border to resize`, async ({
 		page,
@@ -414,7 +418,7 @@ test.describe('PostEditorUpdate component', () => {
 			const json = {
 				success: true,
 				message: 'Update post successfully.',
-				data: userPosts[0],
+				data: userPost,
 			};
 			await route.fulfill({ json });
 		});
@@ -425,16 +429,19 @@ test.describe('PostEditorUpdate component', () => {
 
 		const box = await image.boundingBox();
 
-		await page.mouse.click(box.x, box.y);
+		await page.mouse.click(box?.x ?? 0, box?.y ?? 0);
 
-		await page.mouse.click(box.x, box.y);
+		await page.mouse.click(box?.x ?? 0, box?.y ?? 0);
 
 		await page.mouse.down();
 
-		await page.mouse.move(box.x - 50, box.y);
+		await page.mouse.move((box?.x ?? 0) - 50, box?.y ?? 0);
 
 		await page.mouse.up();
 
-		await expect(image).toHaveAttribute('style', `width: ${box.width + 50}px;`);
+		await expect(image).toHaveAttribute(
+			'style',
+			`width: ${(box?.width ?? 0) + 50}px;`,
+		);
 	});
 });
