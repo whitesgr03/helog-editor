@@ -306,15 +306,28 @@ export const PostEditorUpdate = () => {
 	}, []);
 
 	useEffect(() => {
-		post &&
-			isEmpty(editorFields) &&
+		const handleEditorFields = () => {
 			setEditorFields({
 				title: post.title,
 				mainImage: post.mainImage,
 				content: post.content,
 				publish: post.publish,
 			});
-	}, [post, editorFields]);
+
+			setTitleLength(
+				titleRef.current?.plugins.wordcount.body.getCharacterCountWithoutSpaces(),
+			);
+			setContentLength(
+				contentRef.current?.plugins.wordcount.body.getCharacterCountWithoutSpaces(),
+			);
+		};
+
+		post &&
+			titleEditorLoad &&
+			contentEditorLoad &&
+			isEmpty(editorFields) &&
+			handleEditorFields();
+	}, [post, editorFields, titleEditorLoad, contentEditorLoad]);
 
 	return (
 		<div className={styles.editor}>
@@ -396,15 +409,8 @@ export const PostEditorUpdate = () => {
 						tagName="h2"
 						value={editorFields.title}
 						onInit={(_evt, editor) => {
-							const wordCount =
-								editor.plugins.wordcount.body.getCharacterCountWithoutSpaces();
-
-							const length =
-								wordCount > 0 ? wordCount : editorFields.title.length;
-
-							setTitleLength(length);
-							setTitleEditorLoad(true);
 							titleRef.current = editor;
+							setTitleEditorLoad(true);
 						}}
 						onEditorChange={(value, editor) => {
 							setTitleLength(
@@ -494,11 +500,8 @@ export const PostEditorUpdate = () => {
 						licenseKey="gpl"
 						value={editorFields.content}
 						onInit={(_evt, editor) => {
-							setContentLength(
-								editor.plugins.wordcount.body.getCharacterCountWithoutSpaces(),
-							);
-							setContentEditorLoad(true);
 							contentRef.current = editor;
+							setContentEditorLoad(true);
 						}}
 						onEditorChange={(value, editor) => {
 							setContentLength(
