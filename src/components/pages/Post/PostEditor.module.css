@@ -207,7 +207,7 @@
 
 :global(.dark) :global(#editor-title)::before,
 :global(.dark) :global(#editor-content)::before {
-	color: inherit;
+	color: var(--dark-scheme-placeholder);
 }
 
 :global(.dark) :global(#editor-content) pre {
