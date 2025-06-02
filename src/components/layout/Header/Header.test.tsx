@@ -239,7 +239,7 @@ describe('Header component', () => {
 			</QueryClientProvider>,
 		);
 
-		const link = screen.getByRole('link', { name: 'HeLog' });
+		const link = screen.getByRole('link', { name: 'HeLog Editor' });
 
 		await user.click(link);
 
