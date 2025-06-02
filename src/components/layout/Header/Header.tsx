@@ -33,7 +33,7 @@ export const Header = ({ darkTheme, onColorTheme }: HeaderProps) => {
 	return (
 		<header className={styles.header}>
 			<Link to="/posts" className={styles.logo}>
-				<h1>HeLog</h1>
+				<h1>HeLog Editor</h1>
 			</Link>
 			<nav>
 				<ul className={styles.list}>
