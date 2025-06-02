@@ -396,9 +396,13 @@ export const PostEditorUpdate = () => {
 						tagName="h2"
 						value={editorFields.title}
 						onInit={(_evt, editor) => {
-							setTitleLength(
-								editor.plugins.wordcount.body.getCharacterCountWithoutSpaces(),
-							);
+							const wordCount =
+								editor.plugins.wordcount.body.getCharacterCountWithoutSpaces();
+
+							const length =
+								wordCount > 0 ? wordCount : editorFields.title.length;
+
+							setTitleLength(length);
 							setTitleEditorLoad(true);
 							titleRef.current = editor;
 						}}
