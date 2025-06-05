@@ -10,7 +10,6 @@ export default defineConfig({
 		port: 7001,
 		headers: {
 			'X-Content-Type-Options': ' nosniff',
-			// 'Cross-Origin-Opener-Policy': 'same-origin',
 			'Cross-Origin-Embedder-Policy': 'credentialless',
 			'X-Frame-Options': 'DENY',
 			'Cross-Origin-Resource-Policy': 'same-origin',
