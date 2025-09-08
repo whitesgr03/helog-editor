@@ -15,6 +15,7 @@ import { Alert } from './Alert';
 import { Error } from '../../utils/Error/Error';
 import { Modal } from './Modal';
 import { Login } from '../Account/Login';
+import { Offline } from '../../utils/Error/Offline';
 
 // Utils
 import { queryUserInfoOption } from '../../../utils/queryOptions';
@@ -26,7 +27,7 @@ export type DarkTheme = boolean | null;
 
 export const App = () => {
 	const [darkTheme, setDarkTheme] = useState<DarkTheme>(null);
-
+	const [isOnline, setIsOnline] = useState(true);
 	const [searchParams] = useSearchParams();
 
 	const { isPending, isError, error, refetch } = useQuery(
@@ -58,6 +59,15 @@ export const App = () => {
 		darkTheme === null && getColorTheme();
 	}, [darkTheme, searchParams]);
 
+	useEffect(() => {
+		window.addEventListener('offline', () => {
+			setIsOnline(false);
+		});
+		window.addEventListener('online', () => {
+			setIsOnline(true);
+		});
+	}, []);
+
 	return (
 		<AppProvider>
 			<div
@@ -78,12 +88,18 @@ export const App = () => {
 							<Alert />
 						</div>
 						<div className={styles.container}>
-							{isError && error.cause.status === 404 ? (
-								<Login />
+							{isOnline ? (
+								<>
+									{isError && error.cause.status === 404 ? (
+										<Login />
+									) : (
+										<main>
+											<Outlet context={darkTheme} />
+										</main>
+									)}
+								</>
 							) : (
-								<main>
-									<Outlet context={darkTheme} />
-								</main>
+								<Offline />
 							)}
 							<Footer />
 						</div>

@@ -2,6 +2,7 @@ import { vi, describe, it, expect, beforeAll } from 'vitest';
 import {
 	render,
 	screen,
+	waitFor,
 	waitForElementToBeRemoved,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -23,6 +24,7 @@ import { Modal } from './Modal';
 import { Alert } from './Alert';
 import { Footer } from '../../layout/Footer/Footer';
 import { Login } from '../Account/Login';
+import { Offline } from '../../utils/Error/Offline';
 
 import { queryUserInfoOption } from '../../../utils/queryOptions';
 
@@ -448,5 +450,68 @@ describe('App component', () => {
 			'darkTheme',
 			JSON.stringify(!mockDarkTheme),
 		);
+	});
+	it('should detect offline state then online state', async () => {
+		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
+		vi.mocked(Header).mockImplementation(() => <div>Header component</div>);
+		vi.mocked(Modal).mockImplementation(() => <div>Modal component</div>);
+		vi.mocked(Alert).mockImplementation(() => <div>Alert component</div>);
+		vi.mocked(Footer).mockImplementation(() => <div>Footer component</div>);
+		vi.mocked(Offline).mockImplementation(() => <div>Offline component</div>);
+
+		vi.mocked(getUserInfo).mockResolvedValue({ username: 'example' });
+		vi.mocked(queryUserInfoOption).mockReturnValue(
+			queryOptions({
+				queryKey: ['userInfo'],
+				queryFn: getUserInfo,
+				retry: false,
+			}),
+		);
+
+		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
+			matches: false,
+		} as MediaQueryList);
+		vi.spyOn(Storage.prototype, 'setItem');
+		vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce('false');
+
+		const queryClient = new QueryClient();
+		const router = createMemoryRouter(
+			[
+				{
+					path: '/',
+					element: <App />,
+				},
+			],
+			{
+				future: {
+					v7_relativeSplatPath: true,
+				},
+			},
+		);
+		render(
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
+		);
+
+		await waitForElementToBeRemoved(() =>
+			screen.getByText('Loading component'),
+		);
+
+		waitFor(() => {
+			const offlineEvent = new Event('offline');
+			const onlineEvent = new Event('online');
+
+			window.dispatchEvent(offlineEvent);
+			expect(screen.getByText('Offline component')).toBeInTheDocument();
+
+			window.dispatchEvent(onlineEvent);
+			expect(screen.getByText('Offline component')).not.toBeInTheDocument();
+		});
 	});
 });
