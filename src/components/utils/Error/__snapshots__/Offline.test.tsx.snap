@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Offline component > should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="_error_48ab16"
+  >
+    <span
+      class="_icon_620964 _alert_48ab16"
+    />
+    <h2>
+      No internet
+    </h2>
+    <div
+      class="_message_48ab16"
+    >
+      <p>
+        Our apologies, There was a network error.
+      </p>
+      <p>
+        You're offline.
+      </p>
+      <p>
+        Please check your connection.
+      </p>
+    </div>
+    <a
+      class="_link_48ab16"
+      href="/"
+    >
+      Back to Home Page
+    </a>
+  </div>
+</DocumentFragment>
+`;
