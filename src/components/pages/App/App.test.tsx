@@ -461,4 +461,55 @@ describe('App component', () => {
 			expect(screen.getByText('Offline component')).not.toBeInTheDocument();
 		});
 	});
+	it('should render the Loading components with Redirecting text if fetching retrieved response status is 401', async () => {
+		vi.mocked(Loading).mockImplementation(({ text }) => <div>{text}</div>);
+
+		vi.mocked(getUserInfo).mockRejectedValue(
+			Error('', { cause: { status: 401 } }),
+		);
+		vi.mocked(queryUserInfoOption).mockReturnValue(
+			queryOptions({
+				queryKey: ['userInfo'],
+				queryFn: getUserInfo,
+				retry: false,
+			}),
+		);
+
+		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
+			matches: false,
+		} as MediaQueryList);
+		vi.spyOn(Storage.prototype, 'setItem');
+		vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce('false');
+
+		const queryClient = new QueryClient();
+		const router = createMemoryRouter(
+			[
+				{
+					path: '/',
+					element: <App />,
+				},
+			],
+			{
+				future: {
+					v7_relativeSplatPath: true,
+				},
+			},
+		);
+		render(
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
+		);
+
+		await waitForElementToBeRemoved(() => screen.getByText('Loading data ...'));
+
+		expect(
+			screen.getByText('Redirecting to login page ...'),
+		).toBeInTheDocument();
+	});
 });
