@@ -34,6 +34,7 @@ vi.mock('../../layout/Header/Header');
 vi.mock('../../../components/layout/Footer/Footer');
 vi.mock('../../utils/Loading');
 vi.mock('../../utils/Error/Error');
+vi.mock('../../utils/Error/Offline');
 vi.mock('../../../utils/handleUser');
 vi.mock('../../../utils/queryOptions');
 vi.mock('./Modal');
