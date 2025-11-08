@@ -210,7 +210,7 @@ describe('App component', () => {
 
 		expect(app).toHaveClass(/dark/);
 	});
-	it('should render the Error component if fetching the user data fails and the retrieved response status is not 404', async () => {
+	it('should render the Error component if fetching the user data fails and the retrieved response status is not 401', async () => {
 		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
 		vi.mocked(ErrorComponent).mockImplementation(() => (
 			<div>Error component</div>
