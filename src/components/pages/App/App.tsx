@@ -14,7 +14,6 @@ import { Loading } from '../../utils/Loading';
 import { Alert } from './Alert';
 import { Error } from '../../utils/Error/Error';
 import { Modal } from './Modal';
-import { Login } from '../Account/Login';
 import { Offline } from '../../utils/Error/Offline';
 
 // Utils
@@ -67,6 +66,14 @@ export const App = () => {
 			setIsOnline(true);
 		});
 	}, []);
+
+	useEffect(() => {
+		if (isError && error.cause.status === 401) {
+			window.location.assign(
+				`${import.meta.env.VITE_RESOURCE_URL}/account/login?redirect_uri=${encodeURIComponent(import.meta.env.VITE_HELOG_EDITER_URL)}&theme=${darkTheme}`,
+			);
+		}
+	}, [isError]);
 
 	return (
 		<AppProvider>
