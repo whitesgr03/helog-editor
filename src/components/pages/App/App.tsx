@@ -74,8 +74,14 @@ export const App = () => {
 				className={`${darkTheme ? 'dark' : ''} ${styles.app}`}
 				data-testid="app"
 			>
-				{isError && error.cause.status !== 404 ? (
-					<Error onReGetUser={refetch} />
+				{isError ? (
+					error.cause.status === 401 ? (
+						<div className={styles.loading}>
+							<Loading text={'Redirecting to login page ...'} />
+						</div>
+					) : (
+						<Error onReGetUser={refetch} />
+					)
 				) : isPending ? (
 					<div className={styles.loading}>
 						<Loading text={'Loading data ...'} />
