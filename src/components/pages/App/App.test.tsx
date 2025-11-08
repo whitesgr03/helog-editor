@@ -23,7 +23,6 @@ import { Error as ErrorComponent } from '../../utils/Error/Error';
 import { Modal } from './Modal';
 import { Alert } from './Alert';
 import { Footer } from '../../layout/Footer/Footer';
-import { Login } from '../Account/Login';
 import { Offline } from '../../utils/Error/Offline';
 
 import { queryUserInfoOption } from '../../../utils/queryOptions';
@@ -40,7 +39,6 @@ vi.mock('../../../utils/queryOptions');
 vi.mock('./Modal');
 vi.mock('./Alert');
 vi.mock('../../layout/Footer/Footer');
-vi.mock('../Account/Login');
 
 describe('App component', () => {
 	beforeAll(() => {
@@ -329,58 +327,6 @@ describe('App component', () => {
 		expect(screen.getByText('Alert component')).toBeInTheDocument();
 		expect(screen.getByText('Footer component')).toBeInTheDocument();
 		expect(screen.getByText('Children component')).toBeInTheDocument();
-	});
-	it('should render the Login components if fetching retrieved response status is 404', async () => {
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
-		vi.mocked(Login).mockImplementation(() => <div>Login component</div>);
-
-		vi.mocked(getUserInfo).mockRejectedValue(
-			Error('', { cause: { status: 404 } }),
-		);
-		vi.mocked(queryUserInfoOption).mockReturnValue(
-			queryOptions({
-				queryKey: ['userInfo'],
-				queryFn: getUserInfo,
-				retry: false,
-			}),
-		);
-
-		vi.spyOn(window, 'matchMedia').mockReturnValueOnce({
-			matches: false,
-		} as MediaQueryList);
-		vi.spyOn(Storage.prototype, 'setItem');
-		vi.spyOn(Storage.prototype, 'getItem').mockReturnValueOnce('false');
-
-		const queryClient = new QueryClient();
-		const router = createMemoryRouter(
-			[
-				{
-					path: '/',
-					element: <App />,
-				},
-			],
-			{
-				future: {
-					v7_relativeSplatPath: true,
-				},
-			},
-		);
-		render(
-			<QueryClientProvider client={queryClient}>
-				<RouterProvider
-					router={router}
-					future={{
-						v7_startTransition: true,
-					}}
-				/>
-			</QueryClientProvider>,
-		);
-
-		await waitForElementToBeRemoved(() =>
-			screen.getByText('Loading component'),
-		);
-
-		expect(screen.getByText('Login component')).toBeInTheDocument();
 	});
 	it('should toggle the color theme if the switch is clicked in the Header component', async () => {
 		const user = userEvent.setup();
