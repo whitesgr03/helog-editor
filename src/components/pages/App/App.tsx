@@ -89,15 +89,9 @@ export const App = () => {
 						</div>
 						<div className={styles.container}>
 							{isOnline ? (
-								<>
-									{isError && error.cause.status === 404 ? (
-										<Login />
-									) : (
-										<main>
-											<Outlet context={darkTheme} />
-										</main>
-									)}
-								</>
+								<main>
+									<Outlet context={darkTheme} />
+								</main>
 							) : (
 								<Offline />
 							)}
