@@ -24,8 +24,7 @@ You can edit your posts on the [Live Demo](https://helog-editor.whitesgr03.me) t
 
 - When a user access the HeLog-Editor, if they have not authenticated, they will be forced to navigate to login page and they will need to create a username for the first login.
 
-  <img src="https://i.imgur.com/wbg9E6S.png" alt="login page"/>
-  <img src="https://i.imgur.com/t71KYJN.png" alt="new user set username"/>
+  <img src="https://i.meee.com.tw/RSj66oD.png" alt="login page"/>
 
 - View all of your posts.
   <img src="https://i.imgur.com/sQuAtCM.png" alt="dashboard">
@@ -78,8 +77,6 @@ src/
 │     │         ├── Dropdown.tsx
 │     │         └── Header.tsx
 │     ├── pages/
-│     │    ├── Account/
-│     │    │    └── Login.tsx
 │     │    ├── App/
 │     │    │    ├── Alert.tsx
 │     │    │    ├── App.tsx
