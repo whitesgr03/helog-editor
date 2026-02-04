@@ -6,7 +6,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
 	plugins: [react()],
 	server: {
-		open: '/posts',
 		port: 7001,
 		headers: {
 			'X-Content-Type-Options': ' nosniff',
