@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
-const randomInteger = (min, max) =>
+const randomInteger = (min: number, max: number) =>
 	Math.floor(Math.random() * (max - min + 1) + min);
 
 const IMAGE_SIZES: { width: number; height: number }[] = [
