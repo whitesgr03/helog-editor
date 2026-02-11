@@ -70,7 +70,7 @@ export const App = () => {
 	useEffect(() => {
 		if (isError && error.cause.status === 401) {
 			window.location.assign(
-				`${import.meta.env.VITE_RESOURCE_URL}/account/login`,
+				`${import.meta.env.VITE_HELOG_ACCOUNT_URL}/sign-in`,
 			);
 		}
 	}, [isError]);
