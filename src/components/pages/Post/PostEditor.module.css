@@ -38,6 +38,11 @@
 	align-items: center;
 }
 
+.flex-end {
+	margin-right: 0;
+	margin-left: auto;
+}
+
 .save-button,
 .publish-button {
 	padding: 10px;

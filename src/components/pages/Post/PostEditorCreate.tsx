@@ -224,7 +224,7 @@ export const PostEditorCreate = () => {
 					<div className={styles['button-wrap']}>
 						{!isEqual(editorFields, defaultFields) && (
 							<button
-								className={`${styles['save-button']} ${buttonStyles.content} ${buttonStyles.more}`}
+								className={`${styles['save-button']} ${styles['flex-end']} ${buttonStyles.content} ${buttonStyles.more}`}
 								onClick={() => !isPending && handleSaving()}
 							>
 								<span className={buttonStyles.text}>
