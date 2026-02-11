@@ -2,12 +2,13 @@
 
 HeLog-Editor is the HeLog blog's editor built with React. Allows authenticate users to write, edit, and publish posts. Hosted on Vercel.
 
-![website screenshots](https://i.imgur.com/PzBScv3.png)
+![website screenshots](https://i.meee.com.tw/utCSMt5.png)
 
 ## Links
 
-- Live Demo: [https://helog-editor.whitesgr03.me](https://helog-editor.whitesgr03.me)
-- Backend Repository: [https://github.com/whitesgr03/helog-editor](https://github.com/whitesgr03/helog-editor)
+- Live Demo: [https://editor.helog.whitesgr03.me](https://editor.helog.whitesgr03.me)
+- Frontend Repository: [https://github.com/whitesgr03/helog](https://github.com/whitesgr03/helog)
+- Backend Repository: [https://github.com/whitesgr03/heLog-api](https://github.com/whitesgr03/heLog-api)
 
 ## Features:
 
@@ -18,19 +19,19 @@ HeLog-Editor is the HeLog blog's editor built with React. Allows authenticate us
 
 ## Usage:
 
-You can edit your posts on the [Live Demo](https://helog-editor.whitesgr03.me) through your web browser.
+You can edit your posts on the [Live Demo](https://editor.helog.whitesgr03.me) through your web browser.
 
 <details>
 
 - When a user access the HeLog-Editor, if they have not authenticated, they will be forced to navigate to login page and they will need to create a username for the first login.
 
-  <img src="https://i.meee.com.tw/RSj66oD.png" alt="login page"/>
+  <img src="https://i.meee.com.tw/pkMFCg5.png" alt="login page"/>
 
 - View all of your posts.
   <img src="https://i.imgur.com/sQuAtCM.png" alt="dashboard">
 
 - Create a new post using a template.
-  <img src="https://i.imgur.com/yFl8rRG.png" alt="create a new post">
+  <img src="https://i.meee.com.tw/gfXUFuJ.png" alt="create a new post">
 
 - Edit the specified post.
   <img src="https://i.imgur.com/QkDyQ8U.png" alt="update the specified post">
@@ -58,9 +59,9 @@ You can edit your posts on the [Live Demo](https://helog-editor.whitesgr03.me) t
 
 ## Additional info:
 
-- This project consists of a backend for API and two different front-ends for accessing and editing blog posts.
+- This project consists of a backend for API and three different front-ends for authentication, accessing and editing blog posts.
 
-- The backend's authentication is cookie-based to prevent the need to log in again when switching between two different front-ends.
+- The backend's authentication is cookie-based to prevent the need to log in again when switching between three different front-ends.
 
 ## Source folder structure
 
@@ -80,14 +81,12 @@ src/
 │     │    ├── App/
 │     │    │    ├── Alert.tsx
 │     │    │    ├── App.tsx
-│     │    │    ├── CreateUsername.tsx
+│     │    │    ├── AppContext.tsx
 │     │    │    └── Modal.tsx
 │     │    ├── Dashboard/
 │     │    │    ├── Dashboard.tsx
 │     │    │    ├── DeletePostModel.tsx
 │     │    │    └── TableRows.tsx
-│     │    ├── Home/
-│     │    │    └── Home.tsx
 │     │    └──── Post/
 │     │         ├── PossMainImageUpdate.tsx
 │     │         ├── PostEditorCreate.tsx
@@ -96,8 +95,11 @@ src/
 │     └── utils/
 │          ├── Error/
 │          │    ├── Error.tsx
-│          │    └── NotFound.tsx
+│          │    ├── NotFound.tsx
+│          │    └── Offline.tsx
 │          └── Loading.tsx
+│
+├─── E2E/                               # handle end-to-end testing
 │
 ├─── styles/                            # Generic CSS Modules
 │     ├── button.module.css
@@ -111,8 +113,6 @@ src/
 │     ├── handleUser.ts                 # Handle user info API
 │     ├── queryOptions.ts               # Handle react query caching and fetching options
 │     └── verifySchema.ts               # Handle yup package validation values.
-│
-├─── E2E/                               # handle end-to-end testing
 │
 ├─── main.tsx
 └──  Router.tsx                         # React router config
