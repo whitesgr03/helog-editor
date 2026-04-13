@@ -1,0 +1,58 @@
+/* The bg-size first value is represent the width of second color of linear-gradient */
+
+/* The bg-size second value, that defined linear-gradient's hight, always 100% */
+
+/* The bg-position-x value always -2 times loader-width  */
+
+/* The bg-position-x value set to 50% can let you know what the current loader looks like */
+
+/* The bg-repeat always no-repeat */
+
+/* The bg-color is the same as the second color of the linear-gradient but with lower opacity */
+
+/* If you use text as a placeholder, you can set the color to transparent */
+
+/* If the loader-width variable is <length> then the loader start and end positions no need to be multiplied by 2, but the loader start is negative */
+
+/* If the loader-width variable is <percentage> then the loader start and end positions need to be multiplied by 2, but the loader start is negative */
+
+.loading {
+	--loader-width: 30%;
+	--loader-start-position: calc(var(--loader-width) * -2);
+	--loader-end-position: calc(100% + var(--loader-width) * 2);
+
+	animation: wave 1.5s infinite ease-out;
+	border-radius: 5px;
+	background-image: linear-gradient(
+		to right,
+		transparent,
+		var(--light-scheme-hero-bgc) 50%,
+		transparent 100%
+	);
+	background-size: var(--loader-width) 100%;
+	background-repeat: no-repeat;
+	background-color: rgba(var(--light-scheme-hero-bgc-rgb), 0.6);
+	background-position-x: var(--loader-start-position);
+	color: transparent;
+}
+
+@keyframes wave {
+	0% {
+		background-position-x: var(--loader-start-position);
+	}
+
+	100% {
+		background-position-x: var(--loader-end-position);
+	}
+}
+
+/* Dark scheme classes */
+:global(.dark) .loading {
+	background-image: linear-gradient(
+		to right,
+		transparent,
+		rgba(var(--dark-scheme-placeholder-rgb), 0.4) 50%,
+		transparent 100%
+	);
+	background-color: rgba(var(--dark-scheme-placeholder-rgb), 0.5);
+}
