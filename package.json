@@ -6,6 +6,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "npm run postinstall && tsc -b && vite build",
+		"preview": "vite preview",
+		"build:preview": "vite build --mode development",
 		"postinstall": "node ./postinstall.js",
 		"test": "vitest",
 		"coverage": "vitest --coverage",
