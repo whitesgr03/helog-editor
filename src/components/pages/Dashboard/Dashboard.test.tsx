@@ -3,13 +3,11 @@ import {
 	render,
 	screen,
 	waitForElementToBeRemoved,
-	fireEvent,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
 	QueryClient,
-	QueryCache,
 	QueryClientProvider,
 	infiniteQueryOptions,
 } from '@tanstack/react-query';
@@ -18,11 +16,13 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { Dashboard } from './Dashboard';
 import { Loading } from '../../utils/Loading';
 import { TableRows } from './TableRows';
+import { TableRowsTemplate } from './TableRowsTemplate';
 import { useAppDataAPI } from '../App/AppContext';
 import { infiniteQueryUserPostsOption } from '../../../utils/queryOptions';
 import { getUserPosts } from '../../../utils/handleUser';
 
 vi.mock('./TableRows');
+vi.mock('./TableRowsTemplate');
 vi.mock('../../utils/Loading');
 vi.mock('../App/AppContext');
 vi.mock('../../../utils/queryOptions');
@@ -58,7 +58,11 @@ describe('Dashboard component', () => {
 						: null,
 			}),
 		);
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
 		vi.mocked(TableRows).mockImplementation(({ post }) => (
 			<tr>
 				<td>{post.title}</td>
@@ -95,7 +99,7 @@ describe('Dashboard component', () => {
 		);
 
 		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
+			screen.queryByText('TableRowsTemplate component'),
 		);
 
 		const totalPosts = screen.getByText(
@@ -134,7 +138,11 @@ describe('Dashboard component', () => {
 						: null,
 			}),
 		);
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
 		vi.mocked(TableRows).mockImplementation(({ post }) => (
 			<tr>
 				<td>{post.title}</td>
@@ -171,9 +179,8 @@ describe('Dashboard component', () => {
 		);
 
 		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
+			screen.queryByText('TableRowsTemplate component'),
 		);
-
 		const element = screen.getByText('There are not posts.');
 
 		expect(element).toBeInTheDocument();
@@ -205,7 +212,11 @@ describe('Dashboard component', () => {
 						: null,
 			}),
 		);
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
 
 		vi.mocked(getUserPosts).mockResolvedValue(mockFetchData);
 
@@ -241,7 +252,7 @@ describe('Dashboard component', () => {
 		);
 
 		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
+			screen.queryByText('TableRowsTemplate component'),
 		);
 
 		const link = screen.getByRole('link', { name: 'New Post' });
@@ -251,7 +262,7 @@ describe('Dashboard component', () => {
 		const component = screen.getByText('Editor component');
 		expect(component).toBeInTheDocument();
 	});
-	it('should render refetch button if the infinite fetching posts fails', async () => {
+	it('should render refetch button if fetching posts data fails', async () => {
 		const mockCustomHook = {
 			onAlert: vi.fn(),
 			onModal: vi.fn(),
@@ -267,19 +278,17 @@ describe('Dashboard component', () => {
 					lastPage.data.userPostsCount > lastPageParam + 10
 						? lastPageParam + 10
 						: null,
+				retry: false,
 			}),
 		);
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
 
 		vi.mocked(getUserPosts).mockRejectedValue(Error());
-
-		const queryClient = new QueryClient({
-			defaultOptions: {
-				queries: {
-					retry: false,
-				},
-			},
-		});
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
+		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
 			[
@@ -307,16 +316,16 @@ describe('Dashboard component', () => {
 		);
 
 		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
+			screen.queryByText('TableRowsTemplate component'),
 		);
 
 		const refetchButton = screen.getByRole('button', {
-			name: 'Click here to load your posts',
+			name: /load your posts/,
 		});
 
 		expect(refetchButton).toBeInTheDocument();
 	});
-	it('should send an error alert if refetch button is clicked and fetching posts fails', async () => {
+	it('should render an error alert if refetch fails.', async () => {
 		const user = userEvent.setup();
 		const mockCustomHook = {
 			onAlert: vi.fn(),
@@ -333,24 +342,19 @@ describe('Dashboard component', () => {
 					lastPage.data.userPostsCount > lastPageParam + 10
 						? lastPageParam + 10
 						: null,
+				retry: false,
 			}),
 		);
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
+
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
 
 		vi.mocked(getUserPosts).mockRejectedValue(Error());
 
-		const queryClient = new QueryClient({
-			queryCache: new QueryCache({
-				onError: (_error, query) =>
-					typeof query.meta?.errorAlert === 'function' &&
-					query.meta.errorAlert(),
-			}),
-			defaultOptions: {
-				queries: {
-					retry: false,
-				},
-			},
-		});
+		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
 			[
@@ -378,36 +382,30 @@ describe('Dashboard component', () => {
 		);
 
 		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
+			screen.queryByText('TableRowsTemplate component'),
 		);
 
 		const refetchButton = screen.getByRole('button', {
-			name: 'Click here to load your posts',
+			name: /load your posts/,
 		});
 
 		await user.click(refetchButton);
 
 		expect(mockCustomHook.onAlert).toBeCalledTimes(1);
 	});
-	it('should fetch the next posts, if the user scroll to bottom of the component and infinite fetching posts successful', async () => {
+	it('should render the more posts, if the user click the show more posts button', async () => {
+		const user = userEvent.setup();
+
 		const mockFetchData = {
 			data: {
-				userPosts: Array.from({ length: 10 }, (_, index) => ({
+				userPosts: Array.from({ length: 20 }, (_, index) => ({
 					_id: index,
 					title: `post${index + 1}`,
 				})),
-				userPostsCount: 15,
+				userPostsCount: 20,
 			},
 		};
-		const mockNextData = {
-			data: {
-				userPosts: Array.from({ length: 5 }, (_, index) => ({
-					_id: index + 10,
-					title: `post${index + 11}`,
-				})),
-				userPostsCount: 15,
-			},
-		};
+
 		const mockCustomHook = {
 			onAlert: vi.fn(),
 			onModal: vi.fn(),
@@ -423,30 +421,23 @@ describe('Dashboard component', () => {
 					lastPage.data.userPostsCount > lastPageParam + 10
 						? lastPageParam + 10
 						: null,
+				retry: false,
 			}),
 		);
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
 		vi.mocked(TableRows).mockImplementation(({ post }) => (
 			<tr>
-				<td data-testid="title">{post.title}</td>
+				<td>{post.title}</td>
 			</tr>
 		));
-		vi.mocked(getUserPosts)
-			.mockResolvedValueOnce(mockFetchData)
-			.mockResolvedValueOnce(mockNextData);
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
 
-		const queryClient = new QueryClient({
-			queryCache: new QueryCache({
-				onError: (_error, query) =>
-					typeof query.meta?.errorAlert === 'function' &&
-					query.meta.errorAlert(),
-			}),
-			defaultOptions: {
-				queries: {
-					retry: false,
-				},
-			},
-		});
+		vi.mocked(getUserPosts).mockResolvedValue(mockFetchData);
+
+		const queryClient = new QueryClient();
 
 		const router = createMemoryRouter(
 			[
@@ -474,116 +465,202 @@ describe('Dashboard component', () => {
 		);
 
 		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
-		);
-
-		fireEvent.scroll(window);
-
-		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
-		);
-
-		expect(screen.getAllByTestId('title')).toHaveLength(
-			mockFetchData.data.userPosts.length + mockNextData.data.userPosts.length,
-		);
-
-		const mockData = mockFetchData.data.userPosts.concat(
-			mockNextData.data.userPosts,
-		);
-		mockData.forEach(item => {
-			expect(screen.getByText(item.title)).toBeInTheDocument();
-		});
-	});
-	it('should render the show more posts button, if the user scroll to bottom of the Posts component and infinite fetching posts fails', async () => {
-		const mockFetchData = {
-			data: {
-				userPosts: Array.from({ length: 10 }, (_, index) => ({
-					_id: index,
-					title: `post${index + 1}`,
-				})),
-				userPostsCount: 15,
-			},
-		};
-
-		const mockCustomHook = {
-			onAlert: vi.fn(),
-			onModal: vi.fn(),
-		};
-
-		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
-		vi.mocked(infiniteQueryUserPostsOption).mockReturnValue(
-			infiniteQueryOptions({
-				queryKey: ['userPosts'],
-				queryFn: getUserPosts,
-				initialPageParam: 0,
-				getNextPageParam: (lastPage, _allPages, lastPageParam) =>
-					lastPage.data.userPostsCount > lastPageParam + 10
-						? lastPageParam + 10
-						: null,
-			}),
-		);
-		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
-		vi.mocked(TableRows).mockImplementation(({ post }) => (
-			<tr>
-				<td data-testid="title">{post.title}</td>
-			</tr>
-		));
-		vi.mocked(getUserPosts)
-			.mockResolvedValueOnce(mockFetchData)
-			.mockRejectedValue(Error());
-
-		const queryClient = new QueryClient({
-			queryCache: new QueryCache({
-				onError: (_error, query) =>
-					typeof query.meta?.errorAlert === 'function' &&
-					query.meta.errorAlert(),
-			}),
-			defaultOptions: {
-				queries: {
-					retry: false,
-				},
-			},
-		});
-
-		const router = createMemoryRouter(
-			[
-				{
-					path: '/',
-					element: <Dashboard />,
-				},
-			],
-			{
-				future: {
-					v7_relativeSplatPath: true,
-				},
-			},
-		);
-
-		render(
-			<QueryClientProvider client={queryClient}>
-				<RouterProvider
-					router={router}
-					future={{
-						v7_startTransition: true,
-					}}
-				/>
-			</QueryClientProvider>,
-		);
-
-		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
-		);
-
-		fireEvent.scroll(window);
-
-		await waitForElementToBeRemoved(() =>
-			screen.queryByText('Loading component'),
+			screen.queryByText('TableRowsTemplate component'),
 		);
 
 		const button = screen.getByRole('button', {
-			name: 'Click here to show more posts',
+			name: /show more posts/,
 		});
 
-		expect(button).toBeInTheDocument();
+		await user.click(button);
+
+		expect(getUserPosts).toBeCalledTimes(1);
+		expect(screen.getAllByRole('cell')).toHaveLength(20);
+	});
+	it('should fetch the next posts, if the load more posts button is clicked and fetching next posts successful', async () => {
+		const user = userEvent.setup();
+
+		const mockFetchData = {
+			data: {
+				userPosts: Array.from({ length: 10 }, (_, index) => ({
+					_id: index,
+					title: `post${index + 1}`,
+				})),
+				userPostsCount: 20,
+			},
+		};
+
+		const mockNextData = {
+			data: {
+				userPosts: Array.from({ length: 10 }, (_, index) => ({
+					_id: index + 10,
+					title: `post${index + 11}`,
+				})),
+				userPostsCount: 20,
+			},
+		};
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(infiniteQueryUserPostsOption).mockReturnValue(
+			infiniteQueryOptions({
+				queryKey: ['userPosts'],
+				queryFn: getUserPosts,
+				initialPageParam: 0,
+				getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+					lastPage.data.userPostsCount > lastPageParam + 10
+						? lastPageParam + 10
+						: null,
+				retry: false,
+			}),
+		);
+		vi.mocked(Loading).mockImplementation(() => <div>Loading component</div>);
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
+		vi.mocked(TableRows).mockImplementation(({ post }) => (
+			<tr>
+				<td>{post.title}</td>
+			</tr>
+		));
+		vi.mocked(getUserPosts)
+			.mockResolvedValueOnce(mockFetchData)
+			.mockImplementationOnce(
+				async () =>
+					await new Promise(resolve =>
+						setTimeout(() => resolve(mockNextData), 100),
+					),
+			);
+
+		const queryClient = new QueryClient();
+
+		const router = createMemoryRouter(
+			[
+				{
+					path: '/',
+					element: <Dashboard />,
+				},
+			],
+			{
+				future: {
+					v7_relativeSplatPath: true,
+				},
+			},
+		);
+
+		render(
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
+		);
+
+		await waitForElementToBeRemoved(() =>
+			screen.queryByText('TableRowsTemplate component'),
+		);
+
+		const button = screen.getByRole('button', {
+			name: /load more posts/,
+		});
+
+		await user.click(button);
+
+		await waitForElementToBeRemoved(() =>
+			screen.queryByText('Loading component'),
+		);
+
+		expect(screen.getAllByRole('cell')).toHaveLength(20);
+	});
+	it('should renders the error alert, if load next comments fails', async () => {
+		const user = userEvent.setup();
+		const mockCustomHook = {
+			onAlert: vi.fn(),
+			onModal: vi.fn(),
+		};
+
+		const mockFetchData = {
+			data: {
+				userPosts: Array.from({ length: 10 }, (_, index) => ({
+					_id: index,
+					title: `post${index + 1}`,
+				})),
+				userPostsCount: 20,
+			},
+		};
+
+		vi.mocked(useAppDataAPI).mockReturnValue(mockCustomHook);
+		vi.mocked(infiniteQueryUserPostsOption).mockReturnValue(
+			infiniteQueryOptions({
+				queryKey: ['userPosts'],
+				queryFn: getUserPosts,
+				initialPageParam: 0,
+				getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+					lastPage.data.userPostsCount > lastPageParam + 10
+						? lastPageParam + 10
+						: null,
+				retry: false,
+			}),
+		);
+		vi.mocked(TableRowsTemplate).mockImplementation(() => (
+			<tr>
+				<td>TableRowsTemplate component</td>
+			</tr>
+		));
+		vi.mocked(TableRows).mockImplementation(({ post }) => (
+			<tr>
+				<td>{post.title}</td>
+			</tr>
+		));
+		vi.mocked(getUserPosts)
+			.mockResolvedValueOnce(mockFetchData)
+			.mockRejectedValue(new Error());
+
+		const queryClient = new QueryClient();
+
+		const router = createMemoryRouter(
+			[
+				{
+					path: '/',
+					element: <Dashboard />,
+				},
+			],
+			{
+				future: {
+					v7_relativeSplatPath: true,
+				},
+			},
+		);
+
+		render(
+			<QueryClientProvider client={queryClient}>
+				<RouterProvider
+					router={router}
+					future={{
+						v7_startTransition: true,
+					}}
+				/>
+			</QueryClientProvider>,
+		);
+
+		await waitForElementToBeRemoved(() =>
+			screen.queryByText('TableRowsTemplate component'),
+		);
+
+		const button = screen.getByRole('button', {
+			name: /load more posts/,
+		});
+
+		await user.click(button);
+
+		expect(mockCustomHook.onAlert).toBeCalledTimes(1);
 	});
 });
