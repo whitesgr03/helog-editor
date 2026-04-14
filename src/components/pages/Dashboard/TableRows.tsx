@@ -38,7 +38,11 @@ export const TableRows = ({ index, post }: TableRowsProps) => {
 				<span>{format(post.updatedAt, 'MMMM d, y')}</span>
 			</td>
 			<td className={styles['button-wrap']}>
-				<Link to={`/posts/${post._id}/editor`} className={styles.link}>
+				<Link
+					to={`/posts/${post._id}/editor`}
+					className={styles.link}
+					title="Edit Post"
+				>
 					<span className={`${imageStyles.icon} ${styles.edit}`} />
 				</Link>
 			</td>
@@ -46,6 +50,7 @@ export const TableRows = ({ index, post }: TableRowsProps) => {
 				<button
 					data-testid="delete-button"
 					className={styles['delete-button']}
+					title="Delete Post"
 					onClick={() =>
 						onModal({
 							component: (
